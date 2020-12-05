@@ -1,0 +1,94 @@
+.hc-content-navbar {
+    display: flex;
+    align-items: center;
+    box-shadow: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: #1565c0;
+    z-index: 99;
+}
+
+.hc-content-navbar .nav-title {
+    margin-left: 110px;
+    font-size: 3.6rem;
+    font-weight: 300;
+    color: #fff;
+}
+
+.hc-content-navbar .submit-ticket {
+    margin-left: auto;
+    margin-right: 110px;
+    color: #fff;
+    font-size: 1.6rem;
+}
+
+.hc-content-navbar .submit-ticket:hover {
+    text-decoration: underline;
+}
+
+.article-container {
+    padding: 30px 55px;
+}
+
+.hc-content {
+    min-height: calc(100vh - 64px);
+    max-width: 1550px;
+    margin: 0 auto;
+    display: flex;
+    padding-top: 64px;
+}
+.hc-content breadcrumbs {
+    margin: 0 auto;
+    padding: 36px 55px;
+    font-size: 1.6rem;
+}
+.hc-content .left {
+    height: calc(100vh - 64px);
+    width: 300px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 64px;
+    border-right: 1px solid #E0E0E0;
+    overflow: auto;
+    padding-top: 15px;
+}
+.hc-content .center {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+.hc-content .center .inner-content {
+    padding: 30px 55px;
+}
+.hc-content .right {
+    width: 250px;
+    flex-shrink: 0;
+    position: sticky;
+    height: calc(100% - 64px);
+    top: 64px;
+    padding: 120px 24px 32px;
+}
+@media only screen and (max-width: 768px) {
+    .hc-content .left {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        transform: translateX(-300px);
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        background-color: #fff;
+    }
+    .hc-content .left.visible {
+        transform: none;
+    }
+    .hc-content .center .inner-content {
+        padding: 30px;
+    }
+}

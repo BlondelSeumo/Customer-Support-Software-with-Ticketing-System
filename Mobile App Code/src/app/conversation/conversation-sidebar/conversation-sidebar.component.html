@@ -1,0 +1,63 @@
+<div class="user-info" *ngIf="requester">
+    <a class="avatar" [routerLink]="['/mailbox/users', requester.id]">
+        <img [src]="requester.avatar" alt="Avatar">
+    </a>
+
+    <div class="user-details">
+        <div class="name">
+            <div class="text" [title]="requester.display_name">{{requester.display_name}}</div>
+            <button mat-icon-button [matMenuTriggerFor]="editCustomerMenu">
+                <mat-icon svgIcon="settings"></mat-icon>
+            </button>
+        </div>
+        <div class="info-line">
+            <mat-icon svgIcon="mail"></mat-icon>
+            <span [title]="requester.email">{{requester.email}}</span>
+        </div>
+
+        <mat-menu #editCustomerMenu="matMenu">
+            <a mat-menu-item [routerLink]="['/mailbox/users', requester.id]" trans>Edit Profile</a>
+            <button mat-menu-item (click)="changeCustomer()" trans>Change Customer</button>
+        </mat-menu>
+
+        <div class="user-tags" *ngIf="requester.tags.length">
+            <mat-chip-list [selectable]="false">
+                <mat-chip class="mat-compact-chip" *ngFor="let tag of requester.tags">{{tag.display_name}}</mat-chip>
+            </mat-chip-list>
+        </div>
+
+        <div class="info-container" *ngIf="envatoPurchase">
+            <div class="info-title">
+                <span trans>Envato</span>
+            </div>
+            <div class="info-line" *ngIf="envatoPurchase.envato_username">
+                <mat-icon svgIcon="person"></mat-icon>
+                <a [href]="'https://codecanyon.net/user/' + envatoPurchase.envato_username" [title]="envatoPurchase.envato_username" target="_blank">{{envatoPurchase.envato_username}}</a>
+            </div>
+            <div class="info-line" [matTooltip]="'Supported until' | trans" *ngIf="envatoPurchase.supported_until">
+                <mat-icon svgIcon="access-time"></mat-icon>
+                <span>{{envatoPurchase.supported_until | formattedDate}}</span>
+            </div>
+            <div class="envato-purchases">
+                <div class="purchase-item" *ngFor="let purchase of requester.purchase_codes | slice:0:5">
+                    <img [src]="purchase.image" alt="Purchase image">
+                    <div class="purchase-name">{{purchase.item_name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tickets-list-container" [class.tickets-visible]="previousTicketsVisible">
+    <div class="title" (click)="previousTicketsVisible = !previousTicketsVisible">
+        <span class="text" trans>Other Conversations</span>
+        <button class="no-style toggle-button"><mat-icon svgIcon="keyboard-arrow-down"></mat-icon></button>
+    </div>
+
+    <div class="tickets-list toggle-container" *ngIf="otherTickets">
+        <div class="ticket" *ngFor="let ticket of otherTickets" [class.open]="!ticket.closed_at" (click)="openTicketModal(ticket.id)">
+            <mat-icon svgIcon="mail"></mat-icon>
+            <span>{{ticket.subject}}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,306 @@
+#tinymce {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 24px;
+  color: #43484d
+}
+
+#tinymce ol, #tinymce ul {
+  font-size: inherit;
+  font-weight: inherit;
+  margin-top: 10px;
+  padding-left: 40px;
+  position: relative;
+}
+
+#tinymce ol li, #tinymce ul li {
+  margin-bottom: 8px
+}
+
+#tinymce ul {
+  padding-left: 40px;
+  position: relative
+}
+
+#tinymce ul li {
+  list-style-type: disc;
+  margin-bottom: 7px
+}
+
+#tinymce ol {
+  counter-reset: custom-counter;
+  list-style: none
+}
+
+#tinymce ol li:before {
+  content: counter(custom-counter, decimal) ".";
+  counter-increment: custom-counter;
+  font-weight: 500;
+  position: absolute;
+  left: -10px;
+  width: 40px;
+  text-align: right
+}
+
+#tinymce strong {
+  font-weight: 500;
+  color: #43484d
+}
+
+#tinymce img {
+  max-width: 100%;
+  height: auto;
+  margin: 25px 0 25px 1px;
+  padding: 5px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px #f7f7ff
+}
+
+#tinymce hr {
+  background-color: #eaeaea;
+  height: 2px;
+  border: 0;
+  width: 100%
+}
+
+.article-body blockquote, #tinymce blockquote {
+  border-left: 5px solid rgba(0, 0, 0, 0.12);
+  padding: 3px 30px 7px 20px;
+  font-style: italic;
+  margin: 10px 35px 25px 0
+}
+
+.article-body blockquote p, #tinymce blockquote p {
+  margin: 0
+}
+
+.article-body h1 > a, .article-body h2 > a, .article-body h3 > a, #tinymce h1 > a, #tinymce h2 > a, #tinymce h3 > a {
+  color: inherit
+}
+
+.article-body h1 > a:hover, .article-body h2 > a:hover, .article-body h3 > a:hover, #tinymce h1 > a:hover, #tinymce h2 > a:hover, #tinymce h3 > a:hover {
+  text-decoration: none
+}
+
+.article-body h2:first-child, #tinymce h2:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 22px
+}
+
+.article-body h1, #tinymce h1 {
+  font-size: 4.2rem;
+  font-weight: 300;
+  line-height: normal;
+  margin: 0
+}
+
+.article-body h2, #tinymce h2 {
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: normal;
+  padding-top: 30px;
+  margin-top: 45px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12)
+}
+
+.article-body h3, #tinymce h3 {
+  font-size: 2rem;
+  margin: 35px 0 10px;
+  font-weight: 400
+}
+
+.article-body p, #tinymce p {
+  margin: 10px 0 25px;
+  letter-spacing: .3px;
+  overflow: hidden;
+  line-height: 24px;
+  word-break: break-word
+}
+
+.article-body pre, #tinymce pre {
+  overflow: auto;
+  max-width: 100%;
+  padding: 10px;
+  margin: 15px 0 20px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  background-color: rgb(250, 250, 250);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .125);
+  color: black;
+}
+
+.article-body pre code, #tinymce pre code {
+  border-radius: 0;
+  color: inherit;
+  padding: 0;
+  text-shadow: 0 1px #fff;
+}
+
+.article-body pre .token.operator, #tinymce pre .token.operator {
+  background-color: inherit
+}
+
+.article-body :not(pre) code, #tinymce :not(pre) code {
+  font-family: Droid Sans Mono, monospace;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .125);
+  font-size: 75%;
+  color: #c7254e;
+  padding: 2px 4px;
+  letter-spacing: 0
+}
+
+.article-body a, #tinymce a {
+  color: #3f51b5;
+}
+
+.article-body a:hover, #tinymce a:hover {
+  text-decoration: underline
+}
+
+.article-body table, #tinymce table {
+  margin: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: transparent
+}
+
+.article-body table thead tr, #tinymce table thead tr {
+  background-color: rgb(250, 250, 250)
+}
+
+.article-body table td, #tinymce table td {
+  padding: 8px;
+  vertical-align: top;
+  border: 1px solid rgba(0, 0, 0, 0.12)
+}
+
+.article-body table th, #tinymce table th {
+  text-align: left;
+  padding: 8px;
+  vertical-align: bottom;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  color: #43484d;
+  font-weight: 400
+}
+
+.article-body .widget, #tinymce .widget {
+  background-color: #f3fbf7;
+  max-width: 100%;
+  padding: 14px;
+  margin: 35px 0;
+  border-radius: 3px;
+  overflow-wrap: break-word;
+  border-left: 5px solid #5ac891;
+  font-size: 1.7rem;
+  color: rgba(0, 0, 0, .87)
+}
+
+.article-body .widget .title, #tinymce .widget .title {
+  font-weight: 500;
+  color: #43484d
+}
+
+.article-body .widget.widget-important, #tinymce .widget.widget-important {
+  background-color: #fef7ed;
+  border-left: 5px solid #f3a12c
+}
+
+.article-body .widget.widget-warning, #tinymce .widget.widget-warning {
+  background-color: #f2564d;
+  border-left: 5px solid #6b0d08
+}
+
+@media only screen and (max-width: 768px) {
+  .article-body, #tinymce {
+    font-size: 1.6rem
+  }
+
+  .article-body .widget.widget-info, #tinymce .widget.widget-info {
+    font-size: inherit
+  }
+}
+
+.be-dark-mode #tinymce pre {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#tinymce .tsd-is-private {
+  display: none
+}
+
+#tinymce .tsd-anchor {
+  display: block;
+  height: 0 !important;
+  background: none;
+}
+
+#tinymce .tsd-panel-group {
+  margin-bottom: 40px
+}
+
+#tinymce .tsd-panel {
+  box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+  margin-bottom: 25px;
+  padding: 15px
+}
+
+#tinymce .tsd-panel ul.tsd-descriptions, #tinymce .tsd-panel ul.tsd-signatures {
+  list-style: none;
+  padding-left: 0
+}
+
+#tinymce .tsd-panel ul.tsd-descriptions > li, #tinymce .tsd-panel ul.tsd-signatures > li {
+  list-style-type: none;
+  margin: 0
+}
+
+#tinymce .tsd-panel .tsd-sources {
+  display: none
+}
+
+#tinymce .tsd-panel .tsd-signature-symbol, #tinymce .tsd-panel .tsd-signature-type {
+  font-weight: 400;
+  font-style: italic;
+  font-family: Droid Sans Mono, monospace
+}
+
+#tinymce .tsd-panel .tsd-kind-method {
+  font-family: Droid Sans Mono, monospace;
+  border-top: 1px solid #e6ecf1;
+  border-bottom: 1px solid #e6ecf1;
+  padding: 15px 0;
+  margin: 0
+}
+
+#tinymce .tsd-panel .ts-flagDefault {
+  display: none
+}
+
+#tinymce .tsd-panel h3 {
+  margin: 0 0 18px;
+  color: #3f51b5;
+  line-height: 24px;
+  font-weight: 500;
+  font-size: 1.8rem
+}
+
+#tinymce .tsd-panel h4 {
+  font-size: 1.5rem
+}
+
+#tinymce .tsd-panel h5 {
+  font-size: 1.4rem
+}
+
+#tinymce .tsd-panel a {
+  color: inherit;
+  pointer-events: none
+}
+
+#tinymce {
+  margin: 15px 20px
+}

@@ -1,0 +1,76 @@
+@import "variables";
+
+conversation-toolbar {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  height: 57px;
+  padding: 0 35px 0 10px;
+  white-space: nowrap;
+  color: mat-color($app-foreground, hc-title-text);
+
+  .left, .right {
+    width: 50%;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 0;
+  }
+
+  .toolbar-actions {
+    .action {
+      margin: 0 15px;
+      height: 26px;
+      width: 26px;
+      position: relative;
+      transition: color 0.2s ease-in-out;
+      color: inherit;
+
+      &:hover {
+        color: mat-color($app-foreground, text);
+      }
+
+      mat-icon {
+        height: 26px;
+        width: 26px;
+      }
+    }
+  }
+
+  .ticket-info {
+    justify-content: flex-end;
+    vertical-align: top;
+
+    .ticket-number {
+      font-size: 3rem;
+    }
+
+    .ticket-status {
+      border: 1px solid mat-color($app-foreground, divider);
+      border-radius: 2px;
+      background-color: mat-color($app-background, background);
+      padding: 4px 12px;
+      margin-left: 10px;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 1.1rem;
+      letter-spacing: .02em;
+
+      &.open {
+        background-color: mat-color($app-accent, default);
+        color: mat-color($app-accent, default-contrast);
+        border-color: transparent;
+      }
+    }
+  }
+}
+
+.ticket-status-menu {
+  .mat-menu-item {
+    text-transform: capitalize;
+
+    &.active {
+      background-color: mat-color($app-accent, emphasis);
+    }
+  }
+}

@@ -1,0 +1,6 @@
+app-root {
+  display: block;
+  min-height: 100vh;
+
+  @import "../../src/common/scss/container";
+}

@@ -1,0 +1,50 @@
+@import "variables";
+
+create-ticket {
+  display: block;
+  padding: 25px;
+  overflow: auto;
+  height: calc(100vh - #{$material-navbar-height});
+
+  form {
+    max-width: 800px;
+  }
+
+  .error {
+    margin-top: 7px;
+    color: mat-color($app-warn, default);
+  }
+
+  select, option {
+    text-transform: capitalize;
+  }
+}
+
+.create-ticket-user-autocomplete .mat-option {
+  height: auto;
+  line-height: initial;
+}
+
+.create-ticket-user-option {
+  display: flex;
+  padding: 8px 0;
+
+  img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .name {
+    color: mat-color($app-foreground, text);
+    font-size: 1.5rem;
+  }
+
+  .email {
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 1.4rem;
+  }
+}

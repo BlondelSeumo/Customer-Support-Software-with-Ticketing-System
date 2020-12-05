@@ -1,0 +1,7 @@
+<button class="no-style toolbar-item" [matMenuTriggerFor]="assignTicketMenu"><mat-icon svgIcon="user-custom"></mat-icon></button>
+
+<mat-menu #assignTicketMenu="matMenu" [overlapTrigger]="false" class="assign-ticket-menu">
+    <button mat-menu-item class="anyone-item" (click)="assignTicketsTo()" [class.active]="ticket && !ticket.assigned_to" trans>Anyone</button>
+    <button mat-menu-item class="me-item" (click)="assignTicketsTo(currentUser.get('id'))" [class.active]="ticket && ticket.assigned_to === currentUser.get('id')" trans>Me</button>
+    <button mat-menu-item class="agent-item" *ngFor="let agent of agents" (click)="assignTicketsTo(agent.id)" [class.active]="ticket && ticket.assigned_to == agent.id">{{agent.email}}</button>
+</mat-menu>

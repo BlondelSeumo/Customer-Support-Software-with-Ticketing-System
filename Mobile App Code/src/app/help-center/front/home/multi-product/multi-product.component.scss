@@ -1,0 +1,138 @@
+@import "variables";
+
+multi-product {
+  display: block;
+  padding-top: $material-navbar-height;
+  background-color: mat-color($app-background, background);
+
+  .page-container {
+    max-width: 960px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  header {
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    margin-bottom: 30px;
+    padding-bottom: 50px;
+  }
+
+  h1 {
+    margin: 50px 0 0;
+    font-size: 4.8rem;
+    font-weight: 300;
+  }
+
+  .docs-description {
+    margin: 0;
+    font-size: 1.9rem;
+    font-weight: 300;
+    max-width: 600px;
+  }
+
+  .category-container {
+    display: flex;
+    margin-bottom: 30px;
+  }
+
+  .category-meta {
+    display: block;
+    color: mat-color($app-foreground, text);
+    background-color: mat-color($app-background, card);
+    @include mat-elevation(1);
+    border-radius: 4px;
+    flex: 1 1 50%;
+    min-width: 0;
+    margin-right: 20px;
+    padding: 24px;
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+
+    &:hover {
+      @include mat-elevation(5);
+    }
+
+    .category-title {
+      margin: 10px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    p {
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 10px 0 0;
+    }
+  }
+
+  .subcategories {
+    list-style: none;
+    background-color: mat-color($app-background, card);
+    border: 1px solid mat-color($app-foreground, divider);
+    border-radius: 4px;
+    flex: 1 1 50%;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+
+    a {
+      display: flex;
+      align-items: center;
+      color: mat-color($app-foreground, text);
+      padding: 12px;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+      transition: background-color 100ms cubic-bezier(.4,0,.2,1);
+
+      &:hover {
+        background-color: mat-color($app-accent, emphasis);
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    .subcategory-arrow {
+      margin-left: auto;
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  img.category-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: $medium) {
+    .page-container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .category-container {
+      display: block;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+      padding-bottom: 30px;
+    }
+
+    .category-meta {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin-top: 10px;
+    }
+
+    header {
+      padding-bottom: 20px;
+    }
+  }
+}

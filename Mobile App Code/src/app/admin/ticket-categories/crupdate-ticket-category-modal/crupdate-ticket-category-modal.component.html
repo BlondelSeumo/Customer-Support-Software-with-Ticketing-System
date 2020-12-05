@@ -1,0 +1,60 @@
+<div class="modal-header">
+  <h2 mat-dialog-title>
+    <span *ngIf="updating" trans>Update Ticket Category</span>
+    <span *ngIf="!updating" trans>Create a New Ticket Category</span>
+  </h2>
+  <button type="button" (click)="close()" class="close-button" mat-icon-button tabindex="-1">
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+</div>
+
+<form autocomplete="off" ngNativeValidate (ngSubmit)="confirm()" *ngIf="errors$ | async as errors">
+  <mat-dialog-content class="many-inputs">
+    <div class="input-container">
+      <label for="name" trans>Name</label>
+      <input type="text" [(ngModel)]="model.name" name="name" id="name" [disabled]="model.type === 'status'" required>
+      <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+    </div>
+
+    <div class="input-container">
+      <label for="display_name" trans>Display Name</label>
+      <input type="text" [(ngModel)]="model.display_name" name="display_name" id="display_name">
+      <div class="error" *ngIf="errors.display_name">{{errors.display_name}}</div>
+    </div>
+
+    <div class="input-container autocomplete-input-container">
+      <label for="categories" trans>Help Center Categories</label>
+      <input
+              type="text"
+              id="categories"
+              name="categories"
+              [formControl]="categorySearchControl"
+              [matAutocomplete]="categoriesAuto"
+              placeholder="Search..."
+              trans-placeholder
+      >
+      <div class="error" *ngIf="errors.category">{{errors.category}}</div>
+
+      <mat-autocomplete #categoriesAuto="matAutocomplete" [displayWith]="categoryDisplayFn" class="media-autocomplete-panel" (optionSelected)="attachCategory($event)">
+        <mat-option *ngFor="let category of categoryResults$ | async" [value]="category">{{category.name}}</mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <ul class="categories-list">
+      <li  *ngFor="let category of attachedCategories$ | async">
+        <div matLine>{{category.name}}</div>
+        <button class="delete-button" mat-icon-button (click)="detachCategory(category)">
+          <mat-icon svgIcon="delete"></mat-icon>
+        </button>
+      </li>
+    </ul>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button (click)="close()" type="button" class="cancel-button" mat-button trans>Cancel</button>
+    <button type="submit" class="submit-button" mat-raised-button color="accent">
+      <span *ngIf="updating" trans>Update</span>
+      <span *ngIf="!updating" trans>Create</span>
+    </button>
+  </mat-dialog-actions>
+</form>

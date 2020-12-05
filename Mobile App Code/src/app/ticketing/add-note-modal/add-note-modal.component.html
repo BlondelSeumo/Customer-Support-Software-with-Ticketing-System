@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Add Note</h2>
+    <button type="button" mat-icon-button (click)="close()" class="close-button" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form ngNativeValidate (ngSubmit)="confirm()">
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container">
+            <text-editor inlineUploadPrefix="ticket_images" class="text-editor" [minHeight]="300" (onFileUpload)="uploadFiles($event)" #textEditor></text-editor>
+            <upload-progress-bar></upload-progress-bar>
+
+            <div class="error" *ngIf="errors.body">{{errors.body}}</div>
+            <div class="error" *ngIf="errors.file">{{errors.file}}</div>
+            <div class="error" *ngIf="errors.attachments">{{errors.attachments}}</div>
+
+            <reply-attachment-list [attachments]="attachments" *ngIf="attachments.length" (detached)="removeAttachment($event)"></reply-attachment-list>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button class="cancel-button" trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" class="submit-button" [disabled]="loading" trans>Add Note</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,8 @@
+<mat-dialog-content>
+    <conversation [hideSidebar]="true" [hideBackButton]="true">
+        <button (click)="openTicket()" class="no-style icon-button action" toolbar-content>
+            <mat-icon svgIcon="open-in-browser-custom"></mat-icon>
+        </button>
+    </conversation>
+    <button class="merge-button" mat-raised-button color="accent" (click)="mergeTickets()" *ngIf="activeTicketId" trans>Merge</button>
+</mat-dialog-content>

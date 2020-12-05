@@ -1,0 +1,38 @@
+<div class="datatable">
+    <datatable-header pluralResourceName="triggers">
+        <ng-container leftContent>
+            <a mat-raised-button color="accent" routerLink="new" *ngIf="currentUser.hasPermission('triggers.create')" headerActions trans>Add</a>
+        </ng-container>
+        <button rightContent mat-raised-button color="accent" (click)="maybeDeleteSelectedTriggers()" *ngIf="currentUser.hasPermission('triggers.delete')" trans>Delete Selected</button>
+    </datatable-header>
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th table-header-checkbox></th>
+            <th table-sort-header trans>Name</th>
+            <th trans>Description</th>
+            <th table-sort-header="updated_at" trans>Last Updated</th>
+            <th table-sort-header trans>Times Used</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let trigger of triggers$ | async">
+            <td [table-body-checkbox]="trigger.id"></td>
+            <td data-label="Name">{{trigger.name}}</td>
+            <td data-label="Description">{{trigger.description}}</td>
+            <td data-label="Last Updated">{{trigger.updated_at ? (trigger.updated_at | formattedDate) : '-' }}</td>
+            <td data-label="Times Used">{{trigger.times_fired ? trigger.times_fired : 'None'}}</td>
+            <td class="edit-column">
+                <a [routerLink]="[trigger.id, 'edit']" mat-icon-button *ngIf="currentUser.hasPermission('triggers.update')" [matTooltip]="'Edit trigger' | trans">
+                    <mat-icon svgIcon="edit"></mat-icon>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="sync-files.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text>No triggers have been created yet.</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>

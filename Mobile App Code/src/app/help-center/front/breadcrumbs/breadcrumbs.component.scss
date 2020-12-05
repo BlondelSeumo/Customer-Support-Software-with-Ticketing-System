@@ -1,0 +1,52 @@
+@import "variables";
+
+breadcrumbs {
+  display: block;
+  padding: 17px 0;
+  color: mat-color($app-foreground, hc-title-text);
+
+  .container {
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  .item {
+    max-width: 340px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: inherit;
+
+    &.active {
+      color: mat-color($app-accent, default);
+      pointer-events: none;
+      font-weight: 400;
+    }
+
+    .item-name {
+      display: inline-block;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .separator {
+    color: mat-color($app-foreground, icon);
+    padding-left: 3px;
+    vertical-align: middle;
+    width: 22px;
+    height: 22px;
+  }
+
+  .edit-button {
+    min-width: 50px;
+    margin-left: 10px;
+  }
+}

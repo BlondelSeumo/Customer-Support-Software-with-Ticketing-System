@@ -1,0 +1,50 @@
+@import "variables";
+
+category-list-item {
+  display: flex;
+  vertical-align: middle;
+  justify-content: center;
+
+  .category-name-container {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .drag-handle, .category-name {
+      vertical-align: middle;
+    }
+
+    .category-name:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .drag-handle {
+    color: mat-color($app-foreground, icon);
+    margin-right: 8px;
+    cursor: move;
+  }
+
+  .info {
+    flex: 0 0 150px;
+    display: flex;
+    align-items: center;
+    color: mat-color($app-foreground, secondary-text);
+  }
+
+  .actions {
+    flex: 0 0 150px;
+    text-align: right;
+
+    button {
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  .hidden-icon {
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+}

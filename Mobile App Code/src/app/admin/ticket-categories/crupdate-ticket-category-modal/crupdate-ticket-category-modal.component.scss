@@ -1,0 +1,22 @@
+@import "variables";
+
+:host {
+    display: block;
+    width: $modal-default-width;
+    max-width: 100%;
+}
+
+.categories-list {
+    padding-left: 5px;
+    margin-top: 30px;
+    font-size: 1.5rem;
+
+    li {
+        display: flex;
+    }
+
+    .delete-button {
+        margin-left: auto;
+        color: mat-color($app-foreground, icon);
+    }
+}

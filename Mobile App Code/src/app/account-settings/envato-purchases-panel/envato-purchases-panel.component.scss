@@ -1,0 +1,37 @@
+@import "variables";
+
+envato-purchases-panel {
+  display: block;
+
+  .purchase {
+    display: flex;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+
+    > .image {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+
+      > img {
+        width: inherit;
+        height: inherit;
+      }
+    }
+
+    .item-name {
+      color: inherit;
+      font-weight: 500;
+      font-size: 1.5rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .add-purchase-button {
+    margin-right: 10px;
+  }
+}

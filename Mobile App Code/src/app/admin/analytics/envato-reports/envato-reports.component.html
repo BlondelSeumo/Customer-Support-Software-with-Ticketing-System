@@ -1,0 +1,136 @@
+<div class="report">
+    <div class="chart-container">
+        <div class="header">
+            <div class="filters">
+                <div class="easy-filters">
+                    <div class="title" trans>Envato Earnings</div>
+                    <div class="actions">
+                        <button class="no-style action" type="button" (click)="showEarningsFor('week', true)" [class.selected]="state.selectedPeriod == 'week'" trans>Week</button>
+                        <button class="no-style action" type="button" (click)="showEarningsFor('month', true)" [class.selected]="state.selectedPeriod == 'month'" trans>Month</button>
+                        <button class="no-style action" type="button" (click)="showEarningsFor('year', true)" [class.selected]="state.selectedPeriod == 'year'" trans>Year</button>
+                        <button class="no-style action" type="button" (click)="showEarningsFor('vsTickets')" [class.selected]="state.selectedPeriod == 'vsTickets'" trans>Tickets Count</button>
+                    </div>
+                </div>
+                <div class="custom-filters compact-scrollbar">
+                    <div class="left">
+                        <datepicker (onSelect)="updateFiltersFromDate($event)"></datepicker>
+
+                        <div class="select-group" >
+                            <select class="year-select" name="year" [(ngModel)]="state.filters.year">
+                                <option [value]="year" *ngFor="let year of getYearList()">{{year}}</option>
+                            </select>
+                            <ng-container *ngIf="state.selectedPeriod !== 'year'">
+                                <select class="month-select" name="from_month" [(ngModel)]="state.filters.month">
+                                    <option value="{{i+1}}" *ngFor="let month of monthNames(); let i = index;">{{month}}</option>
+                                </select>
+                                <select name="from_day" class="day-select" [(ngModel)]="state.filters.day">
+                                    <option value="{{day}}" *ngFor="let day of getDaysInMonth(state.filters.year, state.filters.month)">{{day}}</option>
+                                </select>
+                                <div class="to">/</div>
+                                <select name="to_day" [(ngModel)]="state.filters.to_day">
+                                    <option value="{{day}}" *ngFor="let day of getDaysInMonth(state.filters.year, state.filters.month, state.filters.day)">{{day}}</option>
+                                </select>
+                            </ng-container>
+                        </div>
+
+                        <button mat-flat-button color="accent" type="button" (click)="state.refreshActiveChart()" trans>Update</button>
+                    </div>
+                    <div class="right" [class.hidden]="state.selectedPeriod == 'vsTickets'">
+                        <datepicker (onSelect)="updateFiltersFromDate($event, 'compare')"></datepicker>
+
+                        <div class="select-group">
+                            <select class="year-select" name="compare_year" [(ngModel)]="state.compareFilters.year">
+                                <option [value]="year" *ngFor="let year of getYearList()">{{year}}</option>
+                            </select>
+                            <ng-container *ngIf="state.selectedPeriod !== 'year'">
+                                <select class="month-select" name="compare_month" [(ngModel)]="state.compareFilters.month">
+                                    <option value="{{i+1}}" *ngFor="let month of monthNames(); let i = index;">{{month}}</option>
+                                </select>
+                                <select name="compare_day" class="day-select" [(ngModel)]="state.compareFilters.day">
+                                    <option value="{{day}}" *ngFor="let day of getDaysInMonth(state.compareFilters.year, state.compareFilters.month)">{{day}}</option>
+                                </select>
+                                <div class="to">/</div>
+                                <select name="compare_to_day" [(ngModel)]="state.compareFilters.to_day">
+                                    <option value="{{day}}" *ngFor="let day of getDaysInMonth(state.compareFilters.year, state.compareFilters.month, state.compareFilters.day)">{{day}}</option>
+                                </select>
+                            </ng-container>
+                        </div>
+
+                        <button mat-flat-button color="accent" type="button" (click)="state.refreshActiveChart(true)" trans>Compare</button>
+                        <button mat-icon-button color="warn" (click)="state.refreshActiveChart()" [matTooltip]="'Clear compare data' | trans"><mat-icon svgIcon="close"></mat-icon></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <mat-progress-bar mode="indeterminate" color="accent" *ngIf="state.loading$ | async"></mat-progress-bar>
+            <earnings-chart class="chart-component" *ngIf="state.selectedPeriod === 'week' || state.selectedPeriod == 'month' || state.selectedPeriod === 'year'"></earnings-chart>
+            <earnings-vs-tickets-chart class="chart-component" *ngIf="state.selectedPeriod === 'vsTickets'"></earnings-vs-tickets-chart>
+        </div>
+    </div>
+
+    <div class="totals" *ngIf="state.activeChart && state.activeChart.data.primary && state.activeChart.data.primary.totals">
+        <div class="box">
+            <div class="number">{{state.activeChart.data.primary.totals?.earnings | currency:'USD':'symbol':'1.2-2'}}</div>
+            <div class="number secondary-number" [matTooltip]="'Previous period' | trans" *ngIf="state.activeChart.data.secondary.totals">({{state.activeChart.data.secondary.totals.earnings | currency:'USD':'symbol':'1.2-2'}})</div>
+            <div class="text" trans>Total Earnings</div>
+        </div>
+        <div class="box">
+            <div class="number">{{state.activeChart.data.primary.totals?.sales}}</div>
+            <div class="number secondary-number" [matTooltip]="'Previous period' | trans" *ngIf="state.activeChart.data.secondary.totals">({{state.activeChart.data.secondary.totals.sales}})</div>
+            <div class="text" trans>Total Sales</div>
+        </div>
+        <div class="box">
+            <div class="number">{{state.activeChart.data.primary.totals?.earnings / state.activeChart.data.primary.totals?.sales | currency:'USD':'symbol':'1.2-2'}}</div>
+            <div class="number secondary-number" [matTooltip]="'Previous period' | trans" *ngIf="state.activeChart.data.secondary.totals">({{state.activeChart.data.secondary.totals.earnings / state.activeChart.data.secondary.totals.sales | currency:'USD':'symbol':'1.2-2'}})</div>
+            <div class="text" trans>Average Earnings Per Day</div>
+        </div>
+    </div>
+
+    <div class="item-sales">
+       <envato-item-sales-table [data]="state.activeChart.data.primary.items" *ngIf="!state.filters.yearly && state.activeChart && state.activeChart.data.primary.items"></envato-item-sales-table>
+        <envato-monthly-sales-table [primaryData]="state.activeChart.data.primary.yearly" [compareData]="state.activeChart.data.secondary.yearly" *ngIf="state.selectedPeriod === 'year' && state.activeChart"></envato-monthly-sales-table>
+    </div>
+</div>
+<div class="details">
+    <div class="header">
+        <div class="tab-trigger" (click)="activeTab = 'earnings'" [class.active]="activeTab === 'earnings'" trans>Earnings</div>
+        <div class="tab-trigger" (click)="activeTab = 'sales'" [class.active]="activeTab === 'sales'" trans>Sales</div>
+    </div>
+    <div class="body">
+        <div class="sales-tab tab" *ngIf="activeTab === 'sales'">
+            <div *ngIf="state.activeChart && state.activeChart.data.primary.sales">
+                <div class="sale-details" *ngFor="let sale of state.activeChart.data.primary.sales">
+                    <div class="item-name">{{sale.item}}</div>
+                    <div class="meta">
+                        <div class="date">{{sale.date}}</div>
+                        <div class="amount">${{sale.amount}}</div>
+                        <div class="order-id">{{sale.order_id}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-sales" *ngIf="state.activeChart && (! state.activeChart.data.primary.sales || !state.activeChart.data.primary.sales.length)" trans>
+                No sales information available.
+            </div>
+        </div>
+        <div class="earnings-tab tab" *ngIf="activeTab === 'earnings'">
+            <div class="simple-table" *ngIf="state.activeChart && state.activeChart.data.primary.monthly">
+                <div class="row header">
+                    <div class="column" trans>Day</div>
+                    <div class="column" trans>Sales</div>
+                    <div class="column" trans>Earnings</div>
+                </div>
+                <ng-container *ngFor="let item of sliceMonthlyDataUntilToday(state.activeChart.data.primary.monthly) | keyvalue:keyDescOrder">
+                    <div class="row" *ngIf="state.selectedPeriod !== 'week' || item.value.amount > 0">
+                        <div class="column">{{item.key}}</div>
+                        <div class="column">{{item.value.sales}}</div>
+                        <div class="column">{{item.value.amount | currency:'USD':'symbol':'1.2-2'}}</div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="no-sales" *ngIf="state.activeChart && ! state.activeChart.data.primary.monthly" trans>
+                No earnings information available.
+            </div>
+        </div>
+    </div>
+</div>

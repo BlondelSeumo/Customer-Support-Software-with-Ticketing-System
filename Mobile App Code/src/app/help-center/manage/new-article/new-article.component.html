@@ -1,0 +1,58 @@
+<div class="action-bar">
+    <div class="nav">
+        <a [routerLink]="'/help-center'" class="nav-item" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}" trans>Home</a>
+        <a [routerLink]="'/help-center/manage/categories'" class="nav-item" routerLinkActive="router-link-active" trans>Categories</a>
+        <a [routerLink]="'/help-center/manage/articles'" class="nav-item" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}" trans>Articles</a>
+    </div>
+    <div class="actions">
+        <button class="no-style action article-settings-action" (click)="openArticleSettingsModal()"><mat-icon svgIcon="settings"></mat-icon></button>
+        <button class="no-style publish-article-button new-item-button" (click)="saveOrUpdateArticle()" id="submit">
+            <span class="create-article-submit" *ngIf="!route.snapshot.data.article" trans>Create Article</span>
+            <span class="update-article-submit" *ngIf="route.snapshot.data.article" trans>Update Article</span>
+        </button>
+    </div>
+</div>
+
+<div class="container" [formGroup]="form">
+    <section class="middle-column">
+        <div class="input-container title">
+            <input class="article-title-input" type="text" formControlName="title" placeholder="Title" trans-placeholder>
+            <select class="article-status-input" formControlName="draft">
+                <option [value]="0" trans>Published</option>
+                <option [value]="1" trans>Draft</option>
+            </select>
+        </div>
+        <div class="text-editor-container">
+            <upload-progress-bar></upload-progress-bar>
+            <text-editor inlineUploadPrefix="article_images" (onFileUpload)="uploadFiles($event)" class="text-editor" minHeight="auto" [showAdvancedControls]="true" #editorEl></text-editor>
+        </div>
+    </section>
+
+    <aside class="right-column" customScrollbar="lite">
+        <categories-manager class="categories-panel" formControlName="categories">
+            <div class="new-category-button">
+                <button mat-flat-button color="accent" (click)="openNewCategoryModal()" trans>+ Add New Category</button>
+            </div>
+        </categories-manager>
+
+        <div class="panel">
+            <div class="panel-header" trans>Tags</div>
+            <div class="panel-body">
+                <tags-manager formControlName="tags"></tags-manager>
+            </div>
+        </div>
+
+        <div class="panel" *ngIf="attachments?.length">
+            <div class="panel-header" trans>Attachments</div>
+            <div class="panel-body">
+                <reply-attachment-list [attachments]="attachments" *ngIf="attachments.length" (detached)="removeAttachment($event)"></reply-attachment-list>
+            </div>
+        </div>
+    </aside>
+
+    <button class="preview-article-button" (click)="openPreviewModal()" [matTooltip]="'Preview Article' | trans">
+        <mat-icon svgIcon="remove-red-eye" class="size-20"></mat-icon>
+    </button>
+
+    <loading-indicator class="overlay" [isVisible]="updating"></loading-indicator>
+</div>

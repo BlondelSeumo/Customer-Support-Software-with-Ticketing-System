@@ -1,0 +1,9 @@
+<h4 trans>Contents</h4>
+<a class="content-item"
+   *ngFor="let navItem of contentNav"
+   [routerLink]="[]"
+   [fragment]="navItem.slug"
+   [replaceUrl]="true"
+   [class.indent]="navItem.indent"
+   (click)="onContentItemClick(navItem.slug)"
+>{{navItem.display_name}}</a>

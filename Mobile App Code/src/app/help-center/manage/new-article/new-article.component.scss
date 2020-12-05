@@ -1,0 +1,113 @@
+@import "variables";
+
+$new-article-page-border-color: #d3d3d3 #d3d3d3 #c4c4c4 #d3d3d3;
+
+new-article {
+  display: block;
+  overflow: hidden;
+  background-color: mat-color($app-background, background);
+
+  .action-bar .action {
+    color: mat-color($app-foreground, icon);
+  }
+
+  .text-editor-container {
+    height: calc(100% - 50px); // title input is 50px
+  }
+
+  .container {
+    display: flex;
+    max-width: $new-article-max-page-width;
+    margin: 20px auto;
+    height: calc(100vh - #{$material-navbar-height + $hc-manage-action-bar-height + 40px});
+
+    .middle-column {
+      flex: 1 1 auto;
+      height: 100%;
+      margin-right: 20px;
+      @include mat-elevation(1);
+      background-color: mat-color($app-background, card);
+      border: 1px solid;
+      border-color: $new-article-page-border-color;
+      border-radius: 4px;
+      overflow: hidden;
+
+      .title {
+        display: flex;
+
+        .article-title-input, .article-status-input {
+          border: none;
+          height: 50px;
+        }
+
+        .article-title-input {
+          flex: 1 1 auto;
+          font-size: 2rem;
+          padding: 10px 25px;
+        }
+
+        .article-status-input {
+          flex: 0 0 130px;
+          border-left: 1px solid mat-color($app-foreground, divider);
+        }
+      }
+
+      text-editor {
+        max-height: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+
+        .editor-header, .editor-footer {
+          background-color: #fff;
+        }
+      }
+    }
+
+    .right-column {
+      width: $new-article-right-col-width;
+      flex: 0 0 $new-article-right-col-width;
+      overflow: auto;
+      padding: 0 2px;
+      height: 100%;
+
+      .panel {
+        @include mat-elevation(1);
+        background-color: mat-color($app-background, card);
+        border: 1px solid;
+        border-color: $new-article-page-border-color;
+        border-radius: 4px;
+      }
+
+      .new-category-button {
+        margin: 15px 0 5px;
+      }
+    }
+
+    .preview-article-button {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      @include mat-elevation(3);
+      background-color: mat-color($app-accent, default);
+      color: mat-color($app-accent, default-contrast);
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+  }
+
+  reply-attachment-list {
+    display: block;
+
+    .attachments-list-item {
+      width: 100%;
+    }
+  }
+}

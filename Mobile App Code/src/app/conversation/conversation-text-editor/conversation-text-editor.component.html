@@ -1,0 +1,51 @@
+<section class="text-editor-container" [class.hidden]="!conversation.isEditorOpen()">
+    <suggested-articles-dropdown placeholder="Search docs... (ctrl + /)" (articleSelected)="insertArticleLink($event)" [category]="conversation.getCategory()" *ngIf="currentUser.hasPermission('tickets.update')"></suggested-articles-dropdown>
+    <reply-attachment-list [attachments]="conversation.draft.get().uploads" (detached)="conversation.draft.detachUpload($event)"></reply-attachment-list>
+    <upload-progress-bar></upload-progress-bar>
+    <text-editor inlineUploadPrefix="ticket_images" (onChange)="conversation.draft.setBody($event)" (onFileUpload)="conversation.draft.uploadFiles($event)" (onCtrlEnter)="submitReply()" #textEditor>
+
+        <div class="header-actions" customButtons *ngIf="currentUser.hasPermission('canned_replies.view')">
+            <canned-replies-dropdown (onReplySelect)="applyCannedReply($event)"></canned-replies-dropdown>
+        </div>
+
+        <div class="header-actions last right" header>
+            <button type="button" class="no-style editor-button save-draft-button" [class.success]="conversation.draft.get().id" (click)="saveDraftAndAddToReplies()" [matTooltip]="'Save Draft' | trans">
+                <mat-icon svgIcon="check-circle"></mat-icon>
+            </button>
+            <button type="button" class="no-style editor-button delete-draft-button" (click)="maybeDeleteDraft()" [matTooltip]="'Discard (Esc)' | trans"><mat-icon svgIcon="delete"></mat-icon></button>
+        </div>
+
+        <div class="editor-footer" footer>
+            <div class="right">
+                <ng-container *ngIf="currentUser.hasPermission('tickets.update')">
+                    <button type="button" class="change-status-button" mat-button [matMenuTriggerFor]="statusMenu">
+                        <span>{{selectedStatus?.display_name | trans}}</span>
+                        <mat-icon svgIcon="keyboard-arrow-down" class="dropdown-icon"></mat-icon>
+                    </button>
+
+                    <mat-menu #statusMenu="matMenu" [overlapTrigger]="false" class="status-menu">
+                        <button mat-menu-item [ngClass]="tag.name" *ngFor="let tag of mailboxTags.statusTags" (click)="setSelectedStatus(tag)" trans>{{tag.display_name}}</button>
+                    </mat-menu>
+                </ng-container>
+
+                <button type="button" mat-flat-button color="accent" class="submit-button" (click)="submitReply()" [disabled]="conversation.replySaving">
+                    <span *ngIf="!conversation.replySaving" trans>Send Reply</span>
+                    <span *ngIf="conversation.replySaving" trans>Sending...</span>
+                </button>
+
+                <ng-container *ngIf="currentUser.hasPermission('settings.update')">
+                    <button mat-flat-button color="accent" class="dropdown-left submit-button-addon" [disabled]="conversation.replySaving" [matMenuTriggerFor]="defaultRedirectMenu">
+                        <mat-icon svgIcon="arrow-drop-down" class="caret align-middle"></mat-icon>
+                    </button>
+
+                    <mat-menu #defaultRedirectMenu="matMenu" class="default-redirect-menu" [overlapTrigger]="false">
+                        <button mat-menu-item class="stay-on-page" [class.selected]="conversation.afterReplyAction.get() === 'stay_on_page'" (click)="conversation.afterReplyAction.set('stay_on_page')" trans>Send and stay on page</button>
+                        <button mat-menu-item class="next-active-ticket" [class.selected]="conversation.afterReplyAction.get() === 'next_active_ticket'" (click)="conversation.afterReplyAction.set('next_active_ticket')" trans>Send and next ticket</button>
+                        <button mat-menu-item class="back_to_folder" [class.selected]="conversation.afterReplyAction.get() === 'back_to_folder'" (click)="conversation.afterReplyAction.set('back_to_folder')" trans>Send and back to folder</button>
+                    </mat-menu>
+                </ng-container>
+
+            </div>
+        </div>
+    </text-editor>
+</section>

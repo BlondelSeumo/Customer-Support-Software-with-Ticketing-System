@@ -1,0 +1,139 @@
+@import "variables";
+
+help-center-manage {
+  .navbar {
+    box-shadow: none;
+
+    .logo {
+      margin-right: 50px;
+    }
+  }
+
+  .body {
+    height: calc(100vh - #{$material-navbar-height});
+  }
+
+  .action-bar {
+    background-color: mat-color($app-background, card);
+    height: $hc-manage-action-bar-height;
+    @include mat-elevation(2);
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+
+    .nav {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+
+      .nav-item {
+        display: inline-block;
+        color: mat-color($app-foreground, secondary-text);
+        font-size: 1.6rem;
+        margin-left: 25px;
+        border-bottom: 2px solid transparent;
+        height: 100%;
+        line-height: $hc-manage-action-bar-height;
+
+        &.router-link-active {
+          border-color: mat-color($app-accent, default);
+        }
+      }
+    }
+
+    .actions {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-right: 30px;
+
+      .input-container {
+        flex: 0 0 300px;
+        height: 100%;
+        position: relative;
+
+        .mat-icon {
+          position: absolute;
+          top: 16px;
+          left: 10px;
+          color: mat-color($app-foreground, icon);
+        }
+
+        input {
+          font-size: 1.7rem;
+          padding-left: 40px;
+          border-top: none;
+          border-bottom: none;
+          height: 100%;
+          border-radius: 0;
+        }
+      }
+
+      .action {
+        width: auto;
+      }
+
+      .new-item-button {
+        background-color: mat-color($app-accent, default);
+        color: mat-color($app-accent, default-contrast);
+        border-radius: 50px;
+        padding: 1px 20px;
+        border: none;
+        line-height: 30px;
+        vertical-align: middle;
+        white-space: nowrap;
+        margin-left: 30px;
+
+        .mat-icon {
+          transition: transform 0.2s ease-in-out;
+          vertical-align: middle;
+        }
+
+        &:hover mat-icon {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .panel {
+    margin-bottom: 15px;
+    background-color: mat-color($app-background, card);
+    border: 1px solid mat-color($app-foreground, divider);
+    border-radius: 3px;
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      background-color: mat-color($app-background, background);
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+      min-height: 41px;
+
+      button {
+        margin-left: auto;
+      }
+    }
+
+    .panel-body {
+      overflow: auto;
+      padding: 10px;
+
+      .filter-button {
+        min-width: 75px;
+        padding: 0 5px;
+
+        &:not(:last-of-type) {
+          margin-right: 4px;
+        }
+
+        &.active {
+          background-color: mat-color($app-accent, default);
+          color: mat-color($app-accent, default-contrast);
+        }
+      }
+    }
+  }
+}

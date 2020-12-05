@@ -1,0 +1,70 @@
+@import "variables";
+
+$attachment-width: 180px;
+$attachment-height: 45px;
+
+reply-attachment-list {
+  display: flex;
+  flex-wrap: wrap;
+  color: mat-color($app-foreground, secondary-text);
+
+  .attachments-list-item {
+    border: 1px solid mat-color($app-foreground, divider);
+    margin: 0 10px 10px 0;
+    position: relative;
+    height: $attachment-height;
+    line-height: $attachment-height;
+    border-radius: 3px;
+    flex: 0 1 auto;
+    min-width: 200px;
+    padding: 0 8px;
+    user-select: none;
+    cursor: pointer;
+
+    .attachment-info {
+      display: inline-block;
+      vertical-align: middle;
+
+      svg {
+        vertical-align: top;
+      }
+
+      &.name {
+        max-width: $attachment-width - 65px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+      }
+
+      &.type-icon {
+        margin-right: 3px;
+
+        &.image {
+          color: #DB4437;
+        }
+
+        &.volume-up {
+          color: #DB4437;
+        }
+
+        &.videocam {
+          color: #DB4437;
+        }
+
+        &.insert-drive-file {
+          color: #4285F4;
+        }
+
+        &.assignment {
+          color: #0F9D58;
+        }
+      }
+    }
+
+    .size {
+      font-size: 1.1rem;
+      margin: 0 10px 0 5px;
+    }
+  }
+}

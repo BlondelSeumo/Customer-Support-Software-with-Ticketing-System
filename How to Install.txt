@@ -1,0 +1,33 @@
+Notes : It requirest at least PHP 7.2.5 version in order work properly. 
+
+Make sure your server meets this requirements before updating or installing.
+
+
+Installation
+
+1. Creating a new database
+
+If you already know how to create a new database or have already created one, skip to the next step. In most cases you should be able to create a database from your cpanel:
+
+Sometimes you might need to create a database from phpMyAdmin in your cpanel:
+
+ Click on the database tab in the top menu, enter any name for your database and click create.
+
+
+2. Changing default directory for domain
+
+While this step is optional in most cases, it is highly recommended you do this for security reasons. You should change default directory for your website content from root folder to public sub-folder. You should be able to do this from your cpanel.
+
+3. Uploading Files
+
+    Download the zip from this github repository.
+    Double click the downloaded file.
+    Copy the zipped file to the root of your server (usually called www or public_html). Either via built-in cpanel file manager or 3rd party FTP application.
+    Extract the zipped file. (Make sure files are extracted directly to root folder and not in website sub-folder)
+
+Important:
+There's no need to upload documentation or sourcecode folders. The final result should look something like this:
+
+4. Installation Wizard
+
+Open your site url in the browser and follow on-screen instructions to complete the installation.

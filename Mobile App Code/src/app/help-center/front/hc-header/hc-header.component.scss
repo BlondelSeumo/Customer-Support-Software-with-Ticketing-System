@@ -1,0 +1,92 @@
+@import "variables";
+
+$navbar-spacing: (110px - $material-navbar-height) / 2;
+
+.be-dark-mode .jumbotron {
+  background-color: mat-color($app-background, background);
+}
+
+hc-header {
+  display: block;
+
+  .jumbotron {
+    background-color: mat-color($app-accent, default);
+    background-position: center top;
+    color: mat-color($app-accent, default-contrast);
+    padding-top: $navbar-spacing;
+
+    .header {
+      padding: 34px 50px 65px;
+
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .button {
+          display: block;
+          flex: 0 0 30%;
+          max-width: 240px;
+          background-color: transparent;
+          border: 3px solid #fff;
+          line-height: $hc-search-bar-height - 6;
+        }
+      }
+
+      .search-bar {
+        flex: 1 1 auto;
+        max-width: 850px;
+
+        .title {
+          font-size: 5.2rem;
+          font-weight: 300;
+          margin: 0 0 8px;
+          text-align: center;
+        }
+
+        .subtitle {
+          font-size: 2rem;
+          font-weight: 300;
+          margin-bottom: 25px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  material-navbar {
+    margin-bottom: $navbar-spacing;
+
+    .logo {
+      max-height: 32px;
+    }
+
+    .logo-container {
+      margin-right: auto;
+    }
+
+    custom-menu {
+      margin-right: 25px;
+    }
+
+    .right-side-actions {
+      margin-left: initial;
+    }
+  }
+
+  @media only screen and (max-width: $medium) {
+    .jumbotron {
+      .header {
+        padding: 17px 5px 33px;
+      }
+
+      .title {
+        display: none;
+      }
+
+      material-navbar {
+        padding: 10px 0;
+      }
+    }
+  }
+}

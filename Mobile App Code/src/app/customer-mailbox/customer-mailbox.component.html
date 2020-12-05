@@ -1,0 +1,12 @@
+<material-navbar menuPosition="header" class="hc-content-navbar">
+    <suggested-articles-dropdown
+            class="nav-searchbar"
+            placeholder="Search help center..."
+    ></suggested-articles-dropdown>
+</material-navbar>
+
+<breadcrumbs resource="Tickets" resourceType="static" class="container"></breadcrumbs>
+
+<router-outlet></router-outlet>
+
+<customer-footer *ngIf="!settings.get('hc.hide_footer')"></customer-footer>

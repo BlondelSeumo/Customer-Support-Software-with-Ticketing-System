@@ -1,0 +1,31 @@
+<div class="datatable responsive-table">
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th><ng-content></ng-content></th>
+            <th table-sort-header trans>Views</th>
+            <th table-sort-header trans>Score</th>
+            <th table-sort-header="positive_votes" trans>Likes</th>
+            <th table-sort-header="negative_votes" trans>Dislikes</th>
+            <th table-sort-header trans>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let article of items$ | async">
+            <td data-label="Title">
+                <a [routerLink]="urls.article(article)" target="_blank">{{article.title}}</a>
+            </td>
+            <td data-label="Views">{{article.views}}</td>
+            <td data-label="Score">{{article.score ? article.score + '%' : '-'}}</td>
+            <td data-label="Likes">{{article.positive_votes || '-'}}</td>
+            <td data-label="Dislikes">{{article.negative_votes || '-'}}</td>
+            <td data-label="Category">
+               <div class="column-with-image">
+                   <img [src]="article.categories[0]?.image" *ngIf="article.categories[0]?.image" alt="">
+                   <div class="category-name">{{article.categories[0]?.name}}</div>
+               </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

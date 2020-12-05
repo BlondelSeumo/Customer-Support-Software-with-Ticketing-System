@@ -1,0 +1,32 @@
+<div class="condition" *ngFor="let selectedCondition of model; let index = index;">
+    <div *ngIf="selectedCondition.matchType === matchType">
+        <div class="condition-inner">
+            <div class="inputs">
+                <div class="input-container">
+                    <select name="condition-{{index}}" id="condition-{{index}}" [(ngModel)]="selectedCondition.condition_id" (ngModelChange)="onConditionSelect(selectedCondition)">
+                        <option value="0" disabled selected>-- Select a condition. --</option>
+                        <option [ngValue]="condition.id" *ngFor="let condition of allConditions">{{condition.name}}</option>
+                    </select>
+                </div>
+
+                <div class="input-container">
+                    <select name="operator-{{index}}" id="operator-{{index}}" *ngIf="selectedCondition.condition_id > 0" [(ngModel)]="selectedCondition.operator_id" (ngModelChange)="onOperatorSelect(selectedCondition)">
+                        <option [ngValue]="operator.id" *ngFor="let operator of selectedCondition.conditionModel.operators">{{operator.display_name}}</option>
+                    </select>
+                </div>
+
+                <div class="condition-value input-container">
+                    <select name="value-{{index}}" [(ngModel)]="selectedCondition.value" *ngIf="selectedCondition.conditionModel?.type === 'event:type'">
+                        <option value="ticket_created" trans>Ticket Created</option>
+                        <option value="ticket_updated" trans>Ticket Updated</option>
+                    </select>
+                    <input type="text" name="value-{{index}}" id="value-{{index}}" *ngIf="selectedCondition.operatorModel?.name !== 'changed' && selectedCondition.conditionModel?.type !== 'event:type' && selectedCondition.operator_id && selectedCondition.operatorModel.value_type === 'text'" [(ngModel)]="selectedCondition.value" required>
+                </div>
+            </div>
+            <button mat-icon-button color="warn" class="remove-button action-button" type="button" [matTooltip]="'Remove condition' | trans" (click)="removeCondition(selectedCondition)">
+                <mat-icon svgIcon="remove"></mat-icon>
+            </button>
+        </div>
+        <div class="error" *ngIf="errors['conditions.'+index+'.value'] && selectedCondition.operatorModel">{{errors['conditions.'+index+'.value']}}</div>
+    </div>
+</div>

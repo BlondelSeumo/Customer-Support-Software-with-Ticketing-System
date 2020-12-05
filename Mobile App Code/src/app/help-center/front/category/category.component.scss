@@ -1,0 +1,31 @@
+@import "variables";
+
+category {
+  display: block;
+  padding-top: $material-navbar-height;
+  background-color: mat-color($app-background, background);
+
+  .article-order-input-container {
+    max-width: 100%;
+    width: auto;
+  }
+
+  @media only screen and (max-width: $large) {
+    .hc-content {
+      display: block;
+
+      breadcrumbs {
+        display: none;
+      }
+
+      .category-articles .header .title {
+        display: block;
+      }
+
+      .article-order-input-container {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<div class="thread">
+    <ng-template ngFor let-reply let-last="last" [ngForOf]="conversation.replies.get()">
+        <div class="reply animated" [class.bounce]="reply['animated']" ngClass="{{reply.type}}" [class.my-reply]="reply.user_id == currentUser.get('id')" *ngIf="currentUser.hasPermission('replies.view') || reply.type !== 'notes'">
+            <img class="user-avatar" *ngIf="reply.user.avatar" src="{{reply.user.avatar}}" alt="{{reply.user.email}}">
+            <div class="reply-body">
+                <div class="message-header">
+                    <div class="customer">
+                        <span class="customer-name">
+                            <span *ngIf="currentUser.get('id') == reply.user.id" trans>You</span>
+                            <span *ngIf="currentUser.get('id') != reply.user.id">{{reply.user.display_name}}</span>
+                        </span>
+                        &ngsp;
+                        <span class="text-gray action-text" *ngIf="!last && reply.type === 'replies'" trans>replied</span>
+                        <span class="text-gray action-text" *ngIf="last && reply.type === 'replies'" trans>started the conversation</span>
+                        <span class="text-gray action-text" *ngIf="reply.type == 'notes'" trans>left a note</span>
+                        <span class="text-gray action-text" *ngIf="reply.type == 'drafts'" trans>created a draft</span>
+
+                        <span class="draft-actions" *ngIf="reply.type === 'drafts'">
+                            <button type="button" class="no-style edit-draft-button" (click)="editDraft(reply)" trans>Edit</button>
+                            <button type="button" class="no-style delete-draft-button" (click)="maybeDeleteReply(reply)" trans>Discard</button>
+                        </span>
+                    </div>
+                    <div class="meta">
+                        <span class="date">{{reply['created_at_formatted']}}</span>
+
+                        <ng-container *ngIf="currentUser.hasPermission('replies.update') && reply.type !== 'drafts'">
+                            <button mat-icon-button [matMenuTriggerFor]="replyActionsMenu">
+                                <mat-icon svgIcon="more-vert"></mat-icon>
+                            </button>
+                        </ng-container>
+
+                        <mat-menu #replyActionsMenu="matMenu" class="reply-actions-menu">
+                            <div mat-menu-item class="update-reply-button" (click)="update(reply)" trans>Edit</div>
+                            <div mat-menu-item class="delete-reply-button" (click)="maybeDeleteReply(reply)" trans>Delete</div>
+                            <div mat-menu-item class="show-original-reply-button" (click)="showOriginalEmail(reply)" trans>Show Original</div>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div class="message-body" [innerHTML]="reply.body"></div>
+                <reply-attachment-list [attachments]="reply.uploads" (detached)="removeAttachment(reply, $event)" *ngIf="reply.uploads.length"></reply-attachment-list>
+            </div>
+        </div>
+    </ng-template>
+</div>

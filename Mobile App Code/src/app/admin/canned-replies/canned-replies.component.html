@@ -1,0 +1,42 @@
+<div class="datatable">
+    <datatable-header pluralResourceName="canned replies">
+        <ng-container leftContent>
+            <button mat-raised-button color="accent" (click)="showCrupdateCannedReplyModal()" *ngIf="currentUser.hasPermission('canned_replies.create')" headerActions trans>Add</button>
+        </ng-container>
+        <button rightContent mat-raised-button color="accent" (click)="maybeDeleteCannedReplies()" *ngIf="currentUser.hasPermission('canned_replies.delete')" trans>Delete Selected</button>
+    </datatable-header>
+    <table class="material-table responsive-table">
+        <thead>
+        <tr>
+            <th table-header-checkbox></th>
+            <th table-sort-header trans>Name</th>
+            <th trans>Body</th>
+            <th table-sort-header="user_id" trans>Owner</th>
+            <th table-sort-header trans>Shared</th>
+            <th table-sort-header="updated_at" trans>Last Updated</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let cannedReply of cannedReplies$ | async">
+            <td [table-body-checkbox]="cannedReply.id"></td>
+            <td data-label="Name">{{cannedReply.name}}</td>
+            <td data-label="Body">{{cannedReply.body}}</td>
+            <td data-label="Owner">
+                <user-column [user]="cannedReply.user"></user-column>
+            </td>
+            <td>{{cannedReply.shared ? 'Yes' : 'No' }}</td>
+            <td data-label="Last Updated">{{cannedReply.updated_at | formattedDate}}</td>
+            <td class="edit-column">
+                <button mat-icon-button (click)="showCrupdateCannedReplyModal(cannedReply)" *ngIf="currentUser.hasPermission('cannedReply.update')" [matTooltip]="'Edit' | trans">
+                    <mat-icon svgIcon="edit"></mat-icon>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="folder-files.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text>No canned replies have been created yet</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>

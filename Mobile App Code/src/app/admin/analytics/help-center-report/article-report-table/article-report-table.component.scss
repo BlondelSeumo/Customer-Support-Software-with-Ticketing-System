@@ -1,0 +1,27 @@
+@import "variables";
+
+.mat-table {
+  padding: 0;
+}
+
+.mat-row {
+  background-color: mat-color($app-background, card);
+}
+
+.mat-column-category {
+  .category-name {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+}

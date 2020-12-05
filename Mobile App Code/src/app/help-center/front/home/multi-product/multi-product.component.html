@@ -1,0 +1,29 @@
+<material-navbar color="accent" menuPosition="header" class="hc-content-navbar"></material-navbar>
+
+<div class="page-container">
+    <header *ngIf="content$ | async as content">
+        <h1 class="title">{{content.title}}</h1>
+        <p class="docs-description subtitle">{{content.subtitle}}</p>
+    </header>
+
+    <div class="category-container" *ngFor="let category of categories">
+        <ng-container *ngIf="!category.hidden && category.children.length">
+            <a class="category-meta" [routerLink]="urls.article(getFirstArticle(category), category)">
+                <h2 class="category-title">
+                    <image-or-icon [src]="category.image" className="category-icon"></image-or-icon>
+                    <span>{{category.name}}</span>
+                </h2>
+                <p class="category-description">{{category.description}}</p>
+            </a>
+
+            <ul class="subcategories">
+                <li *ngFor="let subcategory of category.children | slice:0:3">
+                    <a [routerLink]="urls.article(getFirstArticle(subcategory), subcategory)">
+                        <span>{{subcategory.name}}</span>
+                        <mat-icon svgIcon="keyboard-arrow-right" class="subcategory-arrow"></mat-icon>
+                    </a>
+                </li>
+            </ul>
+        </ng-container>
+    </div>
+</div>

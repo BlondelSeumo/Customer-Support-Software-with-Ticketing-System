@@ -1,0 +1,38 @@
+@import "../scss/variables";
+
+.panel {
+  background-color: #fff;
+  border: 1px solid;
+  border-color: $new-article-page-border-color;
+  box-shadow: $new-article-page-box-shadow;
+  border-radius: $new-article-page-border-radius;
+  overflow: hidden;
+
+  .panel-header {
+    color: $panel-header-text-color;
+    background-color: $panel-header-color;
+    padding: 15px;
+    border-bottom: 1px solid $panel-border-color;
+    font-weight: 500;
+    position: relative;
+
+    > .action-button {
+      position: absolute;
+      top: 9px;
+      right: 10px;
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  .panel-footer {
+    background-color: $panel-footer-color;
+    padding: 10px;
+    border-top: 1px solid mat-color($app-foreground, divider);
+    text-align: right;
+  }
+
+  .panel-body {
+    padding: 10px;
+    transition: all 1s ease;
+  }
+}

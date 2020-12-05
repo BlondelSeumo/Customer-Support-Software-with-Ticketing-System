@@ -1,0 +1,84 @@
+@import "variables";
+
+article {
+  display: block;
+  width: 100%;
+
+  .article-container {
+    width: 100%;
+  }
+
+  .article-title {
+    font-weight: $article-title-font-weight;
+    font-size: $article-title-font-size;
+    border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+    max-width: 650px;
+    margin: 0 0 40px;
+    word-break: break-word;
+    color: mat-color($app-foreground, hc-title-text);
+  }
+
+  .edit-article-btn {
+    vertical-align: middle;
+    margin-bottom: 3px;
+    color: mat-color($app-foreground, icon);
+  }
+
+  .submit-ticket-container {
+    font-size: $article-font-size;
+    font-weight: $article-font-weight;
+    padding: 50px 0;
+    margin-top: 50px;
+    border-top: 1px solid mat-color($app-foreground, divider-lighter);
+
+    a {
+      margin-left: 5px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .attachment-list {
+    margin-top: 50px;
+
+    .download-all {
+      margin-top: 35px;
+    }
+  }
+
+  .file-attachment {
+    display: flex;
+    margin-bottom: 15px;
+
+    .mat-icon {
+      flex-shrink: 0;
+      color: mat-color($app-foreground, icon);
+      margin-right: 8px;
+    }
+
+    .attachment-meta {
+      flex: 1 1 auto;
+    }
+
+    .attachment-name {
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+
+    .attachment-size {
+      margin-right: 5px;
+    }
+  }
+
+  @import "article-body";
+
+  @media only screen and (max-width: $medium) {
+    .article-title {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+    }
+  }
+}

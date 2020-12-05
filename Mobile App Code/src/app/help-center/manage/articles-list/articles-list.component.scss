@@ -1,0 +1,165 @@
+@import "variables";
+
+:host {
+  display: block;
+  max-height: calc(100vh - #{$material-navbar-height});
+  overflow: hidden;
+  background-color: mat-color($app-background, background);
+}
+
+.content {
+  display: flex;
+}
+
+.article-list-filters {
+  display: block;
+  height: calc(100vh - #{$material-navbar-height + $hc-manage-action-bar-height});
+  overflow: auto;
+  flex: 0 0 $new-article-right-col-width;
+  min-width: 0;
+  background-color: mat-color($app-background, card);
+  @include mat-elevation(2);
+  position: relative;
+  z-index: 1;
+
+  ::ng-deep .mat-button-toggle{
+    flex: 1 1 auto;
+  }
+
+  .filters-list {
+    padding: 15px;
+  }
+
+  mat-button-toggle-group {
+    width: 100%;
+  }
+}
+
+no-results-message {
+  margin-top: 50px;
+}
+
+.articles-list-container {
+  flex: 1 1 auto;
+  height: calc(100vh - 120px);
+  overflow: auto;
+}
+
+datatable-footer {
+  border-top: 1px solid mat-color($app-foreground, divider);
+  overflow: hidden;
+  background-color: mat-color($app-background, card);
+}
+
+.articles-list {
+  padding: 10px;
+  min-height: calc(100% - 57px); // mat paginator is 56px height
+}
+
+.articles-list-item {
+  background-color: mat-color($app-background, card);
+  @include mat-elevation(2);
+  padding: 15px;
+  border-radius: 4px;
+  color: mat-color($app-foreground, secondary-text);
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.2s ease-in-out;
+  position: relative;
+
+  &:hover {
+    background-color: mat-color($app-accent, emphasis);
+  }
+}
+
+.delete-article-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: mat-color($app-foreground, icon);
+}
+
+.article-categories {
+  font-size: 1.3rem;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.article-title {
+  font-weight: 500;
+  font-size: 1.9rem;
+}
+
+.article-body {
+  font-size: 1.4rem;
+  word-wrap: break-word;
+}
+
+.article-tags {
+  margin-top: 15px;
+}
+
+.grid-flex-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  .articles-list-item {
+    display: flex;
+    flex-direction: column;
+    width: calc(25% - 10px);
+    margin: 5px;
+
+    @media screen and (max-width: $xlarge) {
+      width: calc(33.33% - 10px);
+    }
+
+    @media screen and (max-width: $large) {
+      width: calc(50% - 10px);
+    }
+
+    @media screen and (max-width: $medium) {
+      width: 100%;
+    }
+  }
+
+  .article-title {
+    margin-bottom: 10px;
+    font-size: 2rem;
+  }
+
+  .article-body {
+    font-size: 1.6rem;
+    flex: 1 1 auto;
+  }
+}
+
+.action-bar-action {
+  display: flex;
+  border-right: 1px solid mat-color($app-foreground, divider);
+  padding: 0 20px;
+  height: 100%;
+  width: auto;
+
+  button {
+    color: mat-color($app-foreground, secondary-text);
+
+    .mat-icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    &:first-of-type {
+      margin-right: 5px;
+    }
+
+    &.active {
+      color: mat-color($app-accent, default);
+    }
+  }
+
+  ::ng-deep select {
+    height: 100%;
+    border: none;
+    outline: none;
+  }
+}

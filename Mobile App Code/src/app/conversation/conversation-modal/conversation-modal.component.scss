@@ -1,0 +1,20 @@
+@import "variables";
+
+.conversation-modal-container {
+  width: 80%;
+  height: calc(100% - 50px);
+
+  conversation-modal, .mat-dialog-content, .mat-dialog-container {
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  //TODO: use angular content projection instead of absolute positioning
+  .merge-button {
+    position: absolute;
+    top: 10px;
+    left: 300px;
+  }
+}

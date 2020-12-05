@@ -1,0 +1,18 @@
+@import "variables";
+
+$filePreviewToolbarHeight: 60px;
+
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.9);
+  color: mat-color($app-accent, default-contrast);
+  overflow: auto;
+  position: relative;
+}
+
+preview-container {
+  margin: $filePreviewToolbarHeight 0;
+  min-height: calc(100% - #{$filePreviewToolbarHeight * 2});
+}

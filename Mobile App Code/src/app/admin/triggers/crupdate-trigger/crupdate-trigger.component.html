@@ -1,0 +1,104 @@
+<div class="header">
+    <button class="back-button" mat-icon-button type="button" (click)="goBack()" [matTooltip]="'Back' | trans">
+        <mat-icon svgIcon="keyboard-arrow-left"></mat-icon>
+    </button>
+    <div class="title" *ngIf="!editing" trans>Creating new trigger</div>
+    <div class="title" *ngIf="editing" trans>Updating trigger</div>
+</div>
+
+<form (ngSubmit)="createOrUpdateTrigger()">
+    <div class="section">
+        <div class="many-inputs main-inputs">
+            <div class="input-container">
+                <label for="name" trans>Name</label>
+                <input type="text" [(ngModel)]="triggerModel['name']" name="name" id="name" required>
+                <div class="error" *ngIf="errors['name']">{{errors['name']}}</div>
+            </div>
+
+            <div class="input-container">
+                <label for="description" trans>Description</label>
+                <textarea [(ngModel)]="triggerModel['description']" name="description" id="description" rows="7"></textarea>
+                <div class="error" *ngIf="errors['description']">{{errors['description']}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="triggers-panel">
+        <div class="panel-header">
+            <div class="title" trans>Meet <span class="boxed-text">all</span> of the following conditions:</div>
+            <button mat-icon-button color="accent" class="action-button add-button" type="button" [matTooltip]="'Add condition' | trans" (click)="addCondition('all')">
+                <mat-icon svgIcon="add"></mat-icon>
+            </button>
+        </div>
+        <div class="panel-body conditions">
+            <conditions [model]="triggerModel.conditions" [matchType]="'all'" [allConditions]="allConditions$ | async" [errors]="errors"></conditions>
+            <div class="error" *ngIf="errors['conditions']">{{errors['conditions']}}</div>
+        </div>
+    </div>
+
+    <div class="triggers-panel">
+        <div class="panel-header">
+            <div class="title" trans>Meet <span class="boxed-text">any</span> of the following conditions:</div>
+            <button mat-icon-button color="accent" class="action-button add-button" type="button" [matTooltip]="'Add condition' | trans" (click)="addCondition('any')">
+                <mat-icon svgIcon="add"></mat-icon>
+            </button>
+        </div>
+        <div class="panel-body">
+            <conditions [model]="triggerModel.conditions" [matchType]="'any'" [allConditions]="allConditions$ | async" [errors]="errors"></conditions>
+            <div class="error" *ngIf="errors['conditions']">{{errors['conditions']}}</div>
+        </div>
+    </div>
+
+    <div class="triggers-panel actions">
+        <div class="panel-header">
+            <div class="title" trans>Perform these actions:</div>
+            <button mat-icon-button color="accent" class="action-button add-button" type="button" [matTooltip]="'Add action' | trans" (click)="addAction()">
+                <mat-icon svgIcon="add"></mat-icon>
+            </button>
+        </div>
+        <div class="panel-body">
+            <div class="action" *ngFor="let currentAction of triggerModel.actions; let actionIndex = index;">
+                <div class="action-inner">
+                    <div class="inputs">
+                        <div class="input-container">
+                            <select name="action-{{actionIndex}}" id="action-{{actionIndex}}" [(ngModel)]="currentAction.action_id" (ngModelChange)="onActionSelect(currentAction)">
+                                <option value="0" disabled selected trans>-- Select an action. --</option>
+                                <option [ngValue]="action.id" *ngFor="let action of allActions$ | async">{{action.display_name}}</option>
+                            </select>
+                        </div>
+
+                        <section *ngIf="currentAction.actionModel" class="inputs-wrapper" [class.full-width]="currentAction.actionModel.input_config['inputs'].length > 1 || (currentAction.actionModel.input_config['inputs'][0] && currentAction.actionModel.input_config['inputs'][0]['type'] === 'textarea')">
+                            <ng-template ngFor let-input let-inputIndex="index" [ngForOf]="currentAction.actionModel.input_config['inputs']">
+                                <div class="input-container" *ngIf="input['type'] === 'text'">
+                                    <input type="text" name="value-{{actionIndex}}-{{inputIndex}}" placeholder="{{input['placeholder']}}" [(ngModel)]="currentAction.value[input['name']]" required>
+                                </div>
+
+                                <div class="input-container" *ngIf="input['type'] === 'textarea'">
+                                    <textarea name="value-{{actionIndex}}-{{inputIndex}}" placeholder="{{input['placeholder']}}" [(ngModel)]="currentAction.value[input['name']]" rows="7" required></textarea>
+                                </div>
+
+                                <div class="input-container" *ngIf="input['type'] === 'select'">
+                                    <select name="value-{{actionIndex}}-{{inputIndex}}" [(ngModel)]="currentAction.value[input['name']]" required>
+                                        <option value="{{option.value}}" *ngFor="let option of valueOptions[input['select_options']]">{{option.name}}</option>
+                                    </select>
+                                </div>
+                            </ng-template>
+                        </section>
+                    </div>
+                    <button mat-icon-button color="warn" class="remove-button action-button" type="button" [matTooltip]="'Remove action' | trans" (click)="removeAction(currentAction)">
+                        <mat-icon svgIcon="remove"></mat-icon>
+                    </button>
+                </div>
+                <div class="error" *ngIf="errors['actions.'+actionIndex+'.value']">{{errors['actions.'+actionIndex+'.value']}}</div>
+            </div>
+            <div class="error" *ngIf="errors['actions']">{{errors['actions']}}</div>
+        </div>
+    </div>
+
+    <div class="submit-buttons">
+        <button type="submit" mat-raised-button color="accent" [disabled]="loading">
+            <span *ngIf="editing" trans>Update</span>
+            <span *ngIf="!editing" trans>Create</span>
+        </button>
+    </div>
+</form>

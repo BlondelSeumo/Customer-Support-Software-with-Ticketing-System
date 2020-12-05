@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Update Reply</h2>
+    <button type="button" (click)="close()" class="close-button" mat-icon-button tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content class="many-inputs">
+    <div class="input-container">
+        <text-editor inlineUploadPrefix="ticket_images" [minHeight]="300" (onFileUpload)="uploadFiles($event)"></text-editor>
+        <upload-progress-bar></upload-progress-bar>
+
+        <div class="error" *ngIf="errors.body">{{errors.body}}</div>
+        <div class="error" *ngIf="errors.attachments">{{errors.attachments}}</div>
+
+        <reply-attachment-list [attachments]="attachments" *ngIf="attachments.length"
+                               (detached)="removeAttachment($event)"></reply-attachment-list>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="close()" type="button" class="cancel-button" mat-button trans>Cancel</button>
+    <button type="submit" class="submit-button" mat-raised-button color="accent" (click)="confirm()" trans>Update</button>
+</mat-dialog-actions>

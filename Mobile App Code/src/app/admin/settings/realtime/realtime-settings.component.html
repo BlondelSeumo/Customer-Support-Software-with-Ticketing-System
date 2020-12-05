@@ -1,0 +1,57 @@
+<div class="header">
+    <div class="title" trans>Realtime and Notifications</div>
+    <div class="subtitle" trans>Configure real time functionality and related 3rd party integrations.</div>
+</div>
+
+<form class="body many-inputs" (ngSubmit)="saveSettings()" ngNativeValidate>
+    <div class="setting-toggle-container">
+        <mat-slide-toggle type="checkbox" class="pretty-checkbox" name="realtime.enable" id="realtime.enable" [(ngModel)]="state.client['realtime.enable']" trans>Real Time Functionality</mat-slide-toggle>
+        <p trans>Enable real time communication between browser and server.</p>
+    </div>
+
+    <div class="widget widget-info">
+        <div class="title" trans>Information</div>
+        <p trans>Realtime will allow new tickets, replies and notifications that were created after opening the site to be automatically displayed without needing to refresh the browser.</p>
+    </div>
+
+    <div class="input-container" *ngIf="state.client['realtime.enable']">
+        <label for="broadcast_driver" trans>Realtime Broadcasting Method</label>
+        <select name="broadcast_driver" id="broadcast_driver" [(ngModel)]="state.server['broadcast_driver']">
+            <option value="pusher">Pusher</option>
+            <option value="log">Log</option>
+        </select>
+    </div>
+
+    <!-- PUSHER -->
+    <div class="error-group many-inputs" id="pusher_group" *ngIf="state.server['broadcast_driver'] === 'pusher'">
+        <div class="input-container">
+            <label for="broadcast.pusher_key" trans>Pusher Key</label>
+            <input name="broadcast.pusher_key" id="broadcast.pusher_key" [(ngModel)]="state.server['pusher_key']" required>
+        </div>
+
+        <div class="input-container">
+            <label for="broadcast.pusher_secret" trans>Pusher Secret</label>
+            <input name="broadcast.pusher_secret" id="broadcast.pusher_secret" [(ngModel)]="state.server['pusher_secret']" required>
+        </div>
+
+        <div class="input-container">
+            <label for="broadcast.pusher_app_id" trans>Pusher Application ID</label>
+            <input name="broadcast.pusher_app_id" id="broadcast.pusher_app_id" [(ngModel)]="state.server['pusher_app_id']" required>
+        </div>
+
+        <div class="input-container">
+            <label for="broadcast.pusher_cluster" trans>Pusher Cluster</label>
+            <input name="broadcast.pusher_cluster" id="broadcast.pusher_cluster" [(ngModel)]="state.server['pusher_cluster']">
+        </div>
+        <p class="error" *ngIf="(errors$ | async).pusher_group as errorMessage" [innerHTML]="errorMessage"></p>
+    </div>
+
+    <div class="input-container">
+        <label for="slack.webhook_url" trans>Slack Webhook Url</label>
+        <input type="url" placeholder="https://hooks.slack.com/services/***" name="slack.webhook_url" id="slack.webhook_url" [(ngModel)]="state.server['slack_webhook_url']">
+        <p trans>Slack webhook url for sending notifications using slack integration.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="update-button" [disabled]="loading$ | async" type="submit">Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

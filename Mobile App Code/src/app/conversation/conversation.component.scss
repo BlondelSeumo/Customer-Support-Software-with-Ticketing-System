@@ -1,0 +1,26 @@
+@import "../../scss/variables";
+
+$ticket-header-height: 60px;
+
+conversation {
+  display: flex;
+  position: relative;
+
+  .conversation-container {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: calc(100vh - #{$material-navbar-height});
+    overflow: auto;
+
+    &.invisible {
+      visibility: hidden;
+    }
+  }
+
+  .ticket-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - #{$ticket-header-height});
+    overflow: auto;
+  }
+}

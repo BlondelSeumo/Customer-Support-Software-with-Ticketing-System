@@ -1,0 +1,41 @@
+<material-navbar class="hc-content-navbar" menuPosition="header">
+    <suggested-articles-dropdown
+            [category]="category.parent || category"
+            class="nav-searchbar"
+            placeholder="Search help center..."
+    ></suggested-articles-dropdown>
+</material-navbar>
+
+<div class="hc-content">
+    <hc-sidenav class="left" [category]="category.parent || category"></hc-sidenav>
+
+    <div class="center">
+        <breadcrumbs [resource]="category" resourceType="category"></breadcrumbs>
+        <div class="category-articles inner-content">
+            <div class="header">
+                <div class="title">
+                    <h1 class="text">{{category.name}}</h1>
+                    <div class="input-container article-order-input-container">
+                        <select name="order" id="order" [formControl]="orderControl">
+                            <option [value]="pair.value" *ngFor="let pair of articleOrderOptions|keyvalue">{{pair.key | trans}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="articles">
+                <a class="article" *ngFor="let article of articles?.data" [routerLink]="urls.article(article, category)">
+                    <mat-icon svgIcon="description"></mat-icon>
+                    <div class="description">
+                        <div class="title">{{article.title}}</div>
+                        <div class="body">{{article.body}}</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>
+
+<customer-footer *ngIf="!settings.get('hc.hide_footer')"></customer-footer>

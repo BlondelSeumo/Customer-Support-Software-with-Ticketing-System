@@ -1,0 +1,51 @@
+<material-navbar menuPosition="agent-mailbox" class="box-shadow" color="accent" [showToggleButton]="true" [hideToggleBtnOnDesktop]="true" (toggleButtonClick)="toggleLeftSidebar()">
+    <ticket-search-dropdown class="nav-searchbar"></ticket-search-dropdown>
+</material-navbar>
+
+<mat-sidenav-container class="mailbox-container">
+    <mat-sidenav [opened]="!leftColumnIsHidden" [mode]="(breakpoints.isMobile$ | async) ? 'over' : 'side'" [fixedInViewport]="true" [fixedTopGap]="70" class="left-column">
+        <section class="aside-container status-tags">
+            <div class="aside-container-title"><mat-icon class="title-icon" svgIcon="inbox-custom"></mat-icon> <span class="aside-container-name" trans>Inbox</span></div>
+            <div class="aside-container-body">
+                <div class="status-tag" *ngFor="let tag of mailboxTags.viewTags; trackBy: trackByFn" @fadeIn>
+                    <a [routerLink]="['/mailbox/tickets']" [queryParams]="{tagId: tag.id}" class="aside-nav-item" [ngClass]="tag.name" [class.router-link-active]="(mailboxTags.activeTagId$ | async) == tag.id">
+                        <span class="tag-name">{{tag.display_name | trans}}</span>
+                        <span class="label tickets-count" [class.hidden]="!tag.tickets_count">{{ tag.tickets_count }}</span>
+                    </a>
+                </div>
+               <div class="skeletons-container" *ngIf="!(mailboxTags.allTags$ | async).length && (mailboxTags.loading$ | async)" @fadeOut>
+                   <div class="aside-nav-item" *ngFor="let num of [1,2,3,4]">
+                       <skeleton></skeleton>
+                   </div>
+               </div>
+            </div>
+        </section>
+
+        <section class="aside-container category-tags">
+            <div class="aside-container-title"><mat-icon class="title-icon" svgIcon="box-filled-custom"></mat-icon> <span class="aside-container-name" trans>Folders</span></div>
+            <div class="aside-container-body">
+                <div class="category-tag" *ngFor="let tag of mailboxTags.categoryTags; trackBy: trackByFn" @fadeIn>
+                    <a [routerLink]="['/mailbox/tickets']" [queryParams]="{tagId: tag.id}" class="aside-nav-item" [class.router-link-active]="(mailboxTags.activeTagId$ | async) == tag.id">
+                        <span class="tag-name">{{tag.display_name}}</span>
+                        <span class="label tickets-count" [class.hidden]="!tag.tickets_count">{{tag.tickets_count}}</span>
+                    </a>
+                </div>
+                <div class="skeletons-container" *ngIf="!(mailboxTags.allTags$ | async).length && (mailboxTags.loading$ | async)" @fadeOut>
+                    <div class="aside-nav-item" *ngFor="let num of [1,2,3,4]">
+                        <skeleton></skeleton>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="bottom-action-container">
+            <a mat-icon-button routerLink="/mailbox/tickets/new" [matTooltip]="'Create new ticket' | trans">
+                <mat-icon svgIcon="new-ticket-custom"></mat-icon>
+            </a>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="right-column">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

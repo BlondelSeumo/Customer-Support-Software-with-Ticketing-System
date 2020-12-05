@@ -1,0 +1,62 @@
+{
+  "parents": [
+    "Getting Started",
+    "Shipping Methods",
+    "Tips and Tricks",
+    "Troubleshooting",
+    "Admin Panel",
+    "Customization"
+  ],
+  "children": [
+    "Introduction",
+    "Installation",
+    "Billing",
+    "Shipping",
+    "Import & Export",
+    "Settings & Configuration"
+  ],
+  "articles": [
+    [
+      "Creating New MySQL Database",
+      "How to Backup Large MySQL Databases",
+      "How to Access the Spam Folder",
+      "How to Migrate Emails",
+      "How Secure Is My Password?"
+    ],
+    [
+      "How to use this documentation?",
+      "Can I Use My Android Phone?",
+      "How do I change or update account passwords?",
+      "Multiple installs on one domain",
+      "Getting Started & What is next."
+    ],
+    [
+      "Preparing your server for installation",
+      "Can I attach files to forms?",
+      "How do I contact Customer Care?",
+      "How to enable labs features",
+      "Why Was My Developer Application Rejected?"
+    ],
+    [
+      "Setting up attributes",
+      "How Secure Is My Password?",
+      "Logging into the Admin Area",
+      "Why is my account suspended?",
+      " Shipping Options Page"
+    ],
+    [
+      "Manual Payment Methods",
+      "Recurring Payments",
+      "Using my credit",
+      "How do I update my credit card?",
+      "Billing information"
+    ],
+    [
+      "How do I set a featured image on a post?",
+      "How do I add a \u201cBlog\u201d page?",
+      "How do I upload my own logo image?",
+      "How do I hide an element in the theme?",
+      "How do you customize the navigation?"
+    ]
+  ]
+}

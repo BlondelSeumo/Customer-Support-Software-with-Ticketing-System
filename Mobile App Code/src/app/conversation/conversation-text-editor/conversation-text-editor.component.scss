@@ -1,0 +1,76 @@
+@import "variables";
+
+conversation-text-editor {
+  display: block;
+  width: 100%;
+
+  suggested-articles-dropdown .input-container {
+    position: relative;
+    margin-bottom: 10px;
+
+    .search-icon {
+      position: absolute;
+      right: 0;
+      top: 3px;
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  .text-editor-container {
+    margin: 0 25px 25px 25px;
+  }
+
+  .attachments-list {
+    border-bottom: 1px dotted mat-color($app-foreground, divider);
+    padding-bottom: 10px;
+
+    .attachments-list-item {
+      background-color: mat-color($app-background, background);
+    }
+  }
+
+  .editor-footer {
+    .right {
+      height: 100%;
+      display: flex;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      .change-status-button {
+        height: 100%;
+        color: mat-color($app-foreground, secondary-text);
+        font-weight: 500;
+        text-transform: capitalize;
+
+        .mat-icon {
+          width: 20px;
+          height: 20px;
+          vertical-align: text-bottom;
+        }
+      }
+
+      .submit-button, .submit-button-addon {
+        height: $text-editor-header-height + 1;
+        border-radius: 0;
+        font-weight: 400;
+        position: relative;
+        top: -1px;
+      }
+
+      .submit-button-addon {
+        border-left: 1px solid mat-color($app-accent, emphasis);
+        padding: 0 7px;
+        min-width: 45px;
+      }
+    }
+  }
+}
+
+.default-redirect-menu .selected {
+  background-color: mat-color($app-accent, emphasis);
+}
+
+.status-menu .mat-menu-item {
+  text-transform: capitalize;
+}

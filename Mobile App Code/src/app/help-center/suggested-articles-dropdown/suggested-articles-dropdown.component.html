@@ -1,0 +1,32 @@
+<form class="suggestions-container" id="suggested-articles-dropdown" [class.has-results]="articles.length" [class.searching]="searching" (ngSubmit)="viewAllResults()">
+    <div class="input-container" [class.dropdown-open]="auto.isOpen">
+        <input type="text" class="search-input" [attr.placeholder]="placeholder | trans" [matAutocomplete]="auto" [formControl]="searchQuery" #input>
+        <button mat-icon-button class="search-icon input-icon">
+            <mat-icon svgIcon="search"></mat-icon>
+        </button>
+    </div>
+</form>
+
+<mat-autocomplete #auto="matAutocomplete" class="article-autocomplete-panel mat-elevation-z1 {{ forHomepage ? 'for-homepage' : null }}" [panelWidth]="getWidth()" (optionSelected)="onArticleSelected($event)">
+    <mat-option class="result dropdown-item" *ngFor="let article of articles" [value]="article">
+        <div class="result-content">
+            <div class="title">{{article.title}}</div>
+            <div class="body" [innerHTML]="trustArticleBody(article.body)"></div>
+            <div class="meta" *ngIf="article.categories && article.categories[0]">
+                            <span class="category inline" *ngIf="article.categories[0]?.parent">
+                                {{article.categories[0].parent.name}}
+                            </span>
+                <span class="child-category inline" *ngIf="article.categories[0]">{{article.categories[0].name}}</span>
+            </div>
+        </div>
+    </mat-option>
+
+    <mat-option class="no-results-option" [disabled]="true" *ngIf="!articles?.length && haveSearched && !searching && searchQuery.value">
+        <no-results-message>
+            <span primary-text trans>Could not find any results.</span>
+            <span secondary-text trans>Try using different search term or browsing categories manually.</span>
+        </no-results-message>
+    </mat-option>
+
+    <mat-option class="see-all" *ngIf="!searching && articles?.length" trans>See all results...</mat-option>
+</mat-autocomplete>

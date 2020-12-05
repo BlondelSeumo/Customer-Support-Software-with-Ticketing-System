@@ -1,0 +1,75 @@
+@import "variables";
+
+conversation-header {
+  display: flex;
+  align-items: center;
+  flex: none;
+  width: 100%;
+
+  .title-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px 10px 5px 25px;
+    margin: 15px 0;
+
+    h2 {
+      color: mat-color($app-foreground, hc-title-text);
+      font-weight: 400;
+      font-size: 2.5rem;
+      margin: 0 15px 0 0;
+    }
+
+    .tags {
+      display: inline-block;
+
+      .tag-name {
+        display: inline-block;
+        max-width: 50px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        vertical-align: sub;
+      }
+    }
+  }
+
+  .title-meta {
+    flex: 0 0 100px;
+    white-space: nowrap;
+    font-size: 1.6rem;
+    color: mat-color($app-foreground, secondary-text);
+    text-align: right;
+    padding-right: 26px;
+
+    .ticket-created-at-date, .actions {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .reply-button {
+      min-width: 0;
+      border: 1px solid mat-color($app-foreground, divider);
+      border-radius: 4px;
+      color: mat-color($app-foreground, secondary-text);
+      margin-left: 10px;
+      padding: 5px 12px 6px 12px;
+      background-color: mat-color($app-background, background);
+      cursor: pointer;
+
+      mat-icon {
+        width: 19px;
+        height: 19px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: $medium) {
+    margin-bottom: 15px;
+
+    .title-meta .ticket-created-at-date {
+      display: none;
+    }
+  }
+}

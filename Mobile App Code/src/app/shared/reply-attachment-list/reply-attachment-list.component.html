@@ -1,0 +1,13 @@
+<div class="attachments-list-item" *ngFor="let attachment of attachments" (click)="showPreviewOverlay(attachment)">
+    <mat-icon class="attachment-info type-icon" [svgIcon]="mime.getIconName(attachment.mime)" [ngClass]="mime.getIconName(attachment.mime)"></mat-icon>
+    <div class="attachment-info name">{{ attachment.name }}</div>
+    <div class="attachment-info size">{{ attachment.file_size | formattedFileSize }}</div>
+    <button class="remove-attachment"
+            type="button"
+            mat-icon-button
+            *ngIf="cancelButtonVisible"
+            (click)="detachEntry(attachment); $event.stopPropagation()"
+    >
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>

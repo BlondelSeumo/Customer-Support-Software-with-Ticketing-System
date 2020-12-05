@@ -1,0 +1,37 @@
+<div class="header">
+    <div class="title">Envato</div>
+    <div class="subtitle" trans>Manage envato integration module.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="envato.enable" id="envato.enable" [(ngModel)]="state.client['envato.enable']" trans>Envato Integration</mat-slide-toggle>
+        <p trans>Enable envato integration (social login, purchase code validation, sales reports and more)</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="envato.require_purchase_code" id="envato.require_purchase_code" [(ngModel)]="state.client['envato.require_purchase_code']" trans>Envato Purchase Code</mat-slide-toggle>
+        <p trans>Require users to enter a valid purchase code in order to register and submit support requests.
+            Envato social login will also check for purchase code automatically when this is enabled.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="envato.active_support" id="envato.active_support" [(ngModel)]="state.client['envato.active_support']" trans>Envato Active Support</mat-slide-toggle>
+        <p trans>Require users to have active support for item on envato in order to be able to create tickets.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="envato.filter_search" id="envato.filter_search" [(ngModel)]="state.client['envato.filter_search']" trans>Filter Help Center Search</mat-slide-toggle>
+        <p trans>Users will only be able to find articles for items that they have purchased.</p>
+    </div>
+
+    <div class="widget widget-flat">
+        <div class="title" trans>Envato Items</div>
+        <p trans>This will automatically import all your envato items for use as categories in new ticket and tickets list pages.</p>
+        <button mat-stroked-button color="accent" type="button" (click)="importEnvatoItems()" trans>Import Envato Items</button>
+    </div>
+
+    <button mat-raised-button color="accent" class="update-button" type="submit" trans [disabled]="loading$ | async">Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

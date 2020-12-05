@@ -1,0 +1,79 @@
+@import "variables";
+
+suggested-articles-drawer {
+  display: block;
+
+  .results-container {
+    max-height: 0;
+    transition: all .3s ease-out;
+    margin: 0;
+    overflow: hidden;
+
+    > .results-header {
+      font-size: 2.1rem;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    > .results {
+      > .result {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-bottom: 12px;
+        width: 100%;
+        color: mat-color($app-foreground, link);
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        > mat-icon {
+          margin-right: 10px;
+        }
+
+        > .title {
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  .suggestions-container {
+    .input-container {
+      position: relative;
+      width: 100%;
+
+      > .input-icon {
+        position: absolute;
+        visibility: hidden;
+        top: 13px;
+        right: 11px;
+        color: mat-color($app-foreground, icon);
+
+        &.searching {
+          visibility: visible;
+
+          @keyframes flickerAnimation {
+            0%   { opacity: 1; }
+            50%  { opacity: 0.4; }
+            100% { opacity: 1; }
+          }
+
+          animation: flickerAnimation 0.5s infinite;
+        }
+      }
+    }
+
+    &.has-results {
+      .results-container {
+        max-height: 230px;
+        margin: 20px 0;
+        transition: all .3s ease-in;
+      }
+    }
+  }
+}

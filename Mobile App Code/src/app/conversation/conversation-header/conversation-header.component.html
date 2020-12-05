@@ -1,0 +1,20 @@
+<div class="title-container">
+    <h2 class="ticket-subject">{{conversation.get().subject}}</h2>
+    <div class="tags">
+        <mat-chip-list [selectable]="false">
+            <ng-container *ngFor="let tag of conversation.model.tags">
+                <mat-chip class="mat-compact-chip" *ngIf="tag.type !== 'status'" [removable]="currentUser.hasPermission('tickets.update')" (removed)="removeTag(tag)">
+                    {{tag.display_name}}
+                    <mat-icon matChipRemove svgIcon="cancel" *ngIf="currentUser.hasPermission('tickets.update')">cancel</mat-icon>
+                </mat-chip>
+            </ng-container>
+        </mat-chip-list>
+    </div>
+</div>
+
+<div class="title-meta">
+    <div class="ticket-created-at-date">{{conversation.get()['created_at_formatted']}} ({{conversation.get()['created_at_month']}})</div>
+    <div class="actions">
+        <button class="button reply-button" (click)="conversation.openEditor()" [matTooltip]="'Reply (r)' | trans"><mat-icon svgIcon="reply"></mat-icon></button>
+    </div>
+</div>

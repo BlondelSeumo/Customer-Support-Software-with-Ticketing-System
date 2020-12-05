@@ -1,0 +1,7 @@
+<tickets-list>
+    <no-results-message svgImage="opened.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text trans>There are no tickets in this category yet.</span>
+    </no-results-message>
+</tickets-list>
+
+<ticket-floating-toolbar></ticket-floating-toolbar>

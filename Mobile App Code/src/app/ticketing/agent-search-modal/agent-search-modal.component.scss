@@ -1,0 +1,142 @@
+@import "variables";
+
+.agent-search-modal-container {
+  height: 100%;
+  width: 100%;
+  max-width: none !important;
+
+  .mat-dialog-container {
+    border-radius: 0;
+  }
+
+  .mat-dialog-content {
+    max-height: none;
+    min-height: 100%;
+  }
+
+  .modal-header {
+    margin-bottom: 5px;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 400;
+  }
+
+  .search-results {
+    border: 1px solid mat-color($app-foreground, divider);
+    border-radius: 4px;
+    background-color: mat-color($app-background, card);
+    min-height: calc(100% - 75px);
+
+    .tab-menu {
+      display: flex;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+
+      .tab-menu-item {
+        padding: 15px;
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+
+        &.active {
+          border-color: mat-color($app-accent, default);
+        }
+      }
+    }
+
+    .tabs {
+      border: 1px solid mat-color($app-foreground, divider);
+      margin: 15px;
+
+      .tab {
+        min-height: 50px;
+      }
+
+      .users-tab {
+        padding: 8px;
+
+        .user {
+          display: inline-flex;
+          width: 300px;
+          height: 80px;
+          border: 1px solid mat-color($app-foreground, divider);
+          padding: 15px;
+          margin: 8px;
+          color: mat-color($app-foreground, text);
+
+          &:hover {
+            background-color: mat-color($app-accent, emphasis);
+          }
+
+          img {
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+          }
+
+          .text {
+            padding-top: 6px;
+
+            .title {
+              font-size: 1.5rem;
+            }
+
+            .body {
+              color: mat-color($app-foreground, secondary-text);
+            }
+          }
+        }
+      }
+
+      .articles-list {
+        .article {
+          display: flex;
+          padding: 13px;
+          border-bottom: 1px solid mat-color($app-foreground, divider);
+          color: mat-color($app-foreground, text);
+
+          &:last-of-type {
+            border-bottom: none;
+          }
+
+          &:hover {
+            background-color: mat-color($app-accent, emphasis);
+          }
+
+          .mat-icon {
+            width: 35px;
+            height: 35px;
+            color: mat-color($app-foreground, icon);
+            margin-right: 5px;
+          }
+
+          .article-info {
+            .title {
+              font-size: 1.6rem;
+            }
+
+            .body {
+              word-wrap: break-word;
+              color: mat-color($app-foreground, secondary-text);
+            }
+          }
+        }
+      }
+
+      tickets-list {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .search-input {
+    height: 50px;
+    margin-bottom: 25px;
+
+    input {
+      height: 100%;
+      border-radius: 4px;
+    }
+  }
+}

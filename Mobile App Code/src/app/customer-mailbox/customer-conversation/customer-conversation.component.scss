@@ -1,0 +1,15 @@
+@import "variables";
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.ticket-container {
+  padding-bottom: 50px;
+}
+
+.resolve-btn-container {
+  margin-bottom: 40px;
+  text-align: right;
+}

@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="title">
+        <h1 trans>My requests</h1>
+        <a routerLink="/help-center/tickets/new" mat-raised-button color="accent" trans>New Request</a>
+    </div>
+
+    <form class="filter-form">
+        <div class="input-container">
+            <div class="input-with-icon">
+                <datatable-header-search-input placeholder="Search requests..." class="icon-left"></datatable-header-search-input>
+            </div>
+        </div>
+        <div class="input-container status-input-container">
+            <label for="customer-ticket-status" class="hidden" trans>Status</label>
+            <select id="customer-ticket-status" class="filter-input" [formControl]="statusFormControl">
+                <option value="" trans>All Requests</option>
+                <option value="open" trans>Open Requests</option>
+                <option value="closed" trans>Closed Requests</option>
+                <option value="pending" trans>Awaiting your reply</option>
+            </select>
+        </div>
+    </form>
+
+    <table class="material-table responsive-table">
+        <thead>
+        <tr>
+            <th class="subject-column" trans>Subject</th>
+            <th class="id-column" table-sort-header trans>ID</th>
+            <th class="created-column" table-sort-header="created_at" trans>Created</th>
+            <th class="last-updated-column" table-sort-header="updated_at" trans>Last Updated</th>
+            <th class="status-column" trans>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ticket of tickets$ | async"  [class.open]="!ticket.closed_at" (click)="openConversation(ticket)">
+            <td data-label="Subject" class="subject-column">{{ticket.subject}}</td>
+            <td data-label="ID" class="id-column">#{{ticket.id}}</td>
+            <td data-label="Created" class="created-column">{{ticket.created_at | formattedDate}}</td>
+            <td data-label="Last Updated" class="last-updated-column">{{ticket.updated_at_formatted}}</td>
+            <td data-label="Status" class="status-column">
+                <mat-chip-list [selectable]="false" *ngIf="getStatus(ticket) as status">
+                    <mat-chip [color]="!ticket.closed_at ? 'success' : 'standard'" selected trans>{{status.display_name}}</mat-chip>
+                </mat-chip-list>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="opened.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text>You have not created any tickets yet.</span>
+    </no-results-message>
+    <datatable-footer [hidePerPage]="true" *ngIf="(datatable.paginator.response$ | async)?.pagination.total > 15"></datatable-footer>
+</div>
+
+<loading-indicator class="overlay" [isVisible]="datatable.paginator.loading$ | async"></loading-indicator>

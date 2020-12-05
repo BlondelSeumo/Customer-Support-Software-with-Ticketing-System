@@ -1,0 +1,10 @@
+<div class="container" *ngIf="report">
+    <div class="row times">
+        <div class="column box spacer"></div>
+        <div class="column box" *ngFor="let countObj of report.data[0].counts | keyvalue:keyDescOrder">{{countObj.key}}</div>
+    </div>
+    <div class="row" *ngFor="let dayObj of report.data">
+        <div class="column day">{{dayObj.day}}</div>
+        <div class="column box" *ngFor="let countObj of dayObj.counts | keyvalue:keyDescOrder" [style.background]="getBoxColor(countObj.value)" [matTooltip]="countObj.value + (' Conversations' | trans)"></div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: 100%;
+  padding: 30px 0 50px 0;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 0 20px;
+
+  h1 {
+    font-size: 3.2rem;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  a {
+    margin-left: auto;
+    height: 36px;
+  }
+}
+
+.filter-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+  padding: 0 10px;
+}
+
+.status-input-container {
+  max-width: 200px;
+  margin-left: 15px;
+}
+
+datatable-header-search-input ::ng-deep input {
+  height: 50px;
+  padding-left: 40px;
+}
+
+table {
+  table-layout: fixed;
+}
+
+tbody tr {
+  height: 60px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: mat-color($app-accent, emphasis);
+  }
+}
+
+.subject-column {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 25px;
+}
+
+.id-column, .status-column {
+  width: 110px;
+}
+
+.created-column, .last-updated-column {
+  width: 160px;
+}
+
+.mat-chip {
+  min-width: 63px;
+  justify-content: center;
+  text-transform: capitalize;
+}
+
+.mat-chip.mat-success {
+  background-color: mat-color($app-success, default);
+  color: mat-color($app-success, default-contrast);
+}
+
+.no-results-message {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}

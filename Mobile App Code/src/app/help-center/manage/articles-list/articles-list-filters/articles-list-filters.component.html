@@ -1,0 +1,21 @@
+<div class="filters-list" [formGroup]="form">
+    <categories-manager class="article-categories-filter" formControlName="categories"></categories-manager>
+
+    <div class="panel tags-filter">
+        <div class="panel-header" trans>Tags</div>
+        <div class="panel-body">
+            <tags-manager formControlName="tags"></tags-manager>
+        </div>
+    </div>
+
+    <div class="panel article-type-filter">
+        <div class="panel-header" trans>Article Status</div>
+        <div class="panel-body">
+            <mat-button-toggle-group formControlName="draft">
+                <mat-button-toggle [value]="null" trans>All</mat-button-toggle>
+                <mat-button-toggle [value]="0" trans>Published</mat-button-toggle>
+                <mat-button-toggle [value]="1" trans>Draft</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    </div>
+</div>

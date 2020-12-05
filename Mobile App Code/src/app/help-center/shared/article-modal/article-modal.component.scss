@@ -1,0 +1,17 @@
+@import "variables";
+
+.article-modal-container {
+  width: 80%;
+  height: calc(100% - 50px);
+
+  .mat-dialog-content, .mat-dialog-container {
+    height: 100%;
+    max-height: 100%;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+}

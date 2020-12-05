@@ -1,0 +1,152 @@
+@import "variables";
+
+:host {
+  display: block;
+  overflow: auto;
+  height: 100%;
+  position: relative;
+
+  ::ng-deep .no-results-message {
+    padding: 65px 0;
+  }
+}
+
+mat-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: mat-color($app-background, background);
+}
+
+table {
+  table-layout: fixed;
+}
+
+tbody tr {
+  height: 70px;
+  cursor: pointer;
+
+  // ticket has "open" status tag attached
+  &.open {
+    .title-text, .number-column, .last-updated-column, .customer-column {
+      font-weight: 500;
+      color: mat-color($app-foreground, text);
+    }
+  }
+
+  // "closed_at" column is null
+  &.not-closed {
+    background-color: mat-color($app-background, card);
+  }
+
+  &.selected {
+    background-color: mat-color($app-accent, emphasis);
+  }
+
+  &:hover:not(.selected) {
+    background-color: mat-color($app-accent, emphasis);
+  }
+}
+
+thead tr {
+  height: 35px;
+  background-color: mat-color($app-background, card);
+}
+
+.table-checkbox {
+  width: 75px;
+}
+
+.customer-column {
+  width: 130px;
+  font-weight: 500;
+  color: mat-color($app-foreground, secondary-text);
+}
+
+.avatar-column {
+  width: 110px;
+
+  img {
+    width: 38px;
+    height: 38px;
+    box-shadow: 0 0 0 1px #fff, 0 0 1px 2px #AAAEB7;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+}
+
+.replies-count-column {
+  width: 50px;
+  text-align: center;
+}
+
+.number-column {
+  width: 90px;
+  padding-right: 10px;
+}
+
+.last-updated-column, .assigned-to-column {
+  width: 125px;
+}
+
+.column-text-content {
+  max-width: 85%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.replies-count-number {
+  background-color: mat-color($app-background, background);
+  color: mat-color($app-foreground, secondary-text);
+  border-radius: 4px;
+  padding: 1px 6px 0;
+  font-size: 1.1rem;
+  border: 1px solid mat-color($app-foreground, divider);
+}
+
+.summary-column {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  .title {
+    display: flex;
+    align-items: center;
+  }
+
+  .ticket-body {
+    color: mat-color($app-foreground, secondary-text);
+    max-width: 98%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 5px;
+  }
+}
+
+.ticket-tags {
+  margin-right: 7px;
+}
+
+.ticket-tag {
+  pointer-events: none;
+}
+
+datatable-footer {
+  height: 45px;
+  background-color: mat-color($app-background, card);
+  border-top: 1px solid mat-color($app-foreground, divider);
+  margin-top: auto;
+
+  ::ng-deep .page-size-input {
+    height: 25px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

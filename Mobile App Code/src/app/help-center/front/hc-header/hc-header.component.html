@@ -1,0 +1,13 @@
+<div class="jumbotron compact" [style.background-image]="'url('+settings.getBaseUrl(true) + content.background +')'">
+    <material-navbar [transparent]="true" menuPosition="header" [container]="true"></material-navbar>
+
+    <div class="header">
+        <div class="container">
+            <div class="search-bar">
+                <h1 class="title">{{content.title}}</h1>
+                <div class="subtitle">{{content.subtitle}}</div>
+                <suggested-articles-dropdown class="rounded" [forHomepage]="true" placeholder="{{content.placeholder}}"></suggested-articles-dropdown>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+@import "variables";
+
+.show-original-reply-modal-container {
+  width: 90%;
+  height: 90%;
+
+  .mat-dialog-title {
+    margin-bottom: 25px;
+  }
+
+  .mat-dialog-content {
+    max-height: none;
+  }
+
+  .headers {
+    border: 1px solid mat-color($app-foreground, divider);
+
+    > .header {
+      display: flex;
+      padding: 10px;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+
+      > .name {
+        flex: 1 1 30%;
+        font-weight: 500;
+        max-width: 200px;
+      }
+
+      > .value {
+        flex: 1 1 65%;
+        margin-left: auto;
+      }
+    }
+  }
+
+  .email-content {
+    margin-top: 40px;
+
+    > pre {
+      font-size: 1.4rem;
+      font-family: $font-family;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+
+    > .body-plain {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+    }
+  }
+}

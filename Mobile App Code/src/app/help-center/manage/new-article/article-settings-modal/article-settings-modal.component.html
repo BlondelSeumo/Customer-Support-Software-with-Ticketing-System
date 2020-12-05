@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Article Settings</h2>
+    <button type="button" (click)="close()" class="close-button" mat-icon-button tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form (ngSubmit)="close()" [formGroup]="data.form" ngNativeValidate>
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container">
+            <label for="article-slug" trans>Slug</label>
+            <input type="text" id="article-slug" formControlName="slug">
+        </div>
+
+        <div class="input-container">
+            <label for="article-description" trans>Description</label>
+            <textarea name="article-description" id="article-description" rows="7" formControlName="description"></textarea>
+            <p trans>This will appear when searching the help center. Excerpt from article will be used otherwise.</p>
+        </div>
+
+        <div class="input-container">
+            <label for="article-position" trans>Position</label>
+            <input type="number" id="article-position" name="article-position" formControlName="position" min="0">
+            <p trans>Order for article on help center homepage. Lower position will be first.</p>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" class="cancel-button" mat-button trans>Cancel</button>
+        <button type="submit" class="submit-button" mat-raised-button color="accent" trans>Confirm</button>
+    </mat-dialog-actions>
+</form>

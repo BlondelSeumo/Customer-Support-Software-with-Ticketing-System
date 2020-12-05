@@ -1,0 +1,41 @@
+<form class="input-container" (ngSubmit)="openSearchModal()">
+    <input class="search-input" type="text" placeholder="Search..." [matAutocomplete]="auto" [formControl]="searchQuery" #input trans-placeholder>
+    <button mat-icon-button class="search-button">
+        <mat-icon svgIcon="search"></mat-icon>
+    </button>
+</form>
+
+<mat-autocomplete #auto="matAutocomplete" class="agent-mailbox-autocomplete" customScrollbar>
+    <div class="results-container" *ngIf="results">
+        <div class="header">
+            <div class="header-item tickets-item" [class.active]="activeCategory === 'tickets'" (click)="setActiveCategory('tickets'); $event.stopPropagation()" *ngIf="results.tickets.data.length" trans>Conversations</div>
+            <div class="header-item users-item" [class.active]="activeCategory === 'users'" (click)="setActiveCategory('users'); $event.stopPropagation()" *ngIf="results.users.data.length" trans>Users</div>
+        </div>
+
+        <div class="results-panel tickets-panel" *ngIf="activeCategory === 'tickets'">
+            <mat-option class="result" *ngFor="let result of results.tickets.data" (click)="navigateToTicket(result.id)">
+                <div class="title">{{result.subject}}</div>
+                <div class="body">{{result.latest_reply && result.latest_reply.body}}</div>
+                <div class="user" (click)="navigateToUser(result.user.id)" *ngIf="result.user">{{result.user.display_name}}</div>
+            </mat-option>
+        </div>
+
+        <div class="results-panel users-panel" *ngIf="activeCategory === 'users'">
+            <mat-option class="result media" *ngFor="let result of results.users.data" (click)="navigateToUser(result.id)">
+                <img class="avatar" src="{{result.avatar}}" alt="customer avatar">
+                <div class="text">
+                    <div class="title">{{result.email}}</div>
+                    <div class="body">{{result.display_name}}</div>
+                </div>
+            </mat-option>
+        </div>
+
+        <div class="footer" *ngIf="searchQuery.value" (click)="openSearchModal()">
+            <span trans>View All Results</span>
+        </div>
+    </div>
+
+    <div class="no-results" *ngIf="searchQuery.value && !isLoading && !hasResults && loadedResultsAtLeastOnce" trans>
+        No tickets or users matching your search query were found.
+    </div>
+</mat-autocomplete>

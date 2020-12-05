@@ -1,0 +1,150 @@
+<div class="filters compact-scrollbar">
+    <div class="left">
+        <div class="range-select input-container input-inline">
+            <label for="primary_range" class="main-filters-label" trans>Date Range:</label>
+            <select name="primary_range" id="primary_range" [ngModel]="dateRange.primary.period" (ngModelChange)="setFiltersFromReadableString($event)">
+                <option value="last_30_days" trans>Last 30 days</option>
+                <option value="last_month" trans>Last Month</option>
+                <option value="last_7_days" trans>Last 7 days</option>
+                <option value="last_week" trans>Last Week</option>
+                <option value="today" trans>Today</option>
+                <option value="custom" trans>Custom Dates</option>
+            </select>
+        </div>
+
+        <div class="input-inline date-inputs">
+            <div class="input-container with-calendar">
+                <input type="text" [(ngModel)]="dateRange.primary.from" [disabled]="dateRange.primary.period != 'custom'">
+                <datepicker [disabled]="dateRange.primary.period != 'custom'" (onSelect)="setFiltersFromDateString($event, 'from')" [defaultDate]="dateRange.primary.from"></datepicker>
+            </div>
+            <span>-</span>
+            <div class="input-container with-calendar">
+                <input type="text" [(ngModel)]="dateRange.primary.to" [disabled]="dateRange.primary.period != 'custom'">
+                <datepicker [disabled]="dateRange.primary.period != 'custom'" (onSelect)="setFiltersFromDateString($event, 'to')" [defaultDate]="dateRange.primary.to"></datepicker>
+            </div>
+        </div>
+
+        <button mat-flat-button color="accent" type="button" (click)="refreshReport('primary')" [disabled]="loading$ | async">Update</button>
+    </div>
+    <div class="right">
+        <div class="range-select input-container input-inline">
+            <label for="compare_range" class="main-filters-label" trans>Compare:</label>
+            <select name="compare_range" id="compare_range" [ngModel]="dateRange.compare.period" (ngModelChange)="setFiltersFromReadableString($event)">
+                <option value="last_30_days" trans>Last 30 days</option>
+                <option value="last_month" trans>Last Month</option>
+                <option value="last_7_days" trans>Last 7 days</option>
+                <option value="last_week" trans>Last Week</option>
+                <option value="today" trans>Today</option>
+                <option value="custom" trans>Custom Dates</option>
+            </select>
+        </div>
+
+        <div class="input-inline date-inputs">
+            <div class="input-container with-calendar">
+                <input type="text" [(ngModel)]="dateRange.compare.from" [disabled]="dateRange.compare.period != 'custom'">
+                <datepicker [disabled]="dateRange.compare.period != 'custom'" (onSelect)="setFiltersFromDateString($event, 'from', 'compare')" [defaultDate]="dateRange.compare.from"></datepicker>
+            </div>
+            <span>-</span>
+            <div class="input-container with-calendar">
+                <input type="text" [(ngModel)]="dateRange.compare.to" [disabled]="dateRange.compare.period != 'custom'">
+                <datepicker [disabled]="dateRange.compare.period != 'custom'" (onSelect)="setFiltersFromDateString($event, 'to', 'compare')" [defaultDate]="dateRange.compare.to"></datepicker>
+            </div>
+        </div>
+
+        <button mat-flat-button color="accent" type="button" (click)="refreshReport('compare')" [disabled]="loading$ | async">Compare</button>
+        <button class="cancel-compare" mat-icon-button color="warn" (click)="clearCompareData()" [matTooltip]="'Clear compare data' | trans">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+</div>
+
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+
+<div class="row">
+    <div class="report-panel ticket-stats">
+        <div class="header" trans>Ticket Statistics</div>
+        <div class="body">
+            <section class="overall-stats">
+                <div class="overall-stats-box new-tickets">
+                    <div class="value">
+                        <span>{{reportData.primary.newTickets}}</span>
+                        <percentage-change class="inverted" *ngIf="reportData.compare.newTickets" [item]="reportData.primary.newTickets" [compareItem]="reportData.compare.newTickets"></percentage-change>
+                    </div>
+                    <div class="name" trans>New Tickets</div>
+                </div>
+                <div class="overall-stats-box solved-tickets">
+                    <div class="value">
+                        <span>{{reportData.primary.solvedTickets}}</span>
+                        <percentage-change *ngIf="reportData.compare.solvedTickets" [item]="reportData.primary.solvedTickets" [compareItem]="reportData.compare.solvedTickets"></percentage-change>
+                    </div>
+                    <div class="name" trans>Solved Tickets</div>
+                </div>
+                <div class="overall-stats-box">
+                    <div class="value">
+                        <span>{{reportData.primary.openTickets}}</span>
+                        <percentage-change class="inverted" *ngIf="reportData.compare.openTickets" [item]="reportData.primary.openTickets" [compareItem]="reportData.compare.openTickets"></percentage-change>
+                    </div>
+                    <div class="name" trans>Open Tickets</div>
+                </div>
+                <div class="overall-stats-box">
+                    <div class="value" *ngIf="reportData.primary.firstResponseTimes">
+                        <span>{{reportData.primary.firstResponseTimes.average}} {{ 'hours' | trans}}</span>
+                        <percentage-change class="inverted" *ngIf="reportData.compare.firstResponseTimes" [item]="reportData.primary.firstResponseTimes.average" [compareItem]="reportData.compare.firstResponseTimes.average"></percentage-change>
+                    </div>
+                    <div class="name" trans>Time to first reply</div>
+                </div>
+                <div class="overall-stats-box">
+                    <div class="value">
+                        <span>{{reportData.primary.avgResponseTime}} {{ 'hours' | trans}}</span>
+                        <percentage-change class="inverted" *ngIf="reportData.compare.avgResponseTime" [item]="reportData.primary.avgResponseTime" [compareItem]="reportData.compare.avgResponseTime"></percentage-change>
+                    </div>
+                    <div class="name" trans>Average response time</div>
+                </div>
+            </section>
+
+            <section class="chart-container">
+                <tickets-count-chart class="chart-component"></tickets-count-chart>
+            </section>
+        </div>
+    </div>
+    <div class="report-panel time-to-first-reply-panel">
+        <div class="header" trans>Time to first reply</div>
+        <div class="body first-response-chart">
+            <div class="overall" *ngIf="reportData.primary.firstResponseTimes">
+                <div class="value">
+                    <span>{{reportData.primary.firstResponseTimes.average}} {{'Hours' | trans}}</span>
+                    <percentage-change class="inverted" *ngIf="reportData.compare.firstResponseTimes" [item]="reportData.primary.firstResponseTimes.average" [compareItem]="reportData.compare.firstResponseTimes.average"></percentage-change>
+                </div>
+                <div class="name" trans>Average first response time in selected period</div>
+            </div>
+            <section class="chart-container">
+                <first-response-by-hours-chart class="chart-component"></first-response-by-hours-chart>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="report-panel">
+        <div class="header" trans>Busiest time of day</div>
+        <div class="body busiest-time-of-day">
+            <tickets-by-hour-chart></tickets-by-hour-chart>
+        </div>
+    </div>
+    <div class="report-panel">
+        <div class="header" trans>Tickets by Tags</div>
+        <div class="body">
+            <section class="chart-container doughnut-chart">
+                <tickets-by-tags-chart class="chart-component"></tickets-by-tags-chart>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="report-panel agents-chart">
+    <div class="header" trans>Tickets by Agent</div>
+    <div class="body">
+        <agent-performance-report [primaryData]="reportData.primary.agents" [compareData]="reportData.compare.agents"></agent-performance-report>
+        <div class="no-data" *ngIf="!loading$.value && !reportData.primary.agents"><div class="text" trans>No data on agents is available for this time range.</div></div>
+    </div>
+</div>

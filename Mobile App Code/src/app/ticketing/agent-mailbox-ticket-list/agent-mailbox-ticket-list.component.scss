@@ -1,0 +1,6 @@
+@import "variables";
+
+agent-mailbox-ticket-list {
+  display: block;
+  height: calc(100vh - #{$material-navbar-height});
+}

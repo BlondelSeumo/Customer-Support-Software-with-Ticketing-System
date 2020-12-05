@@ -1,0 +1,69 @@
+@import "variables";
+
+.category-articles {
+  .header {
+    .title {
+      display: flex;
+      align-items: center;
+      margin: 0 0 25px;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+      padding-bottom: 5px;
+
+      .text {
+        margin: 0;
+        font-weight: 300;
+        flex: 1 1 auto;
+        font-size: 3.8rem;
+        color: mat-color($app-foreground, hc-title-text);
+      }
+
+      articles-order-select {
+        flex: 0 0 160px;
+        font-size: 1.2rem;
+      }
+    }
+
+    .description {
+      color: mat-color($app-foreground, secondary-text);
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .articles {
+    .article {
+      position: relative;
+      display: block;
+      margin-bottom: 20px;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+      padding-bottom: 20px;
+
+      .description {
+        padding-left: 55px;
+
+        .title {
+          color: mat-color($app-foreground, hc-text);
+          font-size: 1.7rem;
+          font-weight: 500;
+        }
+
+        .body {
+          color: mat-color($app-foreground, secondary-text);
+        }
+      }
+
+      .mat-icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 50px;
+        color: mat-color($app-foreground, hint-text);
+      }
+
+      &:hover .title {
+        color: mat-color($app-accent, default);
+      }
+    }
+  }
+}

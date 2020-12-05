@@ -1,0 +1,26 @@
+<div class="responsive-table">
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th table-sort-header trans>Month</th>
+            <th table-sort-header trans>Sales</th>
+            <th table-sort-header="amount" trans>Earnings</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of datatable.data$ | async">
+            <td data-label="Month">{{item.month}}</td>
+            <td data-label="Sales">{{item.sales}}</td>
+            <td data-label="Earnings">
+                <div class="earnings-wrapper">
+                    <span class="amount">${{item.amount}}</span>
+                    <div class="change" *ngIf="state.activeChart.data.secondary && state.activeChart.data.secondary.yearly">
+                        <span class="separator">|</span>
+                        <percentage-change [item]="item" [items]="objectToArray(compareData)" matchKey="name" compareKey="amount"></percentage-change>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

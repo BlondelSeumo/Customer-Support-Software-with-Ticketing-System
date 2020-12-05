@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title trans>Search</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <div class="input-container search-input">
+        <input type="text" placeholder="Find tickets, articles and users..." trans-placeholder [formControl]="searchQueryControl">
+    </div>
+
+    <div class="search-results">
+        <div class="tab-menu" [class.visually-hidden]="!searchedOnce">
+            <div class="tab-menu-item tickets-menu-item" (click)="setActiveTab('tickets')" [class.active]="activeTabIs('tickets')">{{(datatable.paginator.response$ | async)?.pagination?.total}} <span trans>Tickets</span></div>
+            <div class="tab-menu-item users-menu-item" (click)="setActiveTab('users')" [class.active]="activeTabIs('users')">{{results.users?.total}} <span trans>Users</span></div>
+            <div class="tab-menu-item articles-menu-item" (click)="setActiveTab('articles')" [class.active]="activeTabIs('articles')">{{results.articles?.total}} <span trans>Articles</span></div>
+        </div>
+        <div class="tabs">
+            <div class="tab tickets-tab" [class.hidden]="!activeTabIs('tickets')">
+                <tickets-list [openTicketInModal]="true">
+                    <no-results-message *ngIf="!results.tickets?.data?.length && !isSearching">
+                        <span primary-text trans>Nothing To Display.</span>
+                        <span secondary-text trans>Could not find any tickets matching this search query.</span>
+                    </no-results-message>
+                </tickets-list>
+                <ticket-floating-toolbar></ticket-floating-toolbar>
+            </div>
+            <div class="tab users-tab" [class.hidden]="!activeTabIs('users')">
+                <a class="user" *ngFor="let user of results.users?.data" [routerLink]="['/mailbox/users', user.id]">
+                    <img class="avatar" src="{{user.avatar}}" alt="customer avatar">
+                    <div class="text">
+                        <div class="title">{{user.display_name}}</div>
+                        <div class="body">{{user.email}}</div>
+                    </div>
+                </a>
+            </div>
+            <div class="tab articles-tab" [class.hidden]="!activeTabIs('articles')">
+                <div class="articles-list">
+                    <a class="article" *ngFor="let article of results.articles?.data" [routerLink]="urls.article(article)">
+                        <mat-icon svgIcon="description"></mat-icon>
+                        <div class="article-info">
+                            <div class="title">{{article.title}}</div>
+                            <div class="body">{{article.body}}</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

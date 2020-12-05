@@ -1,0 +1,81 @@
+@import "variables";
+
+article-feedback {
+  display: flex;
+  padding: 50px 0;
+  align-items: center;
+  border-top: 1px solid mat-color($app-foreground, divider-lighter);
+  border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+  margin-bottom: 50px;
+
+  .title {
+    font-size: $article-font-size;
+    font-weight: $article-font-weight;
+    color: mat-color($app-foreground, hc-title-text);
+    margin-right: 15px;
+  }
+
+  .feedback-submitted-notification {
+    font-size: 1.7rem;
+    font-weight: $article-font-weight;
+    color: mat-color($app-foreground, hc-title-text);
+  }
+
+  .input-container {
+    margin: 20px 0;
+
+    textarea {
+      border-radius: 3px;
+    }
+  }
+
+  .feedback-buttons {
+    .yes, .no {
+      background-color: transparent;
+      border-radius: 50px;
+      border: 1px solid;
+      min-width: 92px;
+      padding-right: 15px;
+      vertical-align: middle;
+      line-height: 36px;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      outline: none;
+
+      .mat-icon {
+        vertical-align: middle;
+      }
+    }
+
+    .yes {
+      border-color: mat-color($app-success, default);
+      color: mat-color($app-success, default);
+      margin-right: 10px;
+
+      &:hover, &.selected {
+        background-color: mat-color($app-success, default);
+        color: mat-color($app-warn, default-contrast);
+      }
+    }
+
+    .no {
+      border-color: mat-color($app-warn, default);
+      color: mat-color($app-warn, default);
+
+      &:hover, &.selected {
+        background-color: mat-color($app-warn, default);
+        color: mat-color($app-warn, default-contrast);
+      }
+    }
+  }
+
+  @media only screen and (max-width: $medium) {
+    display: block;
+
+    .title {
+      margin-bottom: 10px;
+    }
+  }
+}

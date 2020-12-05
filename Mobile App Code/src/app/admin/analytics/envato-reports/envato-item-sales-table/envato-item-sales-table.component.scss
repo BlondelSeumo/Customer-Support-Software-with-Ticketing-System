@@ -1,0 +1,16 @@
+.name-column {
+  cursor: pointer;
+
+  &.active {
+    font-weight: 500;
+  }
+}
+
+.separator {
+  margin: 0 8px;
+}
+
+.change {
+  display: flex;
+  align-items: center;
+}

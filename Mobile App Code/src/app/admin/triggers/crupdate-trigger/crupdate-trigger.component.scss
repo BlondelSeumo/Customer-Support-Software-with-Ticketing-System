@@ -1,0 +1,122 @@
+@import "variables";
+
+crupdate-trigger {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  .main-inputs {
+    background-color: mat-color($app-background, card);
+    box-shadow: $admin-card-box-shadow;
+    border: $admin-card-border;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 25px;
+
+    label {
+      font-weight: 500;
+    }
+  }
+
+  form {
+    max-width: 100%;
+    width: 850px;
+    padding: 25px 0;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    width: 850px;
+    max-width: 100%;
+    padding: 15px;
+    background-color: mat-color($app-background, card);
+    box-shadow: $admin-card-box-shadow;
+    border: $admin-card-border;
+    border-radius: 4px;
+
+    .title {
+      margin-left: 15px;
+      font-size: 1.6rem;
+    }
+
+    .back-button {
+      border: 1px solid mat-color($app-foreground, divider);
+      border-radius: 4px;
+      background-color: mat-color($app-background, background);
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  .triggers-panel {
+    width: 100%;
+    background-color: mat-color($app-background, card);
+    box-shadow: $admin-card-box-shadow;
+    border: $admin-card-border;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 25px;
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+      font-weight: 500;
+
+      .title {
+        flex: 1 1 auto;
+      }
+
+      .boxed-text {
+        border: 1px solid mat-color($app-foreground, divider);
+        background-color: mat-color($app-background, background);
+        border-radius: 4px;
+        padding: 2px 5px;
+        margin: 0 2px;
+      }
+    }
+
+    .action-button {
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      flex: 0 0 35px;
+    }
+    
+    .action {
+      .action-inner {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+    }
+
+    .inputs {
+      flex: 1 1 auto;
+      display: flex;
+      flex-wrap: wrap;
+
+      .input-container, .inputs-wrapper {
+        max-width: 230px;
+        margin-right: 7px;
+        flex: 1 1 0;
+
+        &.full-width {
+          max-width: none;
+          width: calc(100% - 7px);
+          flex: 1 0 auto;
+
+          .input-container {
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+  
+  .error {
+    color: mat-color($app-warn, default);
+  }
+}

@@ -1,0 +1,77 @@
+<div class="action-bar">
+    <div class="nav">
+        <a [routerLink]="'/help-center'" class="nav-item home-nav-item" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}" trans>Home</a>
+        <a [routerLink]="'/help-center/manage/categories'" class="nav-item categories-nav-item" routerLinkActive="router-link-active" trans>Categories</a>
+        <a [routerLink]="'/help-center/manage/articles'" class="nav-item articles-nav-item" routerLinkActive="router-link-active" trans>Articles</a>
+    </div>
+    <div class="actions">
+        <div class="search-bar input-container">
+            <datatable-header-search-input placeholder="Search"></datatable-header-search-input>
+        </div>
+        <div class="action-bar-action change-layout-action">
+            <button class="no-style grid-layout-button" (click)="setLayout('grid')" [class.active]="isLayoutActive('grid')"><mat-icon svgIcon="view-comfy"></mat-icon></button>
+            <button class="no-style list-layout-button" (click)="setLayout('list')" [class.active]="isLayoutActive('list')"><mat-icon svgIcon="view-list"></mat-icon></button>
+        </div>
+        <div class="action-bar-action" [formGroup]="form">
+            <select name="order" id="order" formControlName="order">
+                <option [value]="pair.value" *ngFor="let pair of articleOrderOptions|keyvalue">{{pair.key | trans}}</option>
+            </select>
+        </div>
+        <a class="new-article-button new-item-button" routerLink="new"><mat-icon svgIcon="add"></mat-icon> <span trans>Create New Article</span></a>
+    </div>
+</div>
+
+<div class="content">
+    <div class="article-list-filters">
+        <div class="filters-list" [formGroup]="form">
+            <categories-manager class="article-categories-filter" formControlName="categories"></categories-manager>
+
+            <div class="panel tags-filter">
+                <div class="panel-header" trans>Tags</div>
+                <div class="panel-body">
+                    <tags-manager formControlName="tags"></tags-manager>
+                </div>
+            </div>
+
+            <div class="panel article-type-filter">
+                <div class="panel-header" trans>Article Status</div>
+                <div class="panel-body">
+                    <mat-button-toggle-group formControlName="draft">
+                        <mat-button-toggle [value]="null" trans>All</mat-button-toggle>
+                        <mat-button-toggle [value]="0" trans>Published</mat-button-toggle>
+                        <mat-button-toggle [value]="1" trans>Draft</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="articles-list-container" *ngIf="datatable.data$ | async as articles" #scrollContainer>
+        <div class="articles-list">
+            <div [class.grid-flex-wrapper]="selectedLayout === 'grid'">
+                <div class="articles-list-item" *ngFor="let article of articles" (click)="goToUpdateArticle(article.id)" [class.draft]="article.draft">
+                    <button class="no-style delete-article-button" (click)="maybeDeleteArticle(article); $event.stopPropagation();" [matTooltip]="'Delete Article' | trans">
+                        <mat-icon svgIcon="delete" class="size-20"></mat-icon>
+                    </button>
+                    <div class="article-categories" *ngIf="article.categories.length">
+                        <span class="parent-category" *ngIf="article.categories[0]?.parent">{{article.categories[0].parent.name}} > </span>
+                        <span class="category">{{article.categories[0].name}}</span>
+                    </div>
+                    <div class="article-title">{{article.title}}</div>
+                    <div class="article-body">{{article.body}}</div>
+                    <mat-chip-list class="article-tags">
+                        <mat-chip color="standard" (click)="toggleTagFilter(tag); $event.stopPropagation()" *ngFor="let tag of article.tags">{{tag.display_name}}</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
+
+            <no-results-message *ngIf="datatable.paginator.noResults$ | async">
+                <span primary-text trans>Could not find any articles.</span>
+                <span secondary-text trans>Try to make article files less specific.</span>
+            </no-results-message>
+        </div>
+
+        <loading-indicator class="overlay" [isVisible]="datatable.paginator.loading$ | async"></loading-indicator>
+        <datatable-footer></datatable-footer>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="left toolbar-actions">
+    <ng-container *ngIf="currentUser.hasPermissions(['tickets.update', 'replies.create'])">
+        <a class="no-style action back-button" routerLink="../" queryParamsHandling="preserve" *ngIf="!hideBackButton" [matTooltip]="'Back (b)' | trans">
+            <mat-icon svgIcon="return-custom"></mat-icon>
+        </a>
+
+        <assign-ticket-dropdown [ticket]="conversation.get()" (assigned)="refreshMailboxTags()" class="action" [matTooltip]="'Assign (a)' | trans"></assign-ticket-dropdown>
+
+        <button class="action no-style add-note-button" (click)="showNoteModal()" [matTooltip]="'Note (n)' | trans">
+            <mat-icon svgIcon="note-custom"></mat-icon>
+        </button>
+
+        <add-tag-dropdown class="action" [ticketIds]="[conversation.get().id]" (tagAdded)="addTag($event)" [matTooltip]="'Tag (t)' | trans"></add-tag-dropdown>
+
+        <button class="no-style change-ticket-status-button action" [matMenuTriggerFor]="ticketStatusMenu" [matTooltip]="'Status (s)' | trans" #ticketStatusMenuTrigger>
+            <mat-icon svgIcon="flag-custom"></mat-icon>
+        </button>
+        <mat-menu #ticketStatusMenu="matMenu" [overlapTrigger]="false" class="ticket-status-menu">
+            <button mat-menu-item
+                    *ngFor="let tag of mailboxTags.statusTags"
+                    (click)="changeTicketStatus(tag)"
+                    [class.active]="conversation.status?.name === tag.name"
+                    [ngClass]="tag.name">
+                {{tag.display_name || tag.name}}
+            </button>
+        </mat-menu>
+
+        <ng-content></ng-content>
+    </ng-container>
+</div>
+<div class="right ticket-info">
+    <div class="ticket-number">#{{conversation.get().id}}</div>
+    <div class="ticket-status" [ngClass]="conversation.getStatus().name">{{conversation.getStatus().display_name}}</div>
+</div>

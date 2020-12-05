@@ -1,0 +1,24 @@
+@import "variables";
+
+:host {
+    display: block;
+    color: mat-color($app-foreground, secondary-text);
+}
+
+:host-context(.inverted) {
+    .positive {
+        color: mat-color($app-warn, default);
+    }
+
+    .negative {
+        color: mat-color($app-success, default);
+    }
+}
+
+.positive {
+    color: mat-color($app-success, default);
+}
+
+.negative {
+    color: mat-color($app-warn, default);
+}

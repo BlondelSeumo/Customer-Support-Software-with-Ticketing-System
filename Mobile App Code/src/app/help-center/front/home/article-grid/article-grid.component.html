@@ -1,0 +1,52 @@
+<hc-header></hc-header>
+
+<div class="content">
+    <ng-container *ngFor="let category of categories">
+        <section class="category">
+            <div class="category-info">
+                <h2 class="category-name">
+                    <a class="text" [routerLink]="urls.category(category)">
+                        <image-or-icon class="inherit-size" [src]="category.image" *ngIf="category.image"></image-or-icon>
+                        <span>{{category.name}}</span>
+                    </a>
+                </h2>
+                <p class="category-description" *ngIf="category.description">{{category.description}}</p>
+            </div>
+
+            <div class="child-categories" *ngIf="category.chunked_articles?.length">
+                <div class="child-category" *ngFor="let chunk of category.chunked_articles">
+                    <div class="articles-list">
+                        <a class="article" *ngFor="let article of chunk" [routerLink]="urls.article(article)">
+                            <mat-icon svgIcon="description"></mat-icon>
+                            <span class="text">{{article.title}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="child-categories">
+                <ng-container *ngFor="let child of category.children">
+                    <div class="child-category" *ngIf="!shouldHideCategory(child)">
+                        <div class="title">
+                            <image-or-icon class="inherit-size" [src]="child.image" *ngIf="child.image"></image-or-icon>
+                            <h3 class="child-category-name">
+                                <a [routerLink]="urls.category(child)">
+                                    <span class="name">{{child.name}}</span>
+                                    <span class="article-count">({{child.articles_count}})</span>
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="articles-list">
+                            <a class="article" *ngFor="let article of child.articles" [routerLink]="urls.article(article, child)">
+                                <mat-icon svgIcon="description"></mat-icon>
+                                <span class="text">{{article.title}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </section>
+    </ng-container>
+</div>
+
+<customer-footer *ngIf="!settings.get('hc.hide_footer')"></customer-footer>

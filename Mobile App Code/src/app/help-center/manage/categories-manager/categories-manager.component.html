@@ -1,0 +1,28 @@
+<div class="panel">
+    <div class="panel-header">
+        <span trans>Categories</span>
+        <button class="clear-all-button" mat-icon-button (click)="deselectAll()" [matTooltip]="'Clear All' | trans">
+            <mat-icon svgIcon="clear-all"></mat-icon>
+        </button>
+    </div>
+    <div class="panel-body">
+        <div class="input-container">
+            <input type="text" id="categories-manager-search" [formControl]="searchControl" placeholder="Search..." trans-placeholder>
+            <mat-icon svgIcon="search"></mat-icon>
+        </div>
+
+        <section class="categories">
+            <ng-container *ngFor="let category of filteredCategories; let parentIndex = index;">
+                <div class="category parent-category">
+                    <mat-checkbox [id]="parentIndex" [checked]="categoryIsSelected(category.id) || childIsSelected(category)" (change)="toggle(category)">{{category.name}}</mat-checkbox>
+                </div>
+                <div class="category child-category" *ngFor="let childCategory of category.children; let childIndex = index;">
+                    <mat-checkbox [id]="parentIndex+''+childIndex"  [checked]="categoryIsSelected(childCategory.id)" (change)="toggle(childCategory, category.id);">{{childCategory.name}}</mat-checkbox>
+                </div>
+            </ng-container>
+            <div class="no-results" *ngIf="!filteredCategories.length && searchControl.value" trans>No Results Found.</div>
+        </section>
+
+        <ng-content></ng-content>
+    </div>
+</div>

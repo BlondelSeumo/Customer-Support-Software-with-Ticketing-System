@@ -1,0 +1,164 @@
+@import "variables";
+
+:host {
+  display: block;
+  background-color: mat-color($app-background, card);
+}
+
+image-or-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.content {
+  max-width: $hc-page-max-width;
+  min-height: calc(100vh - #{$hc-header-height + $hc-footer-height + 1});
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.category {
+  color: inherit;
+}
+
+.category-info {
+  position: relative;
+
+  .button {
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+
+  h2 {
+    font-size: 3.8rem;
+    font-weight: 300;
+    color: mat-color($app-foreground, hc-title-text);
+    margin-bottom: 0;
+
+    .text {
+      color: inherit;
+      font-weight: inherit;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: mat-color($app-foreground, hc-text);
+  }
+}
+
+.child-categories {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  margin: 25px -15px 0;
+
+  .show-more-container {
+    width: 100%;
+    text-align: center;
+
+    button {
+      border: 1px solid mat-color($app-accent, default);
+      color: mat-color($app-accent, default);
+      padding: 8px 30px;
+      border-radius: 15px;
+    }
+  }
+}
+
+.child-category {
+  flex: 0 0 auto;
+  width: calc(33.3% - 30px);
+  margin: 0 15px 45px;
+  overflow: hidden;
+
+  .title {
+    margin-bottom: 15px;
+    border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+
+    h3 {
+      font-weight: 400;
+      font-size: 1.8rem;
+      margin: 0 0 0 5px;
+      display: inline-block;
+    }
+
+    a {
+      color: mat-color($app-foreground, hc-title-text);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .article-count {
+      margin-left: 4px;
+    }
+
+    .icon {
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  .description {
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .view-more {
+    margin-top: 25px;
+    color: mat-color($app-accent, default);
+  }
+}
+
+.articles-list {
+  .article {
+    display: block;
+    font-size: 1.4rem;
+    color: mat-color($app-foreground, hc-text);
+    font-weight: 400;
+    padding: 10px 0 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .text {
+      padding-left: 4px;
+      vertical-align: middle;
+    }
+
+    .mat-icon {
+      color: mat-color($app-foreground, hint-text);
+      vertical-align: middle;
+    }
+
+    &:hover {
+      .text {
+        color: mat-color($app-accent, default);
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $medium) {
+  .content {
+    padding: 0 20px;
+  }
+
+  .child-category {
+    flex: 0 0 100%;
+    max-width: calc(100% - 40px);
+  }
+}

@@ -1,0 +1,56 @@
+@import "variables";
+
+categories-list {
+  display: block;
+  background-color: mat-color($app-background, background);
+
+  .container {
+    min-height: calc(100vh - #{$material-navbar-height + $hc-manage-action-bar-height});
+    margin: 0 auto;
+    padding-top: 35px;
+  }
+
+  category-list-item {
+    background-color: mat-color($app-background, card);
+    padding: 15px;
+    @include mat-elevation(1);
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: mat-color($app-accent, emphasis);
+    }
+  }
+
+  .category-children {
+    margin-left: 20px;
+  }
+
+  .toggle-children-btn {
+    color: mat-color($app-foreground, icon);
+    margin-right: 10px;
+
+    &.active {
+      color: mat-color($app-accent, default);
+    }
+  }
+
+  .cdk-drop-list-disabled .drag-handle {
+    color: rgba(0,0,0,.26);
+    cursor: not-allowed;
+  }
+
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}

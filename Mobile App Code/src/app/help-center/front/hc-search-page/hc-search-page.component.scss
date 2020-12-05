@@ -1,0 +1,109 @@
+@import "variables";
+
+hc-search-page {
+  display: block;
+  padding-top: $material-navbar-height;
+
+  .header {
+    margin-bottom: 50px;
+
+    .info {
+      font-size: 1.5rem;
+      color: mat-color($app-foreground, secondary-text);
+    }
+
+    @media only screen and (max-width: $medium) {
+      display: none;
+    }
+  }
+
+  .back  {
+    vertical-align: middle;
+    margin-right: 20px;
+    color: mat-color($app-accent, default);
+
+    .mat-icon {
+      vertical-align: inherit;
+      margin-right: 4px;
+    }
+  }
+
+  .hc-content {
+    max-width: 1190px;
+    padding: 0 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .inner-content {
+    width: 100%;
+  }
+
+  .search-article {
+    margin-bottom: 25px;
+    display: flex;
+    border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+    padding-bottom: 25px;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    .icon {
+      flex: 0 0 47px;
+      width: 47px;
+      color: rgba(0,0,0,0.4);
+      padding-top: 3px;
+
+      .mat-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .article {
+      flex: 1 1 auto;
+
+      .title {
+        display: block;
+        font-weight: 400;
+        font-size: 2.2rem;
+        color: mat-color($app-foreground, hc-text);
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .body {
+        font-size: 1.6rem;
+        color: mat-color($app-foreground, secondary-text);
+      }
+
+      .path {
+        margin-top: 6px;
+        color: mat-color($app-foreground, secondary-text);
+        font-style: italic;
+
+        .mat-icon {
+          vertical-align: middle;
+          width: 16px;
+          height: 16px;
+        }
+
+        a {
+          color: inherit;
+          font-style: inherit;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  no-results-message {
+    margin: 50px 0;
+  }
+}

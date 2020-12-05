@@ -1,0 +1,40 @@
+<div class="datatable">
+    <datatable-header pluralResourceName="categories">
+        <ng-container leftContent>
+            <button mat-raised-button color="accent" (click)="showCrupdateCategoryModal()" *ngIf="currentUser.hasPermission('tags.create')" headerActions trans>Add</button>
+        </ng-container>
+        <ng-container rightContent>
+            <button mat-raised-button color="accent" (click)="maybeDeleteSelectedCategories()" headerSelectedActions *ngIf="currentUser.hasPermission('tags.delete')" trans>Delete Selected</button>
+        </ng-container>
+    </datatable-header>
+    <table class="material-table responsive-table">
+        <thead>
+        <tr>
+            <th table-header-checkbox></th>
+            <th table-sort-header trans>Name</th>
+            <th table-sort-header trans>Display Name</th>
+            <th trans>Article Categories</th>
+            <th table-sort-header trans>Created At</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let category of categories$ | async">
+            <td [table-body-checkbox]="category.id"></td>
+            <td data-label="Name">{{category.name}}</td>
+            <td data-label="Display Name">{{category.display_name}}</td>
+            <td data-label="Article Categories">{{category.categories_count}}</td>
+            <td data-label="Created At">{{category.created_at ? (category.created_at | formattedDate) : '-' }}</td>
+            <td class="edit-column">
+                <button mat-icon-button (click)="showCrupdateCategoryModal(category)" *ngIf="currentUser.hasPermission('tags.update')" [matTooltip]="'Edit Category' | trans">
+                    <mat-icon svgIcon="edit"></mat-icon>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="folder.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text>No categories have been created yet</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>

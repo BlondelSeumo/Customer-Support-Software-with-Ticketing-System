@@ -1,0 +1,19 @@
+<div class="panel-header" trans>Your Purchases</div>
+<div class="panel-body">
+    <div class="purchases">
+        <div class="purchase" *ngFor="let purchase of user.purchase_codes">
+            <a class="image" target="_blank" [href]="purchase.url"><img [src]="purchase.image"></a>
+            <div class="details">
+                <a class="item-name" target="_blank" [href]="purchase.url">{{purchase.item_name}}</a>
+                <div class="meta">
+                    <div class="item-id">Item ID: {{purchase.item_id}}</div>
+                    <div class="purchase-code">Purchase Code: {{purchase.code}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-footer">
+    <button type="button" class="add-purchase-button" mat-stroked-button (click)="openAddPurchaseModal()" trans>Add purchase code</button>
+    <button type="button" mat-raised-button [color]="settings.get('vebto.auth.color')" (click)="updatePurchases()" trans>Sync Purchases</button>
+</div>

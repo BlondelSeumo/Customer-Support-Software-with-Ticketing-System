@@ -1,0 +1,18 @@
+{
+  "/secure": {
+    "target": "http://localhost/bedesk/server",
+    "secure": false
+  },
+  "/storage": {
+    "target": "http://localhost/bedesk/server",
+    "secure": false
+  },
+  "/client": {
+    "target": "http://localhost/bedesk/server",
+    "secure": false
+  },
+  "/__clockwork": {
+    "target": "http://localhost/bedesk/server/public",
+    "secure": false
+  }
+}

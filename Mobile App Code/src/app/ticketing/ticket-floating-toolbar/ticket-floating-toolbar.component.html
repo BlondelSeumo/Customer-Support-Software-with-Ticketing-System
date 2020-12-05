@@ -1,0 +1,21 @@
+<ng-container *ngIf="currentUser.hasPermissions(['tickets.update', 'replies.create'])">
+    <assign-ticket-dropdown [ticketIds]="datatable.selectedRows$ | async" (assigned)="ticketsUpdated()" [matTooltip]="'Assign' | trans"></assign-ticket-dropdown>
+
+    <button class="toolbar-item no-style" [matMenuTriggerFor]="ticketStatusMenu">
+        <mat-icon svgIcon="flag-custom"></mat-icon>
+    </button>
+    <mat-menu #ticketStatusMenu="matMenu" [overlapTrigger]="false" class="status-menu">
+        <button mat-menu-item
+                *ngFor="let tag of mailboxTags.statusTags"
+                (click)="setStatusForSelectedTickets(tag)"
+                [ngClass]="tag.name">
+            {{tag.display_name || tag.name}}
+        </button>
+    </mat-menu>
+
+    <add-tag-dropdown [ticketIds]="datatable.selectedRows$ | async" (tagAdded)="ticketsUpdated()" [matTooltip]="'Add Tag' | trans"></add-tag-dropdown>
+
+    <button class="no-style toolbar-item delete-tickets-button last" (click)="maybeDeleteSelectedTickets()" [matTooltip]="'Delete' | trans">
+        <mat-icon svgIcon="delete-custom"></mat-icon>
+    </button>
+</ng-container>

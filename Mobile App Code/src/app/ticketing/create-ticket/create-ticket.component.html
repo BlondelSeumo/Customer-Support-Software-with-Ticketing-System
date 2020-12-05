@@ -1,0 +1,52 @@
+<form (ngSubmit)="createTicket()" class="many-inputs" [formGroup]="ticketForm" *ngIf="errors$ | async as errors" ngNativeValidate>
+    <div class="input-container">
+        <label for="user" trans>Customer</label>
+        <input type="text" id="user" formControlName="customer" [matAutocomplete]="auto" required>
+        <div class="error user-error" *ngIf="errors.user_id">{{errors.user_id}}</div>
+    </div>
+
+    <mat-autocomplete #auto="matAutocomplete" class="create-ticket-user-autocomplete" [displayWith]="displayUserFn">
+        <mat-option *ngFor="let user of users$ | async" [value]="user">
+            <div class="create-ticket-user-option">
+                <img [src]="user.avatar">
+                <div class="meta">
+                    <div class="name">{{user.display_name}}</div>
+                    <div class="email">{{user.email}}</div>
+                </div>
+            </div>
+        </mat-option>
+    </mat-autocomplete>
+
+    <div class="input-container">
+        <label for="subject" trans>Subject</label>
+        <input type="text" id="subject" formControlName="subject" required>
+        <div class="error subject-error" *ngIf="errors.subject">{{errors.subject}}</div>
+    </div>
+
+    <div class="input-container">
+        <label for="category-select" trans>Category</label>
+        <select name="category" id="category-select" formControlName="category" required>
+            <option [ngValue]="category.id" *ngFor="let category of ticketCategories">{{category.display_name}}</option>
+        </select>
+        <div class="error category-error" *ngIf="errors.category">{{errors.category}}</div>
+    </div>
+
+    <div class="input-container">
+        <label for="status-select" trans>Status</label>
+        <select name="status" id="status-select" formControlName="status" required>
+            <option class="status-tag-option" [ngValue]="status.name" *ngFor="let status of mailboxTags.statusTags">{{status.display_name}}</option>
+        </select>
+        <div class="error status-error" *ngIf="errors.status">{{errors.status}}</div>
+    </div>
+
+    <div class="input-container body-input-container">
+        <label for="description" trans>Ticket Body</label>
+        <text-editor id="description" inlineUploadPrefix="ticket_images" (onFileUpload)="uploadFiles($event)" (onChange)="setBody($event)" [minHeight]="230"></text-editor>
+        <upload-progress-bar></upload-progress-bar>
+        <div class="error body-error" *ngIf="errors.body">{{errors.body}}</div>
+    </div>
+
+    <reply-attachment-list [attachments]="attachments$ | async" (detached)="removeAttachment($event)"></reply-attachment-list>
+
+    <button mat-raised-button color="accent" type="submit" [disabled]="loading$ | async" trans>Create</button>
+</form>

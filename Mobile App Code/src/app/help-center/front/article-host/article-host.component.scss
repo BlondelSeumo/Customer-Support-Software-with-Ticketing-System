@@ -1,0 +1,19 @@
+@import "variables";
+
+article-host {
+  display: block;
+  padding-top: $material-navbar-height;
+  background-color: mat-color($app-background, background);
+
+  @media only screen and (max-width: $large) {
+    .hc-content {
+      article-content, breadcrumbs, .edit-article-btn {
+        display: none;
+      }
+
+      article-feedback {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

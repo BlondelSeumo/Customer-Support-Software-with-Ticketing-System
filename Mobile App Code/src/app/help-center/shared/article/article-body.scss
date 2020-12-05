@@ -1,0 +1,320 @@
+@import "variables";
+
+.article-body {
+  font-size: $article-font-size;
+  font-weight: $article-font-weight;
+  line-height: $article-line-height;
+  color: mat-color($app-foreground, hc-title-text);
+
+  ul, ol {
+    font-size: inherit;
+    font-weight: inherit;
+    margin-top: 10px;
+    padding-left: 40px;
+    position: relative;
+
+    li {
+      margin-bottom: 8px;
+    }
+  }
+
+  ul {
+    padding-left: 40px;
+    position: relative;
+
+    li {
+      list-style-type: disc;
+      margin-bottom: 7px;
+    }
+  }
+
+  ol {
+    counter-reset: custom-counter;
+    list-style: none;
+
+    li:before {
+      content: counter(custom-counter, decimal) '.';
+      counter-increment: custom-counter;
+      font-weight: 500;
+      position: absolute;
+      left: -10px;
+      width: 40px;
+      text-align: right;
+    }
+  }
+
+  strong {
+    font-weight: 500;
+    color: mat-color($app-foreground, hc-title-text);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 25px 0 25px 1px;
+    padding: $article-image-padding;
+    border-radius: $article-image-border-radius;
+    box-shadow: #f7f7ff 0 0 0 2px;
+  }
+
+  hr {
+    background-color: $article-divider-color;
+    height: 2px;
+    border: 0;
+    width: 100%;
+  }
+
+  blockquote {
+    border-left: 5px solid mat-color($app-foreground, divider);
+    padding: 3px 30px 7px 20px;
+    font-style: italic;
+    margin: 10px 35px 25px 0;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  iframe {
+    width: 888px;
+    height: 499px;
+    max-width: 100%;
+    border: none;
+    box-shadow: none;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  h1, h2, h3 {
+    > a {
+      color: inherit;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  //hide border and margin from first h2 title
+  h2:first-child {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    font-size: $article-h1-font-size;
+    font-weight: $article-h1-font-weight;
+    line-height: $article-h1-line-height;
+    margin: $article-h1-margin;
+  }
+
+  h2 {
+    font-size: $article-h2-font-size;
+    font-weight: $article-h2-font-weight;
+    line-height: $article-h2-line-height;
+    padding-top: 30px;
+    margin-top: 45px;
+    border-top: 1px solid mat-color($app-foreground, divider);
+  }
+
+  h3 {
+    font-size: $article-h3-font-size;
+    margin: $article-h3-margin;
+    font-weight: 400;
+  }
+
+  p {
+    margin: 10px 0 25px;
+    letter-spacing: .3px;
+    overflow: hidden;
+    line-height: 24px;
+    word-break: break-word;
+  }
+
+  pre {
+    overflow: auto;
+    max-width: 100%;
+    padding: 10px;
+    margin: 15px 0 20px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    background-color: mat-color($app-background, background);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+    color: mat-color($app-foreground, base);
+
+    code {
+      border-radius: 0;
+      color: inherit;
+      padding: 0;
+      text-shadow: 0 1px mat-color($app-background, raised-button);
+    }
+
+    .token.operator {
+      background-color: inherit;
+    }
+  }
+
+  :not(pre) code {
+    font-family: Droid Sans Mono,monospace;
+    background-color: mat-color($app-foreground, divider-lighter);
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+    font-size: 75%;
+    color: #c7254e;
+    padding: 2px 4px;
+    letter-spacing: 0;
+  }
+
+  a {
+    color: mat-color($app-foreground, link);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  table {
+    margin: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: transparent;
+
+    thead tr {
+      background-color: mat-color($app-background, background);
+    }
+
+    td {
+      padding: 8px;
+      vertical-align: top;
+      border: 1px solid mat-color($app-foreground, divider);
+    }
+
+    th {
+      text-align: left;
+      padding: 8px;
+      vertical-align: bottom;
+      border-bottom: 2px solid mat-color($app-foreground, divider);
+      color: mat-color($app-foreground, hc-title-text);
+      font-weight: 400;
+    }
+  }
+
+  .widget {
+    background-color: #f3fbf7;
+    max-width: 100%;
+    padding: 14px;
+    margin: 35px 0;
+    border-radius: 3px;
+    overflow-wrap: break-word;
+    border-left: 5px solid darken(#f3fbf7, 40%);
+    font-size: 1.7rem;
+    color: rgba(0, 0, 0, 0.87);
+
+    .title {
+      font-weight: 500;
+      color: #43484d;
+    }
+
+    &.widget-important {
+      background-color: #fef7ed;
+      border-left: 5px solid darken(#fef7ed, 40%);
+    }
+
+    &.widget-warning {
+      background-color: #f2564d;
+      border-left: 5px solid darken(#f2564d, 40%);
+    }
+  }
+
+  @media only screen and (max-width: $medium) {
+    font-size: 1.6rem;
+
+    .widget.widget-info {
+      font-size: inherit;
+    }
+  }
+}
+
+.be-dark-mode .article-body, .be-dark-mode .editor-body {
+  pre {
+    color: mat-color($app-foreground, text);
+  }
+}
+
+//typedoc styles
+.tsd-is-private {
+  display: none;
+}
+
+.tsd-anchor {
+  display: block;
+  height: 0;
+}
+
+.tsd-panel-group {
+  margin-bottom: 40px;
+}
+
+.tsd-panel {
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 25px;
+  padding: 15px;
+}
+
+.tsd-panel ul.tsd-signatures,
+.tsd-panel ul.tsd-descriptions {
+  list-style: none;
+  padding-left: 0;
+
+  > li {
+    list-style-type: none;
+    margin: 0;
+  }
+}
+
+.tsd-panel .tsd-sources {
+  display: none;
+}
+
+.tsd-panel .tsd-signature-type,
+.tsd-panel .tsd-signature-symbol {
+  font-weight: 400;
+  font-style: italic;
+  font-family: Droid Sans Mono,monospace;
+}
+
+.tsd-panel .tsd-kind-method {
+  font-family: Droid Sans Mono,monospace;
+  border-top: 1px solid #E6ECF1;
+  border-bottom: 1px solid #E6ECF1;
+  padding: 15px 0;
+  margin: 0;
+}
+
+.tsd-panel .ts-flagDefault {
+  display: none;
+}
+
+.tsd-panel h3 {
+  margin: 0 0 18px;
+  color: mat-color($app-foreground, link);
+  line-height: 24px;
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+
+.tsd-panel h4 {
+  font-size: 1.5rem;
+}
+
+.tsd-panel h5 {
+  font-size: 1.4rem;
+}
+
+.tsd-panel a {
+  color: inherit;
+  pointer-events: none;
+}

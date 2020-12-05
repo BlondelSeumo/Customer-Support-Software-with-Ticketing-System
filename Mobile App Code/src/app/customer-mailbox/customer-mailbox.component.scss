@@ -1,0 +1,22 @@
+@import "../../scss/variables";
+
+customer-mailbox {
+  display: block;
+  padding-top: $material-navbar-height;
+
+  breadcrumbs.container {
+    margin: 0 auto;
+    padding: 36px;
+    font-size: 1.6rem;
+  }
+
+  customer-conversation, customer-tickets-list, new-ticket {
+    min-height: calc(100vh - #{$material-navbar-height + 95px});
+  }
+
+  @media screen and (max-width: $medium) {
+    breadcrumbs {
+      display: none;
+    }
+  }
+}

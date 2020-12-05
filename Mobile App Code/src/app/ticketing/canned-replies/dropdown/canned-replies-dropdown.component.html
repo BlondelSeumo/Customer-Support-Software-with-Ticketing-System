@@ -1,0 +1,21 @@
+<button class="no-style editor-button" mat-icon-button [matMenuTriggerFor]="cannedReplyMenu">
+    <mat-icon svgIcon="comment" class="dropdown-icon"></mat-icon>
+</button>
+
+<mat-menu #cannedReplyMenu="matMenu" [overlapTrigger]="false" class="canned-reply-menu">
+    <div class="input-container" (click)="$event.stopPropagation()">
+        <input type="text" [formControl]="searchQuery" mat-menu-item class="canned-reply-search-input" #input>
+    </div>
+
+    <button class="new-canned-reply" mat-menu-item (click)="showNewCannedReplyModal()" *ngIf="!searchQuery.value" trans>
+        <strong trans>Create new canned reply</strong>
+    </button>
+
+    <button class="canned-reply" mat-menu-item *ngFor="let cannedReply of cannedReplies" (click)="selectCannedReply(cannedReply)">
+        {{cannedReply.name}}
+    </button>
+
+    <div class="no-results" *ngIf="!cannedReplies.length && loadedResultsAtLeastOnce && searchQuery.value" (click)="$event.stopPropagation()">
+        <div><span trans>No results found for</span> <strong>{{ searchQuery.value }}</strong></div>
+    </div>
+</mat-menu>

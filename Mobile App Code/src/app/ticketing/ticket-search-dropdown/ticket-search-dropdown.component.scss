@@ -1,0 +1,109 @@
+@import "variables";
+
+ticket-search-dropdown {
+  display: block;
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+
+  .input-container {
+    position: relative;
+
+    .search-button {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      z-index: 1;
+    }
+
+    input {
+      padding-left: 36px;
+
+      &::placeholder {
+        color: mat-color($app-accent, default-contrast);
+      }
+    }
+  }
+}
+
+.agent-mailbox-autocomplete.mat-autocomplete-panel {
+  max-height: 750px;
+  background-color: mat-color($app-background, card);
+
+  .header {
+    display: flex;
+    background-color: mat-color($app-background, background);
+
+    .header-item {
+      width: 50%;
+      flex: 0 0 50%;
+      padding: 12px;
+      border-bottom: 2px solid mat-color($app-foreground, divider);
+      cursor: pointer;
+
+      &.active {
+        border-color: mat-color($app-accent, default);
+      }
+    }
+  }
+
+  .no-results {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .footer {
+    background-color: mat-color($app-background, background);
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .result {
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    padding: 10px 15px;
+    height: auto;
+    line-height: initial;
+    font-size: 1.4rem;
+
+    &:hover {
+      background-color: mat-color($app-background, background);
+    }
+  }
+
+  .title {
+    font-weight: 500;
+    color: mat-color($app-foreground, text);
+    overflow: hidden;
+  }
+
+  .body {
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 1.3rem;
+    word-wrap: break-word;
+    white-space: -webkit-pre-wrap;
+    word-break: break-all;
+    white-space: normal;
+  }
+
+  .user {
+    margin-top: 5px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: mat-color($app-foreground, secondary-text);
+  }
+
+  .media .mat-option-text {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 10px;
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+    }
+  }
+}

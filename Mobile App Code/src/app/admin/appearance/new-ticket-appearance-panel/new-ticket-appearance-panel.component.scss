@@ -1,0 +1,53 @@
+@import "variables";
+
+.sidebar-tips {
+  border-top: 1px solid mat-color($app-foreground, divider);
+  margin-top: 20px;
+  padding-top: 30px;
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 1.5rem;
+    color: mat-color($app-foreground, label);
+    font-weight: 400;
+  }
+}
+
+.sidebar-tip-input-container {
+  position: relative;
+
+  input:nth-child(1) {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  input:nth-child(2) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+.actions {
+  text-align: right;
+}
+
+.remove-tip-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: mat-color($app-warn, default);
+  color: mat-color($app-warn, default-contrast);
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  border-radius: 0;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 4px;
+
+  .mat-icon {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+}

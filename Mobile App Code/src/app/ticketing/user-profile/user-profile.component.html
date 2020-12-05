@@ -1,0 +1,96 @@
+<material-navbar menuPosition="agent-mailbox">
+    <ticket-search-dropdown class="nav-searchbar"></ticket-search-dropdown>
+</material-navbar>
+
+<div class="content">
+    <aside class="sidebar" customScrollbar="lite">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="user-info">
+                    <div class="avatar-container">
+                        <img class="user-avatar" src="{{user.avatar}}" alt="user avatar">
+                        <div class="hover-overlay">
+                            <mat-icon svgIcon="edit" *ngIf="detailsEditable" [matMenuTriggerFor]="updateAvatarMenu"></mat-icon>
+                        </div>
+                    </div>
+
+                    <mat-menu #updateAvatarMenu="matMenu" class="update-avatar-menu">
+                        <button mat-menu-item class="upload-avatar-item" (click)="openAvatarUploadDialog()" trans>Upload</button>
+                        <button mat-menu-item class="delete-avatar-item" (click)="deleteAvatar()" trans>Remove</button>
+                    </mat-menu>
+
+                    <div class="names">
+                        <div class="name">{{user.display_name}}</div>
+                        <div class="email primary-email">{{user.email}}</div>
+                    </div>
+                </div>
+                <div class="user-details">
+                    <div class="details-row">
+                        <div class="name" trans>Details</div>
+                        <div class="input-container value">
+                            <textarea name="details" id="details" [formControl]="profile.controls['details']" [readonly]="!detailsEditable"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="details-row">
+                        <div class="name" trans>Notes</div>
+                        <div class="input-container value">
+                            <textarea name="notes" id="notes" [formControl]="profile.controls['notes']" [readonly]="!detailsEditable"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="details-row" *ngIf="user.purchase_codes && user.purchase_codes[0]?.envato_username">
+                        <div class="name">Envato</div>
+                        <div class="value">{{user.purchase_codes[0].envato_username}}</div>
+                    </div>
+
+                    <div class="details-row">
+                        <div class="name" trans>Emails</div>
+                        <div class="emails value">
+                            <div class="email primary-email">{{user.email}}</div>
+                            <div class="email secondary-email" *ngFor="let email of user.secondary_emails">
+                                <button class="remove-email-button" *ngIf="detailsEditable" (click)="removeEmail(email.address)" mat-icon-button>
+                                    <mat-icon svgIcon="close"></mat-icon>
+                                </button>
+                                <span>{{email.address}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="details-row" *ngIf="detailsEditable">
+                        <button class="add-email-button" mat-flat-button color="accent" (click)="openAddEmailModal()" trans>Add Email</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header" trans>Tags</div>
+            <div class="panel-body">
+                <tags-manager [formControl]="tagsControl" [readonly]="!detailsEditable"></tags-manager>
+            </div>
+        </div>
+    </aside>
+
+    <mat-tab-group color="accent" (selectedTabChange)="tabChanged($event)">
+        <mat-tab [label]="'Tickets' | trans">
+            <div class="tickets">
+                <tickets-list [openTicketInModal]="true">
+                    <no-results-message [class.hidden]="!(datatable.paginator.noResults$ | async)">
+                        <span primary-text trans>This user did not create any tickets yet.</span>
+                    </no-results-message>
+                </tickets-list>
+
+                <ticket-floating-toolbar></ticket-floating-toolbar>
+            </div>
+        </mat-tab>
+        <mat-tab [label]="'Searches' | trans">
+            <search-report-table [data]="userSearches$ | async">
+                <span trans>Search Term</span>
+                <info-popover>
+                    <span trans>This report shows what this user searched for recently.</span>
+                </info-popover>
+            </search-report-table>
+        </mat-tab>
+    </mat-tab-group>
+</div>

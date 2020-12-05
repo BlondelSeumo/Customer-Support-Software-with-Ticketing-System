@@ -1,0 +1,51 @@
+.hc-sidenav {
+    display: block;
+    font-size: 1.5rem;
+    color: #6e6e6e;
+    line-height: 1.625;
+    padding-left: 28px;
+    padding-top: 20px;
+}
+
+.hc-sidenav .active {
+    color: #1565c0;
+    cursor: text;
+    font-weight: 500;
+}
+
+.hc-sidenav h3 {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin: 0 15px 15px;
+    letter-spacing: 0.1em;
+}
+
+.hc-sidenav h3 a {
+    color: inherit;
+}
+
+.hc-sidenav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.hc-sidenav ul li {
+    text-transform: capitalize;
+    max-width: 180px;
+}
+
+.hc-sidenav ul li:last-of-type {
+    padding-bottom: 25px;
+}
+
+.hc-sidenav ul li a {
+    display: block;
+    color: inherit;
+    line-height: normal;
+    padding: 7px 15px;
+}
+
+.hc-sidenav ul li a:hover {
+    color: #1976d2;
+}

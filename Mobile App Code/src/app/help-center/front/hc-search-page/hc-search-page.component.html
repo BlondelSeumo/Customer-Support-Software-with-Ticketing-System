@@ -1,0 +1,46 @@
+<material-navbar class="hc-content-navbar" menuPosition="header">
+    <suggested-articles-dropdown
+            class="nav-searchbar"
+            placeholder="Search help center..."
+    ></suggested-articles-dropdown>
+</material-navbar>
+
+<div class="hc-content">
+    <div class="inner-content">
+        <div class="header" *ngIf="results.length">
+            <a class="back" [routerLink]="['/help-center']">
+                <mat-icon svgIcon="keyboard-backspace"></mat-icon>
+                <span trans>Help Center</span>
+            </a>
+            <span class="info"><span trans>Showing</span> {{results.length}} <span trans>results for</span> <strong>"{{query}}"</strong></span>
+        </div>
+        <section class="search-article" *ngFor="let article of results">
+            <div class="icon"><mat-icon svgIcon="description"></mat-icon></div>
+            <div class="article">
+                <a class="title" [routerLink]="urls.article(article)" (click)="userClickedOnArticle()">{{article.title}}</a>
+                <div class="body">{{article.body}}</div>
+                <div class="path" *ngIf="article.categories.length">
+                    <ng-container *ngIf="article.categories[0]?.parent">
+                        <a class="parent" [routerLink]="urls.category(article.categories[0]?.parent)">{{article.categories[0].parent.name}}</a>
+                        <mat-icon svgIcon="keyboard-arrow-right"></mat-icon>
+                    </ng-container>
+
+                    <a class="child" [routerLink]="urls.category(article.categories[0])">{{article.categories[0].name}}</a>
+                    <mat-icon svgIcon="keyboard-arrow-right"></mat-icon>
+
+                    <span class="last" trans>Article</span>
+                </div>
+            </div>
+        </section>
+
+        <no-results-message svgImage="blog-post.svg" *ngIf="!results.length">
+            <span primary-text trans>Could not find any articles matching your search query.</span>
+            <a secondary-text class="back" [routerLink]="['/help-center']">
+                <mat-icon svgIcon="keyboard-backspace"></mat-icon>
+                <span trans>Help Center</span>
+            </a>
+        </no-results-message>
+    </div>
+</div>
+
+<customer-footer *ngIf="!settings.get('hc.hide_footer')"></customer-footer>

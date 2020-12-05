@@ -1,0 +1,55 @@
+@import "variables";
+
+customer-footer {
+  display: block;
+  background-color: mat-color($app-background, background);
+  color: mat-color($app-foreground, secondary-text);
+  border-top: 1px solid mat-color($app-foreground, divider);
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $hc-footer-height;
+    font-size: 1.5rem;
+
+    > .meta {
+      > a {
+        color: inherit;
+        padding-left: 2px;
+      }
+    }
+
+    > custom-menu {
+      display: flex;
+      flex: 1 1 auto;
+      justify-content: flex-end;
+
+      @media only screen and (max-width: $medium) {
+        display: none;
+      }
+
+      > .nav-item {
+        color: inherit;
+
+        &:after {
+          content: "-";
+          padding: 0 4px 0 2px;
+          margin: 0 4px 0 2px;
+        }
+
+        &:last-child:after {
+          content: '';
+        }
+
+        > a {
+          color: inherit;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

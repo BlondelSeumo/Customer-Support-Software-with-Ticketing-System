@@ -1,0 +1,77 @@
+<div class="header">
+    <div class="title" trans>Help Center</div>
+    <div class="subtitle" trans>Change help center settings, import/export help center data.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate>
+    <div class="input-container">
+        <label for="hc_home.template" trans>Help Center Homepage Template</label>
+        <select type="number" name="hc_home.template" id="hc_home.template" [(ngModel)]="state.client['hc_home.template']">
+            <option value="articleGrid" trans>Article Grid</option>
+            <option value="multiProduct" trans>Multi Product</option>
+        </select>
+        <p trans>Which template should be used for help center homepage.</p>
+    </div>
+
+    <div class="error-group" *ngIf="state.client['hc_home.template'] === 'articleGrid'">
+        <div class="input-container">
+            <label for="hc_home.articles_per_category" trans>Number of Articles per Category</label>
+            <input type="number" name="hc_home.articles_per_category" id="hc_home.articles_per_category" [(ngModel)]="state.client['hc_home.articles_per_category']" min="1" max="50">
+            <p trans>How many articles should each category display in help center homepage.</p>
+        </div>
+
+        <div class="input-container">
+            <label for="hc_home.children_per_category">Number of Child Categories</label>
+            <input type="number" name="hc_home.children_per_category" id="hc_home.children_per_category" [(ngModel)]="state.client['hc_home.children_per_category']" min="1" max="50">
+            <p trans>How many child categories should each parent category display in help center homepage.</p>
+        </div>
+
+        <div class="setting-toggle-container">
+            <mat-slide-toggle name="hc_home.hide_small_categories" id="hc_home.hide_small_categories" [(ngModel)]="state.client['hc_home.hide_small_categories']" trans>Hide Incomplete Categories</mat-slide-toggle>
+            <p trans>This will hide categories with less then two articles from help center homepage to prevent gaps.</p>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <label for="hc.search_page_limit" trans>Number of Search Items</label>
+        <input type="number" name="hc.search_page_limit" id="hc.search_page_limit" [(ngModel)]="state.client['hc.search_page_limit']" min="1" max="50">
+        <p trans>How many items (maximum) should be displayed in help center search page.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="articles.default_order" trans>Default Article Order</label>
+        <select name="articles.default_order" id="articles.default_order" [(ngModel)]="state.client['articles.default_order']">
+            <option value="position|desc" trans>Position</option>
+            <option value="views|desc" trans>Most viewed first</option>
+            <option value="was_helpful|desc" trans>Most helpful first</option>
+            <option value="created_at|desc" trans>Newest first</option>
+            <option value="title|asc" trans>A to Z</option>
+        </select>
+        <p trans>In what way should help center articles be ordered by default.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="hc.hide_footer" id="hc.hide_footer" [(ngModel)]="state.client['hc.hide_footer']" trans>Hide Footer</mat-slide-toggle>
+        <p trans>This will hide footer from all help center pages.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="article.hide_new_ticket_link" id="article.hide_new_ticket_link" [(ngModel)]="state.client['article.hide_new_ticket_link']" trans>Hide New Ticket Link</mat-slide-toggle>
+        <p trans>Whether "Submit a Request" link on article pages should be hidden.</p>
+    </div>
+
+    <div class="widget widget-flat">
+        <div class="title" trans>Help Center Data</div>
+        <p trans>Import and export help center data (articles, categories, images, tags) in a .zip file for backup or migration.</p>
+        <button mat-stroked-button color="accent" (click)="openHelpCenterImportWindow()" [disabled]="loading$ | async" type="button" trans>Import</button>
+        <button mat-stroked-button color="accent" [matMenuTriggerFor]="exportMenu" [disabled]="loading$ | async" type="button" trans>Export</button>
+
+        <mat-menu #exportMenu="matMenu">
+            <button mat-menu-item (click)="exportHelpCenterData('html')">HTML (Offline Docs)</button>
+            <button mat-menu-item (click)="exportHelpCenterData('json')">JSON (For Backup or Migration)</button>
+        </mat-menu>
+    </div>
+
+    <button mat-raised-button color="accent" class="update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

@@ -1,0 +1,29 @@
+<div class="datatable responsive-table">
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th><ng-content></ng-content></th>
+            <th class="count-col" table-sort-header trans>Count</th>
+            <th class="result-col" table-sort-header trans>Resulted in Ticket</th>
+            <th class="last-seen-col" table-sort-header trans>Last Seen</th>
+            <th class="category-col" table-sort-header trans>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of items$ | async">
+            <td data-label="Term">
+                <a [routerLink]="['/help-center/search', item.term]" target="_blank">{{item.term}}</a>
+            </td>
+            <td class="count-col" data-label="Count">{{item.count}}</td>
+            <td class="result-col" data-label="Resulted in Ticket">{{item.resulted_in_ticket}}</td>
+            <td class="last-seen-col" data-label="Last Seen">{{item.last_seen | formattedDate}}</td>
+            <td class="category-col" data-label="Category">
+                <div class="column-with-image">
+                    <img class="category-image" [src]="item.category?.image" *ngIf="item.category?.image" alt="">
+                    <div class="category-name">{{item.category?.name || '-'}}</div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

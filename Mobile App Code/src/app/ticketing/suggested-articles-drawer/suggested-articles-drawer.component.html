@@ -1,0 +1,16 @@
+<div class="suggestions-container" [class.has-results]="articles.length">
+    <div class="input-container">
+        <input class="search-input" type="text" [attr.placeholder]="placeholder" [formControl]="searchQuery">
+        <mat-icon svgIcon="search" class="search-icon input-icon" [class.searching]="searching"></mat-icon>
+    </div>
+
+    <section class="results-container">
+        <div class="results-header" trans>Were you looking for:</div>
+        <div class="results" customScrollbar>
+            <a class="result" *ngFor="let article of articles" (click)="updateSearchLogger()" [routerLink]="this.urls.article(article)" target="_blank">
+                <mat-icon svgIcon="description"></mat-icon>
+                <span class="title">{{article.title}}</span>
+            </a>
+        </div>
+    </section>
+</div>

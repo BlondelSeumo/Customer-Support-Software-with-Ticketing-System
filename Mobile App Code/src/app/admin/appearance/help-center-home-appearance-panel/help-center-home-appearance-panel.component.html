@@ -1,0 +1,20 @@
+<appearance-panel-meta [path]="['Help Center Home']" (back)="appearance.closeActivePanel()"></appearance-panel-meta>
+
+<form class="appearance-panel-content many-inputs" [formGroup]="form">
+    <appearance-image-input formControlName="background" highlightInPreview=".jumbotron">Background</appearance-image-input>
+
+    <div class="input-container">
+        <label for="hc-home-title" trans>Title</label>
+        <input type="text" id="hc-home-title" formControlName="title" [placeholder]="defaultValues.title" highlightInPreview=".title">
+    </div>
+
+    <div class="input-container">
+        <label for="hc-home-subtitle" trans>Subtitle</label>
+        <textarea id="hc-home-subtitle" formControlName="subtitle" rows="3" [placeholder]="defaultValues.subtitle" highlightInPreview=".subtitle"></textarea>
+    </div>
+
+    <div class="input-container">
+        <label for="hc-home-placeholder" trans>Search Field Placeholder</label>
+        <input type="text" id="hc-home-placeholder" formControlName="placeholder" [placeholder]="defaultValues.placeholder" highlightInPreview=".search-input">
+    </div>
+</form>

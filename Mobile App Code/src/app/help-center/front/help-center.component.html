@@ -1,0 +1,4 @@
+<multi-product *ngIf="settings.get('hc_home.template') === 'multiProduct'; else articleGrid" [categories]="categories"></multi-product>
+<ng-template #articleGrid>
+    <article-grid [categories]="categories"></article-grid>
+</ng-template>

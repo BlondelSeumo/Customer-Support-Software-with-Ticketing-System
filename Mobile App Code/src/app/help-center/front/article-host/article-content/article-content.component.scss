@@ -1,0 +1,27 @@
+@import "variables";
+
+:host {
+  display: block;
+  color: mat-color($app-foreground, hc-text);
+}
+
+h4 {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+a {
+  display: block;
+  color: inherit;
+  padding: 5px 0;
+  font-size: 1.5rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.indent {
+  padding-left: 10px;
+}

@@ -1,0 +1,29 @@
+<div class="responsive-table">
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th table-sort-header="email" trans>Agent</th>
+            <th table-sort-header trans>Replies</th>
+            <th table-sort-header="ticketsSolved" trans>Tickets Solved</th>
+            <th table-sort-header="avgResponseTime" trans>Avg Response Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let agent of datatable.data$ | async">
+            <td data-label="Agent">{{agent.email}}</td>
+            <td data-label="Replies">
+                <span>{{agent.replies}}</span>
+                <percentage-change *ngIf="compareData" [item]="agent" [items]="compareData" matchKey="email" compareKey="replies"></percentage-change>
+            </td>
+            <td data-label="Tickets Solved">
+                <span>{{agent.ticketsSolved}}</span>
+                <percentage-change *ngIf="compareData" [item]="agent" [items]="compareData" matchKey="email" compareKey="ticketsSolved"></percentage-change>
+            </td>
+            <td data-label="Avg Response Time">
+                <span>{{agent.avgResponseTime}}h</span>
+                <percentage-change class="inverted" *ngIf="compareData" [item]="agent" [items]="compareData" matchKey="email" compareKey="avgResponseTime"></percentage-change>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

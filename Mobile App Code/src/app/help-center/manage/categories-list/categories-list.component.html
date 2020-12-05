@@ -1,0 +1,47 @@
+<div class="action-bar">
+    <div class="nav">
+        <a [routerLink]="'/help-center'" class="nav-item" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}" trans>Home</a>
+        <a [routerLink]="'/help-center/manage/categories'" class="nav-item" routerLinkActive="router-link-active" trans>Categories</a>
+        <a [routerLink]="'/help-center/manage/articles'" class="nav-item" routerLinkActive="router-link-active" trans>Articles</a>
+    </div>
+    <div class="actions">
+        <div class="action">
+            <button mat-icon-button (click)="toggleCategoryChildren()" class="toggle-children-btn" [class.active]="categoryChildrenVisible" [matTooltip]="'Toggle child categories' | trans">
+                <mat-icon svgIcon="unfold-more"></mat-icon>
+            </button>
+        </div>
+        <div class="search-bar input-container">
+            <input type="text" placeholder="Search" class="categories-search-input" [formControl]="searchQuery" trans-placeholder>
+            <mat-icon svgIcon="search"></mat-icon>
+        </div>
+        <button class="new-category-button new-item-button" (click)="showNewCategoryModal()">
+            <mat-icon svgIcon="add"></mat-icon> <span trans>New Category</span>
+        </button>
+    </div>
+</div>
+
+<div class="container">
+    <section class="categories-list" cdkDropList (cdkDropListDropped)="reorderCategories($event)" [cdkDropListDisabled]="shouldDisableReorder()">
+        <div class="category-container" *ngFor="let category of filteredCategories">
+            <category-list-item
+                    cdkDrag
+                    [cdkDragData]="category"
+                    class="category-list-item parent-category"
+                    [category]="category"
+                    (onChange)="updateCategories()"
+                    [attr.data-id]="category.id"
+            ></category-list-item>
+            <div class="category-children" *ngIf="category.children.length" [class.hidden]="!categoryChildrenVisible" cdkDropList (cdkDropListDropped)="reorderCategories($event, category)" [cdkDropListDisabled]="shouldDisableReorder()">
+                <category-list-item
+                        cdkDrag
+                        [cdkDragData]="child"
+                        class="category-list-item child-category"
+                        *ngFor="let child of category.children"
+                        [category]="child"
+                        (onChange)="updateCategories()"
+                        [attr.data-id]="child.id"
+                ></category-list-item>
+            </div>
+        </div>
+    </section>
+</div>

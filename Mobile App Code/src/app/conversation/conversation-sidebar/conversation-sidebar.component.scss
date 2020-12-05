@@ -1,0 +1,173 @@
+@import "variables";
+
+$conversation-right-col-width: 240px;
+
+conversation-sidebar {
+  display: block;
+  flex: 0 0 $conversation-right-col-width;
+  width: $conversation-right-col-width;
+  background-color: mat-color($app-background, background);
+  border-left: 1px solid mat-color($app-foreground, divider);
+
+  @media screen and (max-width: $medium) {
+    display: none;
+  }
+
+  .user-tags {
+    margin-top: 10px;
+  }
+
+  .user-info {
+    margin: 15px 15px 10px;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    padding-bottom: 10px;
+
+    .avatar {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+
+      img {
+        max-width: 55px;
+        max-height: 65px;
+        margin: 0 auto;
+        border-radius: 4px;
+      }
+    }
+
+    .user-details {
+      color: mat-color($app-foreground, secondary-text);
+
+      a {
+        color: inherit;
+      }
+
+      .name {
+        display: flex;
+        align-items: center;
+        font-size: 1.7rem;
+        max-height: 24px;
+
+        .text {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .mat-icon-button {
+          margin-left: auto;
+          color: mat-color($app-foreground, icon);
+          flex-shrink: 0;
+        }
+      }
+
+      .info-container {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid mat-color($app-foreground, divider);
+      }
+
+      .envato-purchases {
+        margin-top: 15px;
+      }
+
+      .purchase-item {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        margin-bottom: 8px;
+
+        img {
+          width: 25px;
+          height: 25px;
+          margin-right: 8px;
+          border-radius: 4px;
+        }
+
+        .purchase-name {
+          max-width: calc(100% - 30px);
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .info-title {
+        margin-bottom: 4px;
+        font-weight: 500;
+      }
+
+      .info-line {
+        padding: 3px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .mat-icon {
+        vertical-align: middle;
+        width: 18px;
+        height: 18px;
+        margin-right: 2px;
+      }
+    }
+  }
+
+  .tickets-list-container {
+    padding: 0 15px;
+
+    .title {
+      position: relative;
+      cursor: pointer;
+
+      .toggle-button {
+        position: absolute;
+        right: 0;
+        top: -2px;
+        color: mat-color($app-foreground, secondary-text);
+
+        .mat-icon {
+          transition: all 0.3s ease;
+        }
+      }
+    }
+
+    .tickets-list {
+      margin-top: 15px;
+      display: none;
+
+      .ticket {
+        color: mat-color($app-foreground, secondary-text);
+        margin-bottom: 15px;
+        cursor: pointer;
+
+        .mat-icon {
+          color: mat-color($app-foreground, secondary-text);
+          width: 17px;
+          height: 17px;
+          vertical-align: middle;
+          margin-right: 3px;
+        }
+
+        &:hover {
+          text-decoration: underline;
+          color: mat-color($app-foreground, text);
+        }
+
+        &.open {
+          color: mat-color($app-foreground, text);
+        }
+      }
+    }
+
+    &.tickets-visible {
+      .tickets-list {
+        display: block;
+      }
+
+      .toggle-button .mat-icon {
+        display: inline-block;
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

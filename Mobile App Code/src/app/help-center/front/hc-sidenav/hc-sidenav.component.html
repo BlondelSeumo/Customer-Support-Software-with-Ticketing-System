@@ -1,0 +1,10 @@
+<ng-container *ngIf="categories">
+    <ng-container *ngFor="let category of categories">
+        <h3 [class.active]="routeIsActive('category', category.id)">{{category.name}}</h3>
+        <ul>
+            <li *ngFor="let article of category.articles">
+                <a [routerLink]="urls.article(article, category)" [class.active]="routeIsActive('article', article.id)">{{article.title}}</a>
+            </li>
+        </ul>
+    </ng-container>
+</ng-container>

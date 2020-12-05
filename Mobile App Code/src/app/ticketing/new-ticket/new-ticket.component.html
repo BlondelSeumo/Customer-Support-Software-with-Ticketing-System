@@ -1,0 +1,46 @@
+<ng-container *ngIf="content$ | async as content">
+    <div class="left-column">
+        <form (ngSubmit)="createTicket()" ngNativeValidate *ngIf="errors$ | async as errors">
+            <h1 trans>{{content.title}}</h1>
+
+            <div class="input-container category-input-container">
+                <label for="category-select" trans>{{content.categoryLabel}}</label>
+                <select name="category" id="category-select" [(ngModel)]="ticketModel.category">
+                    <option [ngValue]="category" *ngFor="let category of ticketCategories">{{category.display_name || category.name}}</option>
+                </select>
+                <div class="errors category-error" *ngIf="errors.category || errors.purchase_code">{{errors.category || errors.purchase_code}}</div>
+            </div>
+
+            <div class="input-container subject-input-container">
+                <label for="subject" trans>{{content.subjectLabel}}</label>
+                <suggested-articles-drawer id="subject" (inputValue)="ticketModel.subject = $event" [categories]="getArticleCategories()" trans-placeholder></suggested-articles-drawer>
+                <div class="errors subject-error" *ngIf="errors.subject">{{errors.subject}}</div>
+            </div>
+
+            <div class="input-container description-input-container">
+                <label for="description" trans>{{content.descriptionLabel}}</label>
+                <text-editor id="description" inlineUploadPrefix="ticket_images" (onFileUpload)="uploadFiles($event)" (onChange)="ticketModel.body = $event" [minHeight]="230"></text-editor>
+                <upload-progress-bar></upload-progress-bar>
+                <div class="errors body-error" *ngIf="errors.body">{{errors.body}}</div>
+            </div>
+
+            <reply-attachment-list [attachments]="attachments$ | async" (detached)="removeAttachment($event)"></reply-attachment-list>
+
+            <div class="buttons">
+                <button class="submit-button" mat-raised-button color="accent" type="submit">{{content.submitButtonText}}</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="right-column">
+        <div class="header" trans>{{content.sidebarTitle}}</div>
+
+        <div class="tips">
+            <div class="tip-container" *ngFor="let tip of content.sidebarTips">
+                <div class="title" trans>{{tip.title}}</div>
+                <div class="content" trans>{{tip.content}}</div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>

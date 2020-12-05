@@ -1,0 +1,296 @@
+@import "variables";
+
+:host {
+  display: flex;
+  padding-bottom: 25px;
+  position: relative;
+}
+
+.chart-container {
+  position: relative;
+
+  .header {
+    padding: 10px 0;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 50;
+  }
+
+  .body {
+    position: relative;
+    min-height: $chart-height;
+  }
+
+  .chart {
+    height: $chart-height;
+    padding: 20px 15px 10px 5px;
+  }
+
+  .mat-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.details {
+  position: relative;
+  width: 344px;
+  flex-shrink: 0;
+  background-color: mat-color($app-background, card);
+  box-shadow: $admin-card-box-shadow;
+  border: $admin-card-border;
+  margin-left: 20px;
+  border-radius: 4px;
+
+  .header {
+    display: flex;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    font-weight: 500;
+  }
+
+  .tab-trigger {
+    flex: 0 0 50%;
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+
+    &.active {
+      border-bottom: 2px solid mat-color($app-accent, default);
+    }
+  }
+
+  .no-sales {
+    background-color: mat-color($app-background, background);
+    padding: 10px;
+    border: 1px solid mat-color($app-foreground, divider);
+    margin: 10px;
+    text-align: center;
+    font-size: 1.6rem;
+  }
+}
+
+.sale-details {
+  border: 1px solid mat-color($app-foreground, divider);
+  border-radius: 4px;
+  padding: 15px;
+  margin: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  background-color: mat-color($app-background, background);
+
+  .item-name {
+    font-weight: 500;
+  }
+
+  .date {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 1.3rem;
+  }
+
+  .amount {
+    color: mat-color($app-accent, default-contrast);
+    display: inline-block;
+    font-size: 1.3rem;
+  }
+
+  .order-id {
+    margin-left: 15px;
+    color: mat-color($app-foreground, secondary-text);
+    display: inline-block;
+    font-size: 1.3rem;
+  }
+}
+
+.report {
+  flex: 1 1 auto;
+  background-color: mat-color($app-background, card);
+  box-shadow: $admin-card-box-shadow;
+  border: $admin-card-border;
+  border-radius: 4px;
+  padding: 15px;
+  position: relative;
+  min-width: 0;
+
+  .header {
+    padding-top: 0;
+  }
+}
+
+.easy-filters {
+  display: flex;
+  align-items: center;
+
+  .title {
+    flex: 0 0 50%;
+    width: 50%;
+    font-size: 1.8rem;
+  }
+
+  .actions {
+    flex: 0 0 50%;
+    width: 50%;
+    text-align: right;
+  }
+
+  .compare-trigger {
+    margin-left: 10px;
+    font-size: 1.8rem;
+
+    &.active {
+      color: mat-color($app-accent, default);
+    }
+  }
+
+  .action {
+    color: mat-color($app-foreground, text);
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 1.3rem;
+
+    &.selected {
+      background-color: mat-color($app-background, unselected-chip);
+    }
+  }
+}
+
+.custom-filters {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 0 0;
+  height: 50px;
+  overflow: auto;
+
+  .to {
+    margin: 0 5px;
+    font-weight: 500;
+  }
+
+  datepicker {
+    display: block;
+    color: mat-color($app-foreground, secondary-text);
+    margin-right: 10px;
+  }
+
+  .left, .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid mat-color($app-foreground, divider);
+    border-radius: 4px;
+    padding: 10px;
+    flex: 1 0 auto;
+  }
+
+  .left {
+    margin-right: 8px;
+  }
+
+  select, .mat-flat-button {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+  }
+
+  select {
+    border-color: mat-color($app-foreground, divider);
+  }
+
+  .mat-flat-button {
+    margin-left: 10px;
+  }
+
+  .select-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .month-select, .day-select {
+    position: relative;
+    left: -1px;
+  }
+
+  .day-select {
+    position: relative;
+    left: -2px;
+  }
+}
+
+.totals {
+  display: flex;
+  margin: 20px 0 15px;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+
+  .box {
+    flex: 0 0 32%;
+    width: 32%;
+    padding: 15px;
+    border: 1px solid mat-color($app-foreground, divider);
+    border-radius: 4px;
+  }
+
+  .number {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 500;
+    color: mat-color($app-foreground, secondary-text);
+  }
+
+  .secondary-number {
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+
+  .text {
+    text-align: center;
+    color: mat-color($app-foreground, secondary-text);
+  }
+}
+
+.simple-table {
+  .header {
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .row {
+    display: flex;
+    min-height: 48px;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+  }
+
+  .column {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    overflow: hidden;
+
+    &:first-of-type {
+      padding-left: 24px;
+    }
+
+    &:last-of-type {
+      padding-right: 24px;
+    }
+  }
+}
+
+@media only screen and (max-width: $large) {
+  :host {
+    display: block;
+  }
+
+  .details {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+  }
+}

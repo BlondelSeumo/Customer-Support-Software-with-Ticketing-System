@@ -1,0 +1,21 @@
+.article-content {
+    display: block;
+    color: #6e6e6e;
+}
+
+.article-content h4 {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.article-content a {
+    display: block;
+    color: inherit;
+    padding: 5px 0;
+    font-size: 1.5rem;
+}
+
+.article-content a:hover {
+    text-decoration: underline;
+}

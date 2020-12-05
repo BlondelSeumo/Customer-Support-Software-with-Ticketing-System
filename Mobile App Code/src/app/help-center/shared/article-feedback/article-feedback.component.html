@@ -1,0 +1,20 @@
+<div class="feedback-submitted-notification" *ngIf="feedbackAlreadySubmitted$ | async" trans>
+    Thank you! Your feedback will help us improve the support experience. If you need more help, try searching for what you need at the top of the page.
+</div>
+
+<ng-container *ngIf="!(feedbackAlreadySubmitted$ | async)">
+    <div class="title" trans>Was this article helpful?</div>
+
+    <div class="feedback-buttons">
+        <button type="button" class="button success yes" [class.selected]="(wasHelpful$ | async) === true" (click)="submitFeedback(true)">
+            <mat-icon svgIcon="check"></mat-icon>
+            <span trans>Yes</span>
+        </button>
+        <button type="button" class="button danger no" [class.selected]="(wasHelpful$ | async) === false" (click)="submitFeedback(false)">
+            <mat-icon svgIcon="close"></mat-icon>
+            <span trans>No</span>
+        </button>
+    </div>
+</ng-container>
+
+

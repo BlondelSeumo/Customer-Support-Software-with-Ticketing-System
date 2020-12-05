@@ -1,0 +1,125 @@
+@import "variables";
+
+$left-col-width: 225px;
+
+:host {
+  display: block;
+  position: relative;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+material-navbar {
+  height: $material-navbar-height;
+}
+
+.left-column {
+  width: $left-col-width;
+  background-color: mat-color($app-background, background);
+  border-right: 1px solid mat-color($app-foreground, divider);
+}
+
+.aside-container {
+  list-style: none;
+  padding-left: 0;
+}
+
+skeleton {
+  max-width: 77%;
+}
+
+.aside-container-body {
+  position: relative;
+  min-height: 160px;
+}
+
+.skeletons-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.aside-container-title {
+  position: relative;
+  padding: 20px 15px 15px 15px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: mat-color($app-foreground, secondary-text);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+
+  .title-icon {
+    position: absolute;
+    top: 17px;
+  }
+
+  .aside-container-name {
+    padding-left: 30px;
+  }
+}
+
+.aside-nav-item {
+  display: block;
+  position: relative;
+  padding: 10px 0 10px 41px;
+  cursor: pointer;
+  clear: both;
+  text-transform: capitalize;
+  color: #858b94;
+  text-decoration: none;
+  width: 100%;
+  border-left: 3px solid transparent;
+
+  .label {
+    font-size: 1.1rem;
+    text-transform: none;
+    position: absolute;
+    top: 12px;
+    right: 5px;
+    border-radius: 20px;
+    padding: 1px 10px;
+    line-height: 15px;
+  }
+
+  .tag-name {
+    display: block;
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.router-link-active {
+    background-color: mat-color($app-accent, emphasis);
+    border-left-color: mat-color($app-accent, default);
+
+    .label {
+      background-color: mat-color($app-accent, default);
+      color: mat-color($app-accent, default-contrast);
+    }
+  }
+
+  &:hover {
+    background-color: mat-color($app-background, hover);
+  }
+}
+
+:host-context(.be-dark-mode) .aside-nav-item {
+  color: mat-color($app-foreground, secondary-text);
+}
+
+.right-column {
+  background-color: mat-color($app-background, card);
+}
+
+conversation {
+  margin-bottom: 15px;
+}
+
+.bottom-action-container {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  color: mat-color($app-foreground, icon);
+}

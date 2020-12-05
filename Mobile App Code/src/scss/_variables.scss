@@ -1,0 +1,54 @@
+$app-mat-light-theme-foreground: (
+  hc-text: var(--be-help-center-text),
+  hc-title-text: var(--be-help-center-title-text),
+);
+
+@import "common-variables";
+
+//Notes
+$note-background-color: #fffcea;
+$note-text-color: #836f60;
+$note-border-color: #c8bcb4;
+
+//New article page
+$new-article-right-col-width: 302px;
+$new-article-max-page-width: 1300px;
+
+$hc-manage-action-bar-height: 55px;
+
+//Help center (user facing side)
+$hc-header-height: 404px;
+$hc-page-max-width: 1190px;
+$hc-search-bar-height: 60px;
+$hc-sidebar-width: 375px;
+$hc-compact-header-navbar-height: 65px;
+$hc-compact-header-sub-header-height: 108px;
+$hc-footer-height: 70px;
+$hc-search-bar-height: 60px;
+
+//Reports
+$chart-height: 350px;
+$chart-header-height: 30px;
+$chart-panel-height: $chart-height + $chart-header-height;
+
+//article (view)
+$article-font-size: 1.6rem;
+$article-font-weight: 400;
+$article-line-height: 24px;
+$article-divider-color: #eaeaea;
+$article-image-padding: 5px;
+$article-image-border-radius: 3px;
+$article-title-font-size: 4.2rem;
+$article-title-font-weight: 300;
+
+$article-h1-font-size: 4.2rem;
+$article-h1-line-height: normal;
+$article-h1-margin: 0;
+$article-h1-font-weight: 300;
+
+$article-h2-font-size: 2.4rem;
+$article-h2-line-height: normal;
+$article-h2-font-weight: 400;
+
+$article-h3-font-size: 2rem;
+$article-h3-margin: 35px 0 10px;

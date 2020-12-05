@@ -1,0 +1,8 @@
+<div class="title" trans>Related Content</div>
+
+<div class="categories-list">
+    <a class="category" *ngFor="let topic of topics" [class.active]="category.id == topic.id" [routerLink]="urls.category(topic)">
+        <mat-icon svgIcon="folder-open"></mat-icon>
+        <span class="category-name">{{topic.name}}</span>
+    </a>
+</div>

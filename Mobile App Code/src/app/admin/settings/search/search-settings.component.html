@@ -1,0 +1,47 @@
+<div class="header">
+    <div class="title" trans>Search</div>
+    <div class="subtitle" trans>Configure search method used on the site as well as related 3rd party integrations.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate>
+    <div class="error-group many-inputs no-border-top" id="search_group">
+        <div class="input-container">
+            <label for="scout.driver" trans>Search Method</label>
+            <select name="scout.driver" id="scout.driver" [(ngModel)]="state.server['scout_driver']" (ngModelChange)="clearErrors()">
+                <option value="mysql">Mysql</option>
+                <option value="tntsearch">TNTSearch</option>
+                <option value="elastic">Elasticsearch</option>
+                <option value="algolia">Algolia</option>
+                <option value="null">None</option>
+            </select>
+            <p trans>Which method should be used for searching the site (help center and mailbox).</p>
+        </div>
+
+        <!-- ALGOLIA-->
+        <ng-container *ngIf="state.server['scout_driver'] === 'algolia'">
+            <div class="input-container">
+                <label for="scout.algolia_app_id" trans>Algolia App ID</label>
+                <input name="scout.algolia_app_id" id="scout.algolia_app_id" [(ngModel)]="state.server['algolia_app_id']" required>
+            </div>
+
+            <div class="input-container">
+                <label for="scout.algolia_secret" trans>Algolia Secret</label>
+                <input name="scout.algolia_secret" id="scout.algolia_secret" [(ngModel)]="state.server['algolia_secret']" required>
+            </div>
+        </ng-container>
+        <p class="error" *ngIf="(errors$ | async).search_group as errorMessage" [innerHTML]="errorMessage"></p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="scout.queue" id="scout.queue" [(ngModel)]="state.server['scout_queue']" trans>Queue Data Syncing</mat-slide-toggle>
+        <p trans>Enabling this will queue all operations that sync data with selected search method for better performance.</p>
+    </div>
+
+    <div class="widget widget-info widget-important">
+        <div class="title" trans>Important!</div>
+        <p trans>"Elasticsearch" method and queued data syncing requires additional set up on the server. Consult documentation for more information.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

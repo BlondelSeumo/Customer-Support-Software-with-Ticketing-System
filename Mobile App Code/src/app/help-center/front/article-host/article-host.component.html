@@ -1,0 +1,18 @@
+<material-navbar class="hc-content-navbar" menuPosition="header" [showToggleButton]="true" [hideToggleBtnOnDesktop]="true" (toggleButtonClick)="toggleSidenav()">
+    <suggested-articles-dropdown
+            [category]="article?.categories[0]?.parent"
+            class="nav-searchbar"
+            placeholder="Search help center..."
+    ></suggested-articles-dropdown>
+</material-navbar>
+
+<div class="hc-content">
+    <hc-sidenav class="left" [category]="article?.categories[0]?.parent" [class.visible]="sidenavVisible$ | async"></hc-sidenav>
+    <div class="center">
+        <breadcrumbs [resource]="article" resourceType="article"></breadcrumbs>
+        <article class="inner-content"></article>
+    </div>
+    <article-content class="right" [contentNav]="contentNav"></article-content>
+</div>
+
+<customer-footer *ngIf="!settings.get('hc.hide_footer')"></customer-footer>

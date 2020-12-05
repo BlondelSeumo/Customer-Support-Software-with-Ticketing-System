@@ -1,0 +1,33 @@
+<div class="category-name-container">
+    <button class="no-style drag-handle" cdkDragHandle><mat-icon svgIcon="drag-handle"></mat-icon></button>
+    <span class="category-name" (click)="navigateToArticlesList(category)">{{category.name}}</span>
+    <mat-icon svgIcon="visibility-off" class="hidden-icon" *ngIf="category.hidden" color="warn"></mat-icon>
+</div>
+
+<div class="info">
+    <div class="articles-count">
+        <span class="no-articles" *ngIf="!category.articles_count" trans>No Articles</span>
+        <span class="has-articles" *ngIf="category.articles_count">
+            <span class="plural" *ngIf="category.articles_count > 1">{{ category.articles_count}} <span trans>Articles</span></span>
+            <span class="singular" *ngIf="category.articles_count== 1" trans>1 Article</span>
+        </span>
+    </div>
+</div>
+
+<div class="actions">
+    <button mat-icon-button class="update-category-button" (click)="openUpdateCategoryModal(category)" [matTooltip]="'Update Category' | trans">
+        <mat-icon svgIcon="settings" class="size-20"></mat-icon>
+    </button>
+
+    <button mat-icon-button class="new-child-category-button" (click)="openCreateChildCategoryModal()" *ngIf="!category.parent_id" [matTooltip]="'Create Child Category' | trans">
+        <mat-icon svgIcon="create-new-folder" class="size-20"></mat-icon>
+    </button>
+
+    <button mat-icon-button class="detach-category-button" (click)="maybeDetachCategory(category.id)" *ngIf="category.parent_id" [matTooltip]="'Detach Category' | trans">
+        <mat-icon svgIcon="delete" class="size-20"></mat-icon>
+    </button>
+
+    <button mat-icon-button class="delete-category-button" (click)="maybeDeleteCategory(category.id)" [matTooltip]="'Delete Category' | trans">
+        <mat-icon svgIcon="delete-forever" class="size-20"></mat-icon>
+    </button>
+</div>

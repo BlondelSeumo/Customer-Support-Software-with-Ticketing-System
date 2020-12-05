@@ -1,0 +1,34 @@
+<section *ngIf="article" class="article-container" id="article">
+    <h1 class="article-title">
+        <span>{{article.title}}</span>
+        <a mat-icon-button
+           *ngIf="user.hasPermission('articles.update')"
+           [routerLink]="['/help-center/manage/articles', article.id, 'edit']"
+           class="edit-article-btn"
+           target="_blank">
+            <mat-icon svgIcon="edit"></mat-icon>
+        </a>
+    </h1>
+    <div class="article-body" [innerHTML]="trustedArticleBody"></div>
+
+    <div class="attachment-list" *ngIf="article.uploads?.length">
+        <div class="file-attachment" *ngFor="let attachment of attachments">
+            <mat-icon svgIcon="insert-drive-file"></mat-icon>
+            <div class="attachment-meta">
+                <div class="attachment-name">{{attachment.name}}</div>
+                <div class="attachment-actions">
+                    <span class="attachment-size">{{attachment.prettySize}}</span>
+                    <a [href]="attachment.downloadUrl" trans>Download</a>
+                </div>
+            </div>
+        </div>
+        <a [href]="downloadAllAttachmentsUrl" *ngIf="downloadAllAttachmentsUrl" class="download-all" trans>Download All</a>
+    </div>
+
+    <div class="submit-ticket-container container" *ngIf="!settings.get('article.hide_new_ticket_link')">
+        <span trans>Have more questions?</span>
+        <a routerLink="/help-center/tickets/new" trans>Submit a Request</a>
+    </div>
+
+    <article-feedback [articleId]="article.id"></article-feedback>
+</section>

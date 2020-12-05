@@ -1,0 +1,8 @@
+<button class="no-style add-tag-button toolbar-item" [matMenuTriggerFor]="addTagMenu"><mat-icon svgIcon="add-tag-custom"></mat-icon></button>
+
+<mat-menu #addTagMenu="matMenu" [overlapTrigger]="false" class="add-tag-menu">
+    <form class="input-container" (ngSubmit)="addTag(tagQuery.value)" (click)="$event.stopPropagation()">
+        <input type="text" [formControl]="tagQuery" mat-menu-item class="tag-search-input">
+    </form>
+    <button mat-menu-item class="tag-item" *ngFor="let tag of tags; trackBy: trackByFn" (click)="addTag(tag.name)">{{tag.name}}</button>
+</mat-menu>

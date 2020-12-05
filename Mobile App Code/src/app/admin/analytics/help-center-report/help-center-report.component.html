@@ -1,0 +1,28 @@
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="state.loading$ | async"></mat-progress-bar>
+
+<mat-tab-group color="accent">
+    <mat-tab [label]="'Failed Searches' | trans">
+        <search-report-table [data]="state.failedSearches$ | async">
+            <span trans>Failed Searches</span>
+            <info-popover>
+                <span trans>This report shows search terms people use that don't match any articles. Use this metric to improve your help center search and content.</span>
+            </info-popover>
+        </search-report-table>
+    </mat-tab>
+    <mat-tab [label]="'Popular Searches' | trans">
+        <search-report-table [data]="state.popularSearches$ | async">
+            <span trans>Popular Searches</span>
+            <info-popover>
+                <span trans>Use the popular searches report to see what your customers are looking for, and learn what your customers are most interested in or struggling with the most.</span>
+            </info-popover>
+        </search-report-table>
+    </mat-tab>
+    <mat-tab [label]="'Popular Articles' | trans">
+        <article-report-table [data]="state.popularArticles$ | async">
+            <span trans>Popular Articles</span>
+            <info-popover>
+                <span trans>Use the popular articles report to see which articles are most popular, and which articles are the most or least helpful.</span>
+            </info-popover>
+        </article-report-table>
+    </mat-tab>
+</mat-tab-group>

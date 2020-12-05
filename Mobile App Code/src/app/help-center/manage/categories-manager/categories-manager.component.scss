@@ -1,0 +1,49 @@
+@import "variables";
+
+categories-manager {
+  display: block;
+
+  .input-container {
+    margin-bottom: 10px;
+    position: relative;
+
+    input {
+      padding-left: 33px;
+    }
+
+    .mat-icon {
+      position: absolute;
+      top: 12px;
+      left: 7px;
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  .categories {
+    max-height: 250px;
+    overflow: auto;
+    padding: 10px;
+    border: 1px solid mat-color($app-foreground, divider);
+
+    .category {
+      margin-bottom: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .child-category {
+      margin-left: 20px;
+    }
+
+    .parent-category {
+      label {
+        font-weight: 500;
+      }
+    }
+
+    .no-results {
+      font-style: italic;
+      font-size: 1.3rem;
+    }
+  }
+}

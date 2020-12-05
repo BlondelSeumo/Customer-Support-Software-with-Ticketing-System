@@ -1,0 +1,49 @@
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="datatable.paginator.loading$ | async"></mat-progress-bar>
+<div class="table-container">
+    <table class="material-table responsive-table">
+        <thead>
+        <tr>
+            <th table-header-checkbox></th>
+            <th class="customer-column" table-sort-header="user_id" trans>Customer</th>
+            <th class="avatar-column"></th>
+            <th trans>Ticket Summary</th>
+            <th class="replies-count-column" table-sort-header="replies_count"></th>
+            <th class="assigned-to-column" table-sort-header trans>Assigned To</th>
+            <th class="number-column" table-sort-header="id" trans>Number</th>
+            <th class="last-updated-column" table-sort-header="updated_at" trans>Last Updated</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ticket of tickets$ | async" [class.not-closed]="!ticket.closed_at" [class.open]="ticket.status === 'open'" [class.selected]="ticketSelected(ticket)" [class.fadeIn]="ticket.animated" (click)="openConversation(ticket)" class="animated">
+            <td [table-body-checkbox]="ticket.id"></td>
+            <td data-label="Customer" class="customer-column">{{ticket?.user?.display_name}}</td>
+            <td class="avatar-column hidden-on-mobile">
+                <img src="{{ticket?.user?.avatar}}" alt="customer avatar">
+            </td>
+            <td class="summary-column mobile-no-label">
+                <div class="title">
+                    <mat-chip-list [selectable]="false" class="ticket-tags">
+                        <ng-container *ngFor="let tag of ticket.tags">
+                            <mat-chip class="mat-compact-chip ticket-tag" *ngIf="tag.type !== 'status'">{{tag.display_name}}</mat-chip>
+                        </ng-container>
+                    </mat-chip-list>
+                    <div class="title-text ticket-subject">{{ticket.subject}}</div>
+                </div>
+                <div class="ellipses ticket-body">{{getTicketBody(ticket)}}</div>
+            </td>
+            <td class="replies-count-column hidden-on-mobile">
+                <span class="replies-count-number" title="Replies count">{{ticket.replies_count || 1}}</span>
+            </td>
+            <td data-label="Assigned To" class="assigned-to-column">
+                <div class="column-text-content">{{ticket.assignee ? ticket.assignee.display_name : ''}}</div>
+            </td>
+            <td data-label="ID" class="number-column">{{ticket.id}}</td>
+            <td data-label="Last Updated" class="last-updated-column">
+                <div class="column-text-content">{{ticket.updated_at_formatted}}</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ng-content></ng-content>
+    <datatable-footer></datatable-footer>
+</div>

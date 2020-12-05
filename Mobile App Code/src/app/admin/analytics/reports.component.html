@@ -1,0 +1,8 @@
+<nav class="navigation" *ngIf="settings.get('envato.enable')">
+    <a class="nav-item" [routerLink]="['envato']" routerLinkActive="selected"><div class="name">Envato</div></a>
+    <a class="nav-item" [routerLink]="['conversations']" routerLinkActive="selected"><div class="name" trans>Conversations</div></a>
+</nav>
+
+<div class="reports-body">
+    <router-outlet></router-outlet>
+</div>

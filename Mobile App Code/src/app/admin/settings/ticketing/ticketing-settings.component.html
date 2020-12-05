@@ -1,0 +1,60 @@
+<div class="header">
+    <div class="title">Ticketing</div>
+    <div class="subtitle" trans>Toggle email functionality for tickets, change mail handler, secret key and more.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate>
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="replies.send_email" id="replies.send_email" [(ngModel)]="state.client['replies.send_email']" [disabled]="!state.client['replies.send_email'] && !state.server['mail_setup']" trans>Send replies via email</mat-slide-toggle>
+        <p>
+            <span trans>Send agent replies to ticket creator via email.</span><br>
+            <ng-container *ngIf="!state.server['mail_setup']">
+                <span trans>Outgoing mail method needs to be setup before enabling this setting.</span>
+                &ngsp;<a routerLink="/admin/settings/mail" trans>Fix now.</a>
+            </ng-container>
+        </p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="tickets.create_from_emails" id="tickets.create_from_emails" [(ngModel)]="state.client['tickets.create_from_emails']" trans>New ticket from emails</mat-slide-toggle>
+        <p trans>Create new ticket from incoming emails that can't be matched to existing tickets.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="replies.create_from_emails" id="replies.create_from_emails" [(ngModel)]="state.client['replies.create_from_emails']" trans>Replies from emails</mat-slide-toggle>
+        <p trans>Create a reply to existing ticket from incoming emails, if email is in reply to that ticket.</p>
+    </div>
+
+    <div class="widget widget-info">
+        <div class="title" trans>Information</div>
+        <p trans>Having all three of the above options enabled will essentially turn the site into a shared inbox. All incoming and outgoing emails will be converted into tickets and replies. </p>
+    </div>
+
+    <div class="setting-toggle-container" *ngIf="!state.client['tickets.create_from_emails']">
+        <mat-slide-toggle name="tickets.send_ticket_rejected_notification" id="tickets.send_ticket_rejected_notification" [(ngModel)]="state.client['tickets.send_ticket_rejected_notification']" trans>Ticket Rejected Notification</mat-slide-toggle>
+        <p trans>Send a notification to user, if their ticket has not been created, because ticket creation via email is disabled.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="tickets.send_ticket_created_notification" id="tickets.send_ticket_created_notification" [(ngModel)]="state.client['tickets.send_ticket_created_notification']" trans>Ticket Received Notification</mat-slide-toggle>
+        <p trans>Send a notification to user via email informing them that their ticket has been received.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="mail.store_unmatched_emails" id="mail.store_unmatched_emails" [(ngModel)]="state.client['mail.store_unmatched_emails']" trans>Store Unmatched Emails</mat-slide-toggle>
+        <p trans>Store all original incoming emails, even if they were not used to create a new reply or ticket.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="after_reply_action" trans>After Reply Action</label>
+        <select name="after_reply_action" id="after_reply_action" [(ngModel)]="state.client['replies.after_reply_action']">
+            <option value="stay_on_page">Stay on page</option>
+            <option value="next_active_ticket">Open next active ticket</option>
+            <option value="back_to_folder">Go back to previous category</option>
+        </select>
+        <p trans>What should happen after clicking "Send Reply" button in conversation page. Applies to agents only.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

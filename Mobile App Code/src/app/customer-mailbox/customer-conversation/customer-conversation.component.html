@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="resolve-btn-container" *ngIf="!conversation.get().closed_at">
+        <button mat-raised-button color="accent" (click)="markAsSolved()" trans>Mark as solved</button>
+    </div>
+    <div class="ticket-container" #scrollContainer conversationInfiniteScroll [scrollTargetIsDocument]="true">
+        <conversation-header></conversation-header>
+        <conversation-text-editor></conversation-text-editor>
+        <conversation-replies></conversation-replies>
+    </div>
+</div>
+<loading-indicator [isVisible]="conversation.replies.isLoading || conversation.isLoading" class="overlay"></loading-indicator>

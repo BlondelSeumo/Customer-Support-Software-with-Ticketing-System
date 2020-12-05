@@ -1,0 +1,33 @@
+<material-navbar [menuPosition]="settings.get('vebto.navbar.defaultPosition')" class="box-shadow"></material-navbar>
+
+<div class="be-container">
+    <form class="table material-panel" (ngSubmit)="saveSettings()">
+        <div class="setting-group" *ngFor="let group of subscriptions; let first = first">
+            <div class="row">
+                <div class="name-column strong" trans>{{group.group_name}}</div>
+                <ng-container *ngIf="first">
+                    <div class="channel-column" *ngFor="let channelName of availableChannels">
+                        <div class="channel-name" trans>{{channelName}}</div>
+                        <mat-checkbox (change)="$event ? toggleAllRowsFor(channelName) : null"
+                                      [checked]="allRowsSelectedFor(channelName)"
+                                      [indeterminate]="selections[channelName].hasValue() && !allRowsSelectedFor(channelName)"
+                                      [disabled]="channelName === 'browser' && !supportsBrowserNotifications">
+                        </mat-checkbox>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="row indent" *ngFor="let setting of group.subscriptions; let last = last" [class.no-border]="last">
+                <div class="name-column" trans>{{setting.name}}</div>
+                <div class="channel-column" *ngFor="let channelName of availableChannels">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? this.selections[channelName].toggle(setting.notif_id) : null"
+                                  [checked]="selections[channelName].isSelected(setting.notif_id)"
+                                  [disabled]="channelName === 'browser' && !supportsBrowserNotifications">
+                    </mat-checkbox>
+                </div>
+            </div>
+        </div>
+
+        <button mat-raised-button color="accent" class="submit-button" [disabled]="loading$ | async" trans>Save Settings</button>
+    </form>
+</div>

@@ -1,0 +1,18 @@
+<ng-container>
+    <div class="conversation-container">
+        <conversation-toolbar [hideBackButton]="hideBackButton">
+            <ng-content select="[toolbar-content]"></ng-content>
+        </conversation-toolbar>
+
+        <div class="ticket-container" #scrollContainer conversationInfiniteScroll>
+            <conversation-header></conversation-header>
+            <conversation-text-editor></conversation-text-editor>
+            <conversation-replies></conversation-replies>
+        </div>
+    </div>
+
+    <conversation-sidebar *ngIf="!hideSidebar"></conversation-sidebar>
+</ng-container>
+
+<loading-indicator [isVisible]="conversation.replies.isLoading || conversation.isLoading" class="overlay"></loading-indicator>
+

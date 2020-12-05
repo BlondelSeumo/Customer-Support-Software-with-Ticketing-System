@@ -1,0 +1,58 @@
+<div class="modal-header">
+    <h2 mat-dialog-title>
+        <span *ngIf="updating" trans>Update Category</span>
+        <span *ngIf="!updating" trans>New Category</span>
+    </h2>
+    <button type="button" (click)="close()" class="close-button" mat-icon-button tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form (ngSubmit)="confirm()" ngNativeValidate>
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container">
+            <label for="name" trans>Name</label>
+            <input type="text" id="name" name="name" [(ngModel)]="model.name">
+            <div class="error name-error" *ngIf="errors.name">{{errors.name}}</div>
+        </div>
+
+        <div class="input-container">
+            <label for="image" trans>Image</label>
+            <div class="input-with-action action-left">
+                <button mat-flat-button color="accent" type="button" class="addon" (click)="openInsertImageDialog()" [matTooltip]="'Upload image' | trans">
+                    <mat-icon svgIcon="file-upload"></mat-icon>
+                </button>
+                <input type="text" id="image" name="image" [(ngModel)]="model.image">
+            </div>
+            <div class="error image-error" *ngIf="errors.image">{{errors.image}}</div>
+        </div>
+
+        <div class="input-container">
+            <label for="name" trans>Parent Category</label>
+            <select type="text" id="parent_id" name="parent_id" [(ngModel)]="model.parent_id">
+                <option [ngValue]="null" trans>No Parent Category</option>
+                <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
+            </select>
+            <div class="error parent-error" *ngIf="errors.parent_id">{{errors.parent_id}}</div>
+        </div>
+
+        <div class="input-container">
+            <label for="description" trans>Description</label>
+            <textarea type="text" id="description" name="description" [(ngModel)]="model.description" rows="4"></textarea>
+            <div class="error description-error" *ngIf="errors.description">{{errors.description}}</div>
+        </div>
+
+        <div class="setting-toggle-container">
+            <mat-slide-toggle name="hidden" id="hidden" [(ngModel)]="model.hidden" trans>Hidden</mat-slide-toggle>
+            <p trans>Whether this category should be displayed in help center.</p>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" class="cancel-button" mat-button trans>Cancel</button>
+        <button type="submit" class="submit-button" mat-raised-button color="accent">
+            <span *ngIf="updating" trans>Update</span>
+            <span *ngIf="!updating" trans>Create</span>
+        </button>
+    </mat-dialog-actions>
+</form>

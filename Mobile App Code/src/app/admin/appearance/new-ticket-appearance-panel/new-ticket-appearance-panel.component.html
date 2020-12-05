@@ -1,0 +1,62 @@
+<appearance-panel-meta [path]="['New Ticket']" (back)="appearance.closeActivePanel()"></appearance-panel-meta>
+
+<form class="appearance-panel-content many-inputs" [formGroup]="form">
+    <div class="input-container">
+        <label for="hc-home-title" trans>Title</label>
+        <input type="text" id="hc-home-title" formControlName="title" [placeholder]="defaultValues.title"
+               highlightInPreview="h1">
+    </div>
+
+    <div class="input-container">
+        <label for="hc-home-category-label" trans>Category Label</label>
+        <textarea id="hc-home-category-label" formControlName="categoryLabel" rows="2"
+                  [placeholder]="defaultValues.categoryLabel"
+                  highlightInPreview=".category-input-container label"></textarea>
+    </div>
+
+    <div class="input-container">
+        <label for="hc-home-subject-label" trans>Subject Label</label>
+        <input type="text" id="hc-home-subject-label" formControlName="subjectLabel"
+               [placeholder]="defaultValues.subjectLabel" highlightInPreview=".subject-input-container label">
+    </div>
+
+    <div class="input-container">
+        <label for="hc-home-description-label" trans>Description Label</label>
+        <input type="text" id="hc-home-description-label" formControlName="descriptionLabel"
+               [placeholder]="defaultValues.descriptionLabel" highlightInPreview=".description-input-container label">
+    </div>
+
+    <div class="input-container">
+        <label for="hc-home-submit-button-text" trans>Submit Button Text</label>
+        <input type="text" id="hc-home-submit-button-text" formControlName="submitButtonText"
+               [placeholder]="defaultValues.submitButtonText" highlightInPreview=".submit-button">
+    </div>
+
+    <div class="input-container">
+        <label for="hc-home-submit-sidebar-title" trans>Sidebar Title</label>
+        <input type="text" id="hc-home-submit-sidebar-title" formControlName="sidebarTitle"
+               [placeholder]="defaultValues.sidebarTitle" highlightInPreview=".right-column .header">
+    </div>
+
+    <div class="sidebar-tips many-inputs" formArrayName="sidebarTips">
+        <h2 trans>Sidebar Tips</h2>
+        <div class="input-container sidebar-tip-input-container"
+             *ngFor="let control of sidebarTips().controls; index as i">
+            <ng-container [formGroupName]="i">
+                <input type="text" id="{{'new-ticket-tip-' + i}}}" formControlName="title"
+                       [placeholder]="defaultValues.sidebarTips[i]?.title || ''"
+                       [highlightInPreview]="'.tips .tip-container:nth-child(' + (i + 1) + ') .title'">
+
+                <input type="text" id="{{'new-ticket-tip-' + i}}}" formControlName="content"
+                       [placeholder]="defaultValues.sidebarTips[i]?.content || ''"
+                       [highlightInPreview]="'.tips .tip-container:nth-child(' + (i + 1) + ') .content'">
+            </ng-container>
+            <button type="button" mat-icon-button class="remove-tip-button" (click)="removeSidebarTip(i)">
+                <mat-icon svgIcon="delete"></mat-icon>
+            </button>
+        </div>
+        <div class="actions">
+            <button type="button" mat-flat-button color="accent" (click)="addNewSidebarTip()" trans>Add</button>
+        </div>
+    </div>
+</form>
